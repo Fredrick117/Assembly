@@ -70,8 +70,8 @@ public class Draggable : MonoBehaviour
 
     private void DropObject()
     {
-        isDragging = false;
-        GameManager.Instance.draggedObject = null;
+        //isDragging = false;
+        //GameManager.Instance.draggedObject = null;
 
         float closestConnectorDistance = 99999.0f;
         GameObject closestOtherConnector = null;

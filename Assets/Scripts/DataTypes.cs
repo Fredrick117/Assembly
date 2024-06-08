@@ -12,12 +12,12 @@ public enum SubsystemType
     WARP_DRIVE,
 }
 
-public enum ShipClass
-{ 
-    Hammerhead,
-    Sword,
-    Titan,
-}
+//public enum ShipClass
+//{ 
+//    Hammerhead,
+//    Sword,
+//    Titan,
+//}
 
 public enum ReactorClass
 {
