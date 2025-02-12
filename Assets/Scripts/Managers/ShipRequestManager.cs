@@ -41,7 +41,7 @@ public class ShipRequestManager : MonoBehaviour
 
         ShipManager.Instance.ClearAllShipModules();
 
-        SubmitDesign();
+        //SubmitDesign();
 
         SetNewRequest();
     }
@@ -74,40 +74,41 @@ public class ShipRequestManager : MonoBehaviour
         return true;
     }
 
-    private int GetRewardAmount()
-    {
-        float rewardModifier = 1.0f;
+    //private int GetRewardAmount()
+    //{
+    //    float rewardModifier = 1.0f;
 
-        if (activeShipRequest.budget != null)
-        {
-            if (ShipManager.Instance.currentShipCost < activeShipRequest.budget)
-            {
-                rewardModifier += 0.2f;
-            }
-            else
-            {
-                rewardModifier -= 0.3f;
-            }
-        }
+    //    if (activeShipRequest.budget != null)
+    //    {
+    //        if (ShipManager.Instance.currentShipCost < activeShipRequest.budget)
+    //        {
+    //            rewardModifier += 0.2f;
+    //        }
+    //        else
+    //        {
+    //            rewardModifier -= 0.3f;
+    //        }
+    //    }
 
-        if (rewardModifier <= 0.0f || GameObject.FindGameObjectsWithTag("ShipModule").Count() == 0)
-        {
-            return -1000;
-        }
+    //    if (rewardModifier <= 0.0f || GameObject.FindGameObjectsWithTag("ShipModule").Count() == 0)
+    //    {
+    //        return -1000;
+    //    }
 
-        return Mathf.RoundToInt(activeShipRequest.reward * rewardModifier);
-    }
+    //    return Mathf.RoundToInt(activeShipRequest.reward * rewardModifier);
+    //}
 
     public void SubmitDesign()
     {
-        GameManager.Instance.UpdateCredits(GetRewardAmount());
+        //GameManager.Instance.UpdateCredits(GetRewardAmount());
     }
 
     private void SetRequestText()
     {
-        requestText.text = "<b>Ship Type:</b> " + activeShipRequest.shipType.ToString() + "\n" + 
-                           "<b>Ship Class:</b> " + activeShipRequest.shipClass.ToString() + "\n" +
-                           "<b>Minimum Speed:</b> " + activeShipRequest.minSpeed.ToString() + "\n" +
+        requestText.text = "<b>Type:</b> " + activeShipRequest.shipType.ToString() + "\n" + 
+                           "<b>Class:</b> " + activeShipRequest.shipClass.ToString() + "\n" +
+                           "<b>Damage Type:</b> " + activeShipRequest.damageType.ToString() + "\n" +
+                           //"<b>Minimum Speed:</b> " + activeShipRequest.minSpeed.ToString() + "\n" +
                            "<b>Maximum Speed:</b> " + activeShipRequest.maxSpeed.ToString() + "\n\n";
 
         requestText.text += "<b>Required Subsystems:</b>\n";
@@ -117,7 +118,7 @@ public class ShipRequestManager : MonoBehaviour
             requestText.text += "\t" + subsystem.ToString() + "\n";
         }
 
-        requestText.text += "\n<b>Budget:</b> " + activeShipRequest.budget.ToString();
+        //requestText.text += "\n<b>Budget:</b> " + activeShipRequest.budget.ToString();
     }
 
     /// <summary>
@@ -137,22 +138,22 @@ public class ShipRequestManager : MonoBehaviour
         {
             case ShipClass.Corvette:
                 budget = 20000;
-                data.minSpeed = 5;
+                //data.minSpeed = 5;
                 data.maxSpeed = 10;
                 break;
             case ShipClass.Destroyer:
                 budget = 40000;
-                data.minSpeed = 4;
+                //data.minSpeed = 4;
                 data.maxSpeed = 8;
                 break;
             case ShipClass.Cruiser:
-               budget = 100000;
-                data.minSpeed = 1;
+                budget = 100000;
+                //data.minSpeed = 1;
                 data.maxSpeed = 3;
                 break;
             default:
                 budget = 0;
-                data.minSpeed = 0;
+                //data.minSpeed = 0;
                 data.maxSpeed = 0;
                 break;
         }
@@ -165,7 +166,7 @@ public class ShipRequestManager : MonoBehaviour
             data.requiredSubsystems.Add(Utilities.GetRandomEnumValue<Subsystem>());
         }
 
-        data.budget = budget;
+        //data.budget = budget;
         activeShipRequest = data;
 
         SetRequestText();

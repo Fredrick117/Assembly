@@ -14,6 +14,13 @@ public enum Subsystem
 }
 
 [System.Serializable]
+public enum DamageType
+{ 
+    Kinetic,
+    Energy
+}
+
+[System.Serializable]
 public enum ShipType
 {
     Military,
@@ -34,14 +41,15 @@ public enum ShipClass
 [System.Serializable]
 public struct RequestData
 {
-    public int? budget;
-    public float? minSpeed;
-    public float? maxSpeed;
-    public ShipType? shipType;
-    public ShipClass? shipClass;
+    //public int? budget;
+    //public float minSpeed;
+    public float maxSpeed;
+    public ShipType shipType;
+    public ShipClass shipClass;
     public HashSet<Subsystem> requiredSubsystems;
+    public DamageType damageType;
 
-    public int reward;
+    //public int reward;
 }
 
 [System.Serializable]
