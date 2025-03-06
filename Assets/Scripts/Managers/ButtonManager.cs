@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class ButtonManager : MonoBehaviour
@@ -13,6 +14,4 @@ public class ButtonManager : MonoBehaviour
     {
         selectionMenu.SetActive(true);
     }
-
-    
 }

@@ -42,7 +42,7 @@ public enum ShipClass
 public struct RequestData
 {
     //public int? budget;
-    //public float minSpeed;
+    public float minSpeed;
     public float maxSpeed;
     public ShipType shipType;
     public ShipClass shipClass;
