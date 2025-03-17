@@ -15,7 +15,7 @@ public class ShipManager : MonoBehaviour
     public ShipType? currentShipType;
     public float currentShipMinSpeed;
     public float currentShipMaxSpeed;
-    public HashSet<Subsystem> currentShipSubsystems = new HashSet<Subsystem>();
+    public HashSet<SubsystemType> currentShipSubsystems = new HashSet<SubsystemType>();
 
     public GameObject currentShip = null;
 
@@ -24,6 +24,9 @@ public class ShipManager : MonoBehaviour
 
     [SerializeField]
     private TMP_Text shipClassText;
+
+    [SerializeField]
+    private GameObject subsystemSlots;
 
     public static ShipManager Instance { get; private set; }
 

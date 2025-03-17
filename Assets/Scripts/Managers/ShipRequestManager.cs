@@ -113,7 +113,7 @@ public class ShipRequestManager : MonoBehaviour
 
         requestText.text += "<b>Required Subsystems:</b>\n";
 
-        foreach (Subsystem subsystem in activeShipRequest.requiredSubsystems)
+        foreach (SubsystemType subsystem in activeShipRequest.requiredSubsystems)
         {
             requestText.text += "\t" + subsystem.ToString() + "\n";
         }
@@ -134,36 +134,36 @@ public class ShipRequestManager : MonoBehaviour
 
         int budget = 0;
 
-        switch (data.shipClass)
-        {
-            case ShipClass.Corvette:
-                budget = 20000;
-                //data.minSpeed = 5;
-                data.maxSpeed = 10;
-                break;
-            case ShipClass.Destroyer:
-                budget = 40000;
-                //data.minSpeed = 4;
-                data.maxSpeed = 8;
-                break;
-            case ShipClass.Cruiser:
-                budget = 100000;
-                //data.minSpeed = 1;
-                data.maxSpeed = 3;
-                break;
-            default:
-                budget = 0;
-                //data.minSpeed = 0;
-                data.maxSpeed = 0;
-                break;
-        }
+        //switch (data.shipClass)
+        //{
+        //    case ShipClass.Corvette:
+        //        budget = 20000;
+        //        //data.minSpeed = 5;
+        //        data.maxSpeed = 10;
+        //        break;
+        //    case ShipClass.Destroyer:
+        //        budget = 40000;
+        //        //data.minSpeed = 4;
+        //        data.maxSpeed = 8;
+        //        break;
+        //    case ShipClass.Cruiser:
+        //        budget = 100000;
+        //        //data.minSpeed = 1;
+        //        data.maxSpeed = 3;
+        //        break;
+        //    default:
+        //        budget = 0;
+        //        //data.minSpeed = 0;
+        //        data.maxSpeed = 0;
+        //        break;
+        //}
 
-        data.requiredSubsystems = new HashSet<Subsystem>();
+        data.requiredSubsystems = new HashSet<SubsystemType>();
         
-        for (int i = 0; i < Random.Range(1, System.Enum.GetNames(typeof(Subsystem)).Length); i++)
+        for (int i = 0; i < Random.Range(1, System.Enum.GetNames(typeof(SubsystemType)).Length); i++)
         {
             budget += 5000;
-            data.requiredSubsystems.Add(Utilities.GetRandomEnumValue<Subsystem>());
+            data.requiredSubsystems.Add(Utilities.GetRandomEnumValue<SubsystemType>());
         }
 
         //data.budget = budget;
