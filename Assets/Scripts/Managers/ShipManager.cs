@@ -10,20 +10,27 @@ public class ShipManager : MonoBehaviour
 
     private List<GameObject> shipModules = new List<GameObject>();
 
-    public int currentShipCost = 0;
-    public ShipClass? currentShipClass;
-    public ShipType? currentShipType;
-    public float currentShipMinSpeed;
-    public float currentShipMaxSpeed;
-    public HashSet<SubsystemType> currentShipSubsystems = new HashSet<SubsystemType>();
+    public SubsystemListPanel subsystemListPanel;
 
     public GameObject currentShip = null;
 
     [SerializeField]
-    private TMP_Text shipTypeText;
-
+    private TMP_Text shipMaxSpeedText;
     [SerializeField]
     private TMP_Text shipClassText;
+    [SerializeField]
+    private TMP_Text shipArmorText;
+    [SerializeField]
+    private TMP_Text shipShieldText;
+    [SerializeField]
+    private TMP_Text shipHullText;
+    [SerializeField]
+    private TMP_Text shipPowerText;
+
+    [SerializeField]
+    private GameObject shipStatsContent;
+    [SerializeField]
+    private TMP_Text noShipSelectedText;
 
     [SerializeField]
     private GameObject subsystemSlots;
@@ -52,29 +59,62 @@ public class ShipManager : MonoBehaviour
         //DraggableManager.onPlace -= UpdateShipStats;
     }
 
-    public void ClearAllShipModules()
-    {
-        shipModules.Clear();
-        rootModule = null;
-        currentShipCost = 0;
-        currentShipClass = null;
-        currentShipType = null;
-        currentShipSubsystems.Clear();
+    //public void ClearAllShipModules()
+    //{
+    //    shipModules.Clear();
+    //    rootModule = null;
 
-        GameObject[] modules = GameObject.FindGameObjectsWithTag("ShipModule");
-        foreach (GameObject module in modules)
-        {
-            GameObject.Destroy(module);
-        }
+    //    GameObject[] modules = GameObject.FindGameObjectsWithTag("ShipModule");
+    //    foreach (GameObject module in modules)
+    //    {
+    //        GameObject.Destroy(module);
+    //    }
+    //}
+
+    public void ClearShip()
+    {
+        currentShip.GetComponent<ShipBase>().baseStats = null;
+        currentShip.GetComponent<SpriteRenderer>().sprite = null;
+
+        ClearShipStats();
     }
 
-    public void SetShip(GameObject ship)
+    public void SetShipStats(BaseShipStats stats)
     {
-        ShipBase shipBase = ship.GetComponent<ShipBase>().GetComponent<ShipBase>();
+        ShipBase ship = currentShip.GetComponent<ShipBase>();
+        ship.baseStats = stats;
+        ship.SetBaseStats();
+        currentShip.GetComponent<ShipBase>().baseStats = stats;
+        currentShip.GetComponent<SpriteRenderer>().sprite = currentShip.GetComponent<ShipBase>().baseStats.sprite;
 
-        shipTypeText.text = shipBase.type.ToString();
-        shipClassText.text = shipBase.shipClass.ToString();
+        UpdateShipStats();
+    }
 
-        currentShip = ship;
+    public void RemoveSubsystem(Subsystem subsystem)
+    {
+        //currentShip.GetComponent<ShipBase>().subsystems.Remove(subsystem);
+    }
+
+    private void ClearShipStats()
+    {
+        shipClassText.text = "???";
+        shipArmorText.text = "0";
+        shipShieldText.text = "0";
+        shipHullText.text = "0";
+        shipPowerText.text = "0";
+        shipMaxSpeedText.text = "0";
+    }
+
+    private void UpdateShipStats()
+    {
+        subsystemListPanel.UpdateSubsystemSlots();
+
+        BaseShipStats currentShipStats = currentShip.GetComponent<ShipBase>().baseStats;
+
+        shipClassText.text = currentShipStats.shipClass;
+        shipArmorText.text = currentShipStats.baseArmor.ToString();
+        shipHullText.text = currentShipStats.baseHull.ToString();
+        shipPowerText.text = currentShipStats.basePower.ToString();
+        shipMaxSpeedText.text = currentShipStats.baseSpeed.ToString();
     }
 }

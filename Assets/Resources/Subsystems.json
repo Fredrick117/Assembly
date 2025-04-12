@@ -1,0 +1,42 @@
+{
+	"Reactors": [
+		{ 
+			"displayName": "M12 Fission Reactor", 
+			"description": "A basic yet effective fusion reactor capable of powering small warships and civilian craft alike.",
+			"power": 0,
+			"type": 0,
+			"mass": 5000,
+			"icon": null,
+			"rank": 3,
+			"powerOutput": 5000,
+			"powerType": 0,
+			"efficiency": 0
+		},
+		{ 
+			"displayName": "Oppenheimer-class Fusion Reactor", 
+			"description": "A powerful reactor capable of powering large warships and advanced civilian craft.",
+			"power": 0,
+			"type": "Reactor",
+			"mass": 8000,
+			"icon": "oppenheimer_reactor.jpg",
+			"rank": 2,
+			"powerOutput": 20000,
+			"powerType": "Fusion",
+			"efficiency": 0
+		},
+		{ 
+			"displayName": "X8G Antimatter Reactor", 
+			"description": "An absurdly powerful reactor that can easily power the largest vessels in the known universe...",
+			"power": 0,
+			"type": "Reactor",
+			"mass": 5000,
+			"icon": "x8g_reactor.jpg",
+			"rank": 1,
+			"powerOutput": 50000,
+			"powerType": "Antimatter",
+			"efficiency": 0
+		}
+	],
+	"ShieldGenerators": [],
+	"LifeSupport": [],
+}

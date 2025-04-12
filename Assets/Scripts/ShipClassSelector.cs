@@ -4,14 +4,9 @@ using UnityEngine;
 
 public class ShipClassSelector : MonoBehaviour
 {
-    public void OnSelectShipClass(GameObject shipToSpawn)
+    public void OnSelectShipClass(BaseShipStats shipStats)
     {
-        if (ShipManager.Instance.currentShip != null)
-            GameObject.Destroy(ShipManager.Instance.currentShip);
-
-        GameObject spawnedShip = GameObject.Instantiate(shipToSpawn, Vector3.zero, Quaternion.identity);
-
-        ShipManager.Instance.SetShip(spawnedShip);
+        ShipManager.Instance.SetShipStats(shipStats);
 
         gameObject.SetActive(false);
     }

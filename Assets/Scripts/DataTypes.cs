@@ -8,10 +8,18 @@ public abstract class Subsystem
     public string displayName;
     public string description;
     public float power;
-    public SubsystemType type;
+    public string type;
     public float mass;
-    public Sprite icon;
-    public int rank;
+    public string icon;
+    //public int rank;
+}
+
+[System.Serializable]
+public class SubsystemsData
+{
+    public ReactorSubsystem[] reactors;
+    public ShieldGeneratorSubsystem[] shieldGenerators; 
+    public LifeSupportSubsystem[] lifeSupports;
 }
 
 [System.Serializable]
@@ -19,14 +27,14 @@ public class ShieldGeneratorSubsystem : Subsystem
 {
     public float strength;
     public float rechargeSpeed;
-    public List<DamageType> resistanceTypes;
+    public List<string> resistanceTypes;
 }
 
 [System.Serializable]
 public class ReactorSubsystem : Subsystem
 {
     public float powerOutput;
-    public PowerType powerType;
+    public string powerType;
     public float efficiency;
 }
 
@@ -34,56 +42,12 @@ public class ReactorSubsystem : Subsystem
 public class LifeSupportSubsystem : Subsystem
 {
     public int crewCapacity;
-    public LifeSupportType lifeSupportType;
-}
-
-[System.Serializable]
-public enum LifeSupportType
-{ 
-    Oxygen,
-    Methane,
-    CarbonDioxide,
-}
-
-[System.Serializable]
-public enum PowerType
-{ 
-    Fission,
-    Fusion,
-    BlackHole,
-    Solar,
-    Antimatter,
-    DarkMatter,
-    ZeroPoint,
-}
-
-[System.Serializable]
-public enum SubsystemType
-{
-    Reactor,
-    ShieldGenerator,
-    LifeSupport,
-    //AI
-    //Cloaking
-}
-
-[System.Serializable]
-public enum DamageType
-{ 
-    Kinetic,
-    Energy,
-}
-
-[System.Serializable]
-public enum ShipType
-{
-    Military,
-    Civilian
+    public string lifeSupportType;
 }
 
 [System.Serializable]
 public enum ShipClass
-{ 
+{
     Corvette,
     Destroyer,
     LightCruiser,
@@ -98,19 +62,12 @@ public struct RequestData
 {
     //public int? budget;
     public float minSpeed;
-    public float maxSpeed;
-    public ShipType shipType;
-    public ShipClass shipClass;
-    public HashSet<SubsystemType> requiredSubsystems;
-    public DamageType damageType;
+    //public float maxSpeed;
+    public string shipClass;
+    public bool unarmed;
+    public HashSet<string> requiredSubsystems;
+    public int size;    // 1 = small (corvette, destroyer), 2 = large (cruisers), 3 = massive (carrier, battleship, dreadnought)
+    //public string damageType;
 
     //public int reward;
-}
-
-[System.Serializable]
-public class Starship
-{ 
-    public ShipType type;
-    public ShipClass classification;
-    public List<SubsystemType> subsystems;
 }

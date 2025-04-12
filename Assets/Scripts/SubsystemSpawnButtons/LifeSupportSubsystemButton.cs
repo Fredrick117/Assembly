@@ -4,15 +4,16 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class SubsystemSelectButton : MonoBehaviour, IPointerClickHandler
+public class LifeSupportSubsystemButton : MonoBehaviour
 {
-    public Subsystem subsystemData;
+    public TMP_Text descriptor;
+    public TMP_Text description;
+    public LifeSupportSubsystem subsystemData;
 
     private SubsystemSelectionMenu menuRef;
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        print("augh");
         menuRef.AddSubsystemToSlot(subsystemData);
         menuRef.gameObject.SetActive(false);
     }
@@ -29,5 +30,11 @@ public class SubsystemSelectButton : MonoBehaviour, IPointerClickHandler
         //description.text = subsystemData.description;
 
         menuRef = transform.parent.transform.parent.GetComponent<SubsystemSelectionMenu>();
+
+        descriptor = transform.GetChild(1).transform.GetChild(0).GetComponent<TMP_Text>();
+        description = transform.GetChild(1).transform.GetChild(1).GetComponent<TMP_Text>();
+
+        descriptor.text = subsystemData.displayName;
+        description.text = subsystemData.description;
     }
 }

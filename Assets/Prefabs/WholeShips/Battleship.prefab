@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1169958485925641803}
   - component: {fileID: 8652942505587697008}
-  - component: {fileID: -944698956249240146}
+  - component: {fileID: -3062177298453972492}
   m_Layer: 0
-  m_Name: Destroyer
+  m_Name: Battleship
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -28,7 +28,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 0.5, z: 1}
+  m_LocalScale: {x: 10, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -85,7 +85,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &-944698956249240146
+--- !u!114 &-3062177298453972492
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -97,4 +97,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5eb9fa9266fa6614383dcda036ec5cfb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseStats: {fileID: 11400000, guid: ad143c1d7dc2e7c4581d2597610ae78d, type: 2}
+  baseStats: {fileID: 11400000, guid: 41eefda6a911e704bb49f121b25494ad, type: 2}
