@@ -11,4 +11,7 @@ public class BaseShipStats : ScriptableObject
     public int baseHull;
     public float baseSpeed;
     public int basePower;
+    public int baseMass;
+
+    public int subsystemSlots;
 }

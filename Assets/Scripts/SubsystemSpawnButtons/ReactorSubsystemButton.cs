@@ -8,7 +8,8 @@ public class ReactorSubsystemButton : MonoBehaviour
 {
     public TMP_Text descriptor;
     public TMP_Text description;
-    public ReactorSubsystem data;
+    public TMP_Text statDescription;
+    public Subsystem data;
 
     private SubsystemSelectionMenu menuRef;
 
@@ -28,5 +29,7 @@ public class ReactorSubsystemButton : MonoBehaviour
 
         descriptor.text = data.displayName;
         description.text = data.description;
+
+        statDescription.text = $"";
     }
 }

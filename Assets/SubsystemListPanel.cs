@@ -25,27 +25,27 @@ public class SubsystemListPanel : MonoBehaviour
 
         ClearSlots();
 
-        //int numSlots = ShipManager.Instance.currentShip.GetComponent<ShipBase>().subsystemSlots;
+        int numSlots = ShipManager.Instance.currentShip.GetComponent<ShipBase>().baseStats.subsystemSlots;
 
-        //for (int i = 0; i < numSlots; i++)
-        //{
-        //    GameObject imageObject = new GameObject("SubsystemSlot_" + i);
+        for (int i = 0; i < numSlots; i++)
+        {
+            GameObject imageObject = new GameObject("SubsystemSlot_" + i);
 
-        //    imageObject.transform.SetParent(transform, false);
+            imageObject.transform.SetParent(transform, false);
 
-        //    imageObject.AddComponent<RectTransform>();
-        //    SubsystemSlot slot = imageObject.AddComponent<SubsystemSlot>();
-        //    slot.subsystemMenu = subsystemMenu;
+            imageObject.AddComponent<RectTransform>();
+            SubsystemSlot slot = imageObject.AddComponent<SubsystemSlot>();
+            slot.subsystemMenu = subsystemMenu;
 
-        //    // An empty slot image
-        //    Image image = imageObject.AddComponent<Image>();
-        //    image.sprite = imageSprite;
+            // An empty slot image
+            Image image = imageObject.AddComponent<Image>();
+            image.sprite = imageSprite;
 
-        //    GameObject iconObject = new GameObject("Icon");
-        //    iconObject.AddComponent<RectTransform>();
+            GameObject iconObject = new GameObject("Icon");
+            iconObject.AddComponent<RectTransform>();
 
-        //    Image iconImage = iconObject.AddComponent<Image>();
-        //}
+            Image iconImage = iconObject.AddComponent<Image>();
+        }
     }
 
     private void ClearSlots()

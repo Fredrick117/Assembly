@@ -9,7 +9,7 @@ public class ShipRequestManager : MonoBehaviour
 {
     private int attemptsRemaining = 3;
 
-    public RequestData activeShipRequest;
+    public RequestData activeShipRequest = new RequestData();
 
     delegate void CreateNewRequest(RequestData Request);
     CreateNewRequest createNewShipRequest;
@@ -36,67 +36,45 @@ public class ShipRequestManager : MonoBehaviour
 
     private void OnSubmission()
     {
-        if (IsValidShip())
-        {
-            Debug.Log("Ship is valid!");
-            attemptsRemaining = 0;
-            SetNewRequest();
-        }
-        else
+        if (!FulfillsRequirements())
         {
             attemptsRemaining--;
             if (attemptsRemaining <= 0)
             {
-                Debug.LogError("You lose!");
+                print("Game over!");
                 Application.Quit();
             }
         }
 
-        SubmitDesign();
         ShipManager.Instance.ClearShip();
         SetNewRequest();
     }
 
-    /// <summary>
-    /// Checks if the current design is a valid ship design.
-    /// A valid ship design:
-    ///     - Does not have any exposed segments
-    ///     - Has an engine/thrusters
-    ///     - Has at least two modules
-    /// </summary>
-    /// <returns>Whether or not the design is valid</returns>
-    private bool IsValidShip()
+    private bool FulfillsRequirements()
     {
-        Debug.LogError("IsValidShip not yet implemented");
-        return false;
-    }
+        ShipBase ship = ShipManager.Instance.currentShip.GetComponent<ShipBase>();
+        if (ship.baseStats == null)
+        {
+            Debug.LogError("No ship detected!");
+            return false;
+        }
 
-    public void SubmitDesign()
-    {
-        Debug.LogError("Not yet implemented");
+        bool metSpeedReq = activeShipRequest.minSpeed <= ship.GetSpeed();
+        bool metClassReq = activeShipRequest.shipClass.Equals(ship.baseStats.shipClass);
+        bool metUnarmedReq = true;  // TODO: change
+        bool metArmorReq = activeShipRequest.minArmor <= ship.GetArmor();
+        bool metPowerReq = activeShipRequest.minPower <= ship.GetPower();
+
+        return metSpeedReq && metClassReq && metUnarmedReq && metArmorReq && metPowerReq;
     }
 
     private void SetRequestText()
     {
         requestText.text = "Is a <b>" + activeShipRequest.shipClass.ToString() + "</b>\n\n";
         requestText.text += "Has a speed of at least <b>" + activeShipRequest.minSpeed.ToString() + " m/s</b>\n\n";
-        requestText.text += "Is " + (activeShipRequest.unarmed ? "unarmed" : "armed") + "\n\n";
-
-        //string shipSize = "";
-        //switch (activeShipRequest.size)
-        //{
-        //    case 1:
-        //        shipSize = "small";
-        //        break;
-        //    case 2:
-        //        shipSize = "large";
-        //        break;
-        //    default:
-        //        shipSize = "???";
-        //        break;
-        //}
-
-        //requestText.text += "Is a <b>" + shipSize + "</b> ship";
+        requestText.text += "Is <b>" + (activeShipRequest.isUnarmed ? "unarmed" : "armed") + "</b>\n\n";
+        requestText.text += "Has an <b>armor</b> rating of at least <b>" + activeShipRequest.minArmor + "</b>\n\n";
+        requestText.text += "Has a total power output of at least <b>" + activeShipRequest.minPower + " GW</b>\n\n";
     }
 
     /// <summary>
@@ -104,13 +82,23 @@ public class ShipRequestManager : MonoBehaviour
     /// </summary>
     public void SetNewRequest()
     {
-        RequestData data = new RequestData();
-        data.shipClass = Utilities.GetRandomEnumValue<ShipClass>().ToString();
+        int baseStatIndex = Random.Range(0, shipBaseStats.Count);
+        activeShipRequest.shipClass = shipBaseStats[baseStatIndex].shipClass;
         //data.size = Random.Range(0, 4);
-        data.minSpeed = shipBaseStats[Random.Range(0, shipBaseStats.Count)].baseSpeed;
-        data.unarmed = Random.Range(0, 2) == 0 ? false : true;
 
-        activeShipRequest = data;
+        // Speed can be the base speed of the ship +/- 2500 km/h
+        float extraSpeed = Random.Range(0, 26) * 100f;
+        activeShipRequest.minSpeed = shipBaseStats[baseStatIndex].baseSpeed + extraSpeed;
+
+        //data.unarmed = Random.Range(0, 2) == 0 ? false : true;
+        // TODO: until weapons can be added, always unarmed ship
+        activeShipRequest.isUnarmed = true;
+
+        int extraArmor = Random.Range(0, 10) * 10;
+        activeShipRequest.minArmor = shipBaseStats[baseStatIndex].baseArmor + extraArmor;
+
+        int extraPower = Random.Range(0, 100) * 10;
+        activeShipRequest.minPower = shipBaseStats[baseStatIndex].basePower + extraPower;
 
         SetRequestText();
     }

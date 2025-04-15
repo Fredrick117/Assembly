@@ -26,7 +26,7 @@ public class SubsystemSlot : MonoBehaviour, IPointerClickHandler
     {
         subsystem = _subsystem;
 
-        icon.sprite = LoadSpriteFromPath(_subsystem.icon);
+        //icon.sprite = LoadSpriteFromPath(_subsystem.icon);
     }
 
     // Helper method to load sprite from path

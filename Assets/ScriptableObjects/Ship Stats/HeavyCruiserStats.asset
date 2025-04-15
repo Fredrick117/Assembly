@@ -17,4 +17,5 @@ MonoBehaviour:
   baseArmor: 250
   baseHull: 250
   baseSpeed: 40000
-  basePower: 0
+  basePower: 2200
+  subsystemSlots: 4

@@ -8,14 +8,15 @@ public class ShieldGenSubsystemButton : MonoBehaviour
 {
     public TMP_Text descriptor;
     public TMP_Text description;
-    public ShieldGeneratorSubsystem subsystemData;
+    //public ShieldGeneratorSubsystem subsystemData;
 
     private SubsystemSelectionMenu menuRef;
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        menuRef.AddSubsystemToSlot(subsystemData);
-        menuRef.gameObject.SetActive(false);
+        Debug.LogError("Not implemented!");
+        //menuRef.AddSubsystemToSlot(subsystemData);
+        //menuRef.gameObject.SetActive(false);
     }
 
     // Start is called before the first frame update
@@ -29,12 +30,12 @@ public class ShieldGenSubsystemButton : MonoBehaviour
         //descriptor.text = subsystemData.displayName;
         //description.text = subsystemData.description;
 
-        menuRef = transform.parent.transform.parent.GetComponent<SubsystemSelectionMenu>();
+        //menuRef = transform.parent.transform.parent.GetComponent<SubsystemSelectionMenu>();
 
-        descriptor = transform.GetChild(1).transform.GetChild(0).GetComponent<TMP_Text>();
-        description = transform.GetChild(1).transform.GetChild(1).GetComponent<TMP_Text>();
+        //descriptor = transform.GetChild(1).transform.GetChild(0).GetComponent<TMP_Text>();
+        //description = transform.GetChild(1).transform.GetChild(1).GetComponent<TMP_Text>();
 
-        descriptor.text = subsystemData.displayName;
-        description.text = subsystemData.description;
+        //descriptor.text = subsystemData.displayName;
+        //description.text = subsystemData.description;
     }
 }
