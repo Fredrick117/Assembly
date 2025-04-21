@@ -17,4 +17,4 @@ MonoBehaviour:
     a breathable atmosphere.
   powerDraw: 0
   mass: 0
-  crewCapacity: 0
+  crewCapacity: 100

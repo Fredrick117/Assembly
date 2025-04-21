@@ -28,10 +28,20 @@ public class SubsystemSelectionMenu : MonoBehaviour
 
     public void AddSubsystemToSlot(Subsystem subsystem)
     {
-        //selectedSlot.SetSubsystem(subsystem);
+        ShipBase ship = ShipManager.Instance.currentShip.GetComponent<ShipBase>();
 
-        //ShipManager.Instance.currentShip.GetComponent<ShipBase>().subsystems.Add(subsystem);
+        if (subsystem is Reactor reactorData)
+        {
+            ship.ModifyPower(reactorData.powerOutput);
+        }
 
-        //print(subsystem.displayName);
+        if (subsystem is Shielding shieldData)
+        {
+            ship.ModifyShielding(shieldData.shieldStrength);
+        }
+
+        selectedSlot.SetSubsystem(subsystem);
+
+        ShipManager.Instance.currentShip.GetComponent<ShipBase>().subsystems.Add(subsystem);
     }
 }

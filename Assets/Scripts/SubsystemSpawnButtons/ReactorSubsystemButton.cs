@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class ReactorSubsystemButton : MonoBehaviour
+public class ReactorSubsystemButton : MonoBehaviour, IPointerClickHandler
 {
     public TMP_Text descriptor;
     public TMP_Text description;
@@ -19,7 +19,6 @@ public class ReactorSubsystemButton : MonoBehaviour
         menuRef.gameObject.SetActive(false);
     }
 
-    // Start is called before the first frame update
     void Start()
     {
         menuRef = transform.parent.transform.parent.GetComponent<SubsystemSelectionMenu>();
@@ -30,6 +29,11 @@ public class ReactorSubsystemButton : MonoBehaviour
         descriptor.text = data.displayName;
         description.text = data.description;
 
-        statDescription.text = $"";
+        if (data is Reactor reactorData)
+            statDescription.text = $"Power output: {reactorData.powerOutput} GW\tPower type: {reactorData.powerType}";
+        if (data is Shielding shieldData)
+            statDescription.text = $"Shield strength: {shieldData.shieldStrength}/100\tRecharge speed: {shieldData.rechargeSpeed}% per second";
+        if (data is LifeSupport lifeSupportData)
+            statDescription.text = $"Crew capacity: {lifeSupportData.crewCapacity}";
     }
 }

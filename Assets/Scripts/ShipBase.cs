@@ -18,13 +18,14 @@ public class ShipBase : MonoBehaviour
     public static ShipBase Instance;
 
     public BaseShipStats baseStats;
-    private int currentArmor;
-    private int currentHull;
-    private float currentSpeed;
-    private float currentPower;
-    private int currentMass;
+    private int currentArmor { get; set; }
+    private int currentHull { get; set; }
+    private float currentSpeed { get; set; }
+    private float currentPower { get; set; }
+    private int currentMass { get; set; }
+    private int currentShielding { get; set; }
 
-    private List<Subsystem> subsystems = new List<Subsystem>();
+    public List<Subsystem> subsystems = new List<Subsystem>();
 
     private void Awake()
     {
@@ -59,28 +60,8 @@ public class ShipBase : MonoBehaviour
         currentPower += amount;
     }
 
-    public int GetArmor()
+    public void ModifyShielding(int amount)
     {
-        return currentArmor;
-    }
-
-    public int GetHull()
-    {
-        return currentHull;
-    }
-
-    public float GetSpeed()
-    {
-        return currentSpeed;
-    }
-
-    public float GetPower()
-    {
-        return currentPower;
-    }
-
-    public int GetMass()
-    {
-        return currentMass;
+        currentShielding += amount;
     }
 }
