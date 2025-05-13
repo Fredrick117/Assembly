@@ -16,7 +16,27 @@ public class ShipRequestManager : MonoBehaviour
 
     public TMP_Text requestText;
 
-    public List<BaseShipStats> shipBaseStats = new List<BaseShipStats>();
+    public List<ShipBaseStats> shipBaseStats = new List<ShipBaseStats>();
+
+    public static ShipRequestManager Instance { get; private set; }
+
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this);
+        }
+        else
+        {
+            Instance = this;
+        }
+    }
+
+
+    private void Start()
+    {
+        SetNewRequest();
+    }
 
     private void OnEnable()
     {
@@ -26,55 +46,6 @@ public class ShipRequestManager : MonoBehaviour
     private void OnDisable()
     {
         EventManager.onSubmit -= OnSubmission;
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        SetNewRequest();
-    }
-
-    private void OnSubmission()
-    {
-        if (!FulfillsRequirements())
-        {
-            attemptsRemaining--;
-            if (attemptsRemaining <= 0)
-            {
-                print("Game over!");
-                Application.Quit();
-            }
-        }
-
-        ShipManager.Instance.ClearShip();
-        SetNewRequest();
-    }
-
-    private bool FulfillsRequirements()
-    {
-        ShipBase ship = ShipManager.Instance.currentShip.GetComponent<ShipBase>();
-        if (ship.baseStats == null)
-        {
-            Debug.LogError("No ship detected!");
-            return false;
-        }
-
-        bool metSpeedReq = activeShipRequest.minSpeed <= ship.GetSpeed();
-        bool metClassReq = activeShipRequest.shipClass.Equals(ship.baseStats.shipClass);
-        bool metUnarmedReq = true;  // TODO: change
-        bool metArmorReq = activeShipRequest.minArmor <= ship.GetArmor();
-        bool metPowerReq = activeShipRequest.minPower <= ship.GetPower();
-
-        return metSpeedReq && metClassReq && metUnarmedReq && metArmorReq && metPowerReq;
-    }
-
-    private void SetRequestText()
-    {
-        requestText.text = "Is a <b>" + activeShipRequest.shipClass.ToString() + "</b>\n\n";
-        requestText.text += "Has a speed of at least <b>" + activeShipRequest.minSpeed.ToString() + " m/s</b>\n\n";
-        requestText.text += "Is <b>" + (activeShipRequest.isUnarmed ? "unarmed" : "armed") + "</b>\n\n";
-        requestText.text += "Has an <b>armor</b> rating of at least <b>" + activeShipRequest.minArmor + "</b>\n\n";
-        requestText.text += "Has a total power output of at least <b>" + activeShipRequest.minPower + " GW</b>\n\n";
     }
 
     /// <summary>
@@ -101,5 +72,48 @@ public class ShipRequestManager : MonoBehaviour
         activeShipRequest.minPower = shipBaseStats[baseStatIndex].basePower + extraPower;
 
         SetRequestText();
+    }
+
+    private void OnSubmission()
+    {
+        if (!FulfillsRequirements())
+        {
+            attemptsRemaining--;
+            if (attemptsRemaining <= 0)
+            {
+                print("Game over!");
+                Application.Quit();
+            }
+        }
+
+        ShipManager.Instance.ClearShip();
+        SetNewRequest();
+    }
+
+    private bool FulfillsRequirements()
+    {
+        ShipStats ship = ShipManager.Instance.currentShip.GetComponent<ShipStats>();
+        if (ship.baseStats == null)
+        {
+            Debug.LogError("No ship detected!");
+            return false;
+        }
+
+        //bool metSpeedReq = activeShipRequest.minSpeed <= ship.currentSpeed;
+        bool metClassReq = activeShipRequest.shipClass.Equals(ship.baseStats.shipClass);
+        bool metUnarmedReq = true;  // TODO: change
+        bool metArmorReq = activeShipRequest.minArmor <= ship.Armor;
+        //bool metPowerReq = activeShipRequest.minPower <= ship.currentMaxPower;
+
+        return /*metSpeedReq && */metClassReq && metUnarmedReq && metArmorReq/* && metPowerReq*/;
+    }
+
+    private void SetRequestText()
+    {
+        requestText.text = "Is a <b>" + activeShipRequest.shipClass.ToString() + "</b>\n\n";
+        requestText.text += "Has a speed of at least <b>" + activeShipRequest.minSpeed.ToString() + " m/s</b>\n\n";
+        requestText.text += "Is <b>" + (activeShipRequest.isUnarmed ? "unarmed" : "armed") + "</b>\n\n";
+        requestText.text += "Has an <b>armor</b> rating of at least <b>" + activeShipRequest.minArmor + "</b>\n\n";
+        requestText.text += "Has a total power output of at least <b>" + activeShipRequest.minPower + " GW</b>\n\n";
     }
 }

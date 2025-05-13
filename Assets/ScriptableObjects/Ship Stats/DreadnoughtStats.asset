@@ -18,4 +18,5 @@ MonoBehaviour:
   baseHull: 500
   baseSpeed: 20000
   basePower: 5000
-  subsystemSlots: 8
+  baseMass: 20000
+  subsystemSlots: 24

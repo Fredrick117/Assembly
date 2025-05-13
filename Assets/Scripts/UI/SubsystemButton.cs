@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class ReactorSubsystemButton : MonoBehaviour, IPointerClickHandler
+public class SubsystemButton : MonoBehaviour, IPointerClickHandler
 {
     public TMP_Text descriptor;
     public TMP_Text description;
@@ -15,7 +15,9 @@ public class ReactorSubsystemButton : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        menuRef.AddSubsystemToSlot(data);
+        //menuRef.AddSubsystemToSlot(data);
+
+        ShipStats.Instance.AddSubsystem(menuRef.selectedSlot, data);
         menuRef.gameObject.SetActive(false);
     }
 

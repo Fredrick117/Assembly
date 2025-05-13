@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "NewShipStats", menuName = "Ship/Stats")]
-public class BaseShipStats : ScriptableObject
+public class ShipBaseStats : ScriptableObject
 {
     public Sprite sprite;
     public string shipClass;

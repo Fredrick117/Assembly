@@ -21,6 +21,8 @@ public class GameManager : MonoBehaviour
     public int credits = 5000;
     public TMP_Text creditsText;
 
+    public GameObject subsystemSelectionMenu;
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -40,6 +42,16 @@ public class GameManager : MonoBehaviour
         {
             Application.Quit();
         }
+    }
+
+    public void ShowSubsystemMenu()
+    {
+        subsystemSelectionMenu.SetActive(true);
+    }
+
+    public void HideSubsystemMenu()
+    {
+        subsystemSelectionMenu.SetActive(false);
     }
 
     public void SpawnObjectFromButton(GameObject newObject)

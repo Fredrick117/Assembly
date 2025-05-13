@@ -17,5 +17,6 @@ MonoBehaviour:
     alike.
   powerDraw: 0
   mass: 10
+  icon: {fileID: 21300000, guid: 0da7ac8a6175fbe44b8e6155a0caf409, type: 3}
   powerOutput: 2000
   powerType: Fission
