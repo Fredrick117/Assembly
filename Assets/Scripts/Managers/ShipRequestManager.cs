@@ -7,7 +7,8 @@ using UnityEngine;
 
 public class ShipRequestManager : MonoBehaviour
 {
-    private int attemptsRemaining = 3;
+    public int attemptsRemaining = 3;
+    public int numSuccesses = 0;
 
     public RequestData activeShipRequest = new RequestData();
 
@@ -85,9 +86,14 @@ public class ShipRequestManager : MonoBehaviour
                 Application.Quit();
             }
         }
+        else
+        {
+            numSuccesses++;
+            attemptsRemaining = 3;
 
-        ShipManager.Instance.ClearShip();
-        SetNewRequest();
+            ShipManager.Instance.ClearShip();
+            SetNewRequest();
+        }
     }
 
     private bool FulfillsRequirements()
