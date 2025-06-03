@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -12,6 +13,8 @@ public class SubsystemSlot : MonoBehaviour, IPointerClickHandler
 
     // Already set in editor
     public Image icon;
+
+    public TMP_Text slotText;
 
     private void Start()
     {
@@ -39,6 +42,7 @@ public class SubsystemSlot : MonoBehaviour, IPointerClickHandler
         {
             RemoveSubsystem();
             icon.sprite = null;
+            slotText.text = "";
             print("Removed subsystem");
             return;
         }

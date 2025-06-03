@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -185,7 +186,8 @@ public class ShipStats : MonoBehaviour
             PowerDraw += shieldData.powerDraw;
         }
 
-        subsystemListPanel.slots[index].transform.GetChild(0).gameObject.GetComponent<Image>().sprite = subsystemData.icon;
+        //subsystemListPanel.slots[index].transform.GetChild(0).gameObject.GetComponent<Image>().sprite = subsystemData.icon;
+        subsystemListPanel.slots[index].transform.GetChild(0).gameObject.GetComponent<TMP_Text>().text = subsystemData.displayName;
 
         foreach (KeyValuePair<int, Subsystem> pair in subsystems)
         {
