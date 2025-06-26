@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 172515908459071761}
   - component: {fileID: 1099169550842844425}
   m_Layer: 0
-  m_Name: TestHull 1x4
+  m_Name: Hull (1x4) 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -76,11 +76,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a25a9b9427ce4c546a6b4cf786be4fe5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rootIndicator: {fileID: 8183717118688848476, guid: 4ab01b441ca20fc449b90662be8b3465, type: 3}
   moduleType: 0
-  isConnectedToRoot: 0
-  isCollidingWithShipModule: 0
-  connectedModules: []
   connectors:
   - {fileID: 7559319403198705512}
   - {fileID: 5570009434818113505}
@@ -96,6 +92,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f306be0732421a64ab9b65fdb7c1ec91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isDragging: 0
   hullSprite: {fileID: 1345754656832015607}
 --- !u!1 &5808242504581356359
 GameObject:
@@ -125,7 +122,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.5, y: 0, z: 0}
-  m_LocalScale: {x: 0.1, y: 0.1, z: 1}
+  m_LocalScale: {x: 0.2, y: 0.2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2219246867125560303}
@@ -423,7 +420,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.5, y: 0, z: 0}
-  m_LocalScale: {x: 0.1, y: 0.1, z: 1}
+  m_LocalScale: {x: 0.2, y: 0.2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3143536602351922416}

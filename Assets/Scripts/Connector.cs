@@ -7,9 +7,7 @@ using UnityEngine;
 [Serializable]
 public enum ConnectorType
 {
-    Module,
-    Engine,
-    Weapon,
+    Module, Thruster, Weapon
 };
 
 public class Connector : MonoBehaviour
@@ -30,15 +28,15 @@ public class Connector : MonoBehaviour
         switch (type)
         {
             case ConnectorType.Module:
-                spriteRenderer.color = Color.red;
+                spriteRenderer.color = Color.grey;
                 break;
 
-            case ConnectorType.Engine:
-                spriteRenderer.color = Color.green;
+            case ConnectorType.Thruster:
+                spriteRenderer.color = Color.cyan;
                 break;
 
             case ConnectorType.Weapon:
-                spriteRenderer.color = Color.blue;
+                spriteRenderer.color = Color.red;
                 break;
 
             default:

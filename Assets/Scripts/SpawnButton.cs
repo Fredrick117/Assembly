@@ -6,12 +6,11 @@ using UnityEngine.EventSystems;
 
 public class SpawnButton : MonoBehaviour, IPointerDownHandler
 {
-    [SerializeField]
-    private GameObject objectToSpawn;
+    public GameObject objectToSpawn;
 
     private TMP_Text buttonText;
 
-    private void Awake()
+    private void Start()
     {
         buttonText = GetComponentInChildren<TMP_Text>();
 
