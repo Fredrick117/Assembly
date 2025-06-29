@@ -3,12 +3,19 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-public class HullSpawnPanel : MonoBehaviour
+public class SpawnPanel : MonoBehaviour
 {
     [SerializeField]
     private GameObject spawnButtonPrefab;
 
-    // Start is called before the first frame update
+    [SerializeField]
+    private GameObject content;
+
+    [SerializeField]
+    private TabContainer tabs;
+
+    private string selectedTab = "";
+
     void Start()
     {
         GameObject[] hullPrefabs = Resources.LoadAll<GameObject>("HullPrefabs");
@@ -22,9 +29,14 @@ public class HullSpawnPanel : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
+    public void SetSelectedTab(string tabName)
     {
-        
+        if (selectedTab == tabName) 
+            return;
+
+        tabs.GetTabByName(selectedTab).SetSelectedState(true);
+        tabs.GetTabByName(tabName).SetSelectedState(true);
+
+        selectedTab = tabName;
     }
 }
