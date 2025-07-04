@@ -82,8 +82,7 @@ public class ShipRequestManager : MonoBehaviour
             attemptsRemaining--;
             if (attemptsRemaining <= 0)
             {
-                print("Game over!");
-                Application.Quit();
+                GameManager.Instance.ShowGameOverScreen();
             }
         }
         else

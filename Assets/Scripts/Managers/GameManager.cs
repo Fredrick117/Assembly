@@ -23,6 +23,8 @@ public class GameManager : MonoBehaviour
 
     public GameObject subsystemSelectionMenu;
 
+    public Transform gameOverPanel;
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -75,5 +77,10 @@ public class GameManager : MonoBehaviour
         credits += amount;
 
         creditsText.text = credits.ToString();
+    }
+
+    public void ShowGameOverScreen()
+    {
+        gameOverPanel.gameObject.SetActive(true);
     }
 }
