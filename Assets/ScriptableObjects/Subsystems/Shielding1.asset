@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82b858f2dc0739348b89a210acd91417, type: 3}
   m_Name: Shielding1
   m_EditorClassIdentifier: 
-  displayName: Deflector Shield Generator
+  displayName: Deflector shield generator
   description: Extremely basic and cheap deflector shields. Offers protection from
     light debris and small-arms fire.
   powerDraw: 100
-  mass: 1
+  mass: 5000
+  icon: {fileID: 21300000, guid: 7da59ef238dbcf54fb841179b8f7bd6d, type: 3}
   shieldStrength: 10
   rechargeSpeed: 25

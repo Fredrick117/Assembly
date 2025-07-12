@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab6f0d6d311f5364bae6e014474d9add, type: 3}
   m_Name: LifeSupport1
   m_EditorClassIdentifier: 
-  displayName: Life Support
-  description: A basic life support system that provides the crew of a vessel with
-    a breathable atmosphere.
+  displayName: Nitrogen-Oxygen atmosphere
+  description: Lethal for arachnids, ideal for humans and vynotians.
   powerDraw: 0
-  mass: 0
-  crewCapacity: 100
+  mass: 2000
+  icon: {fileID: 21300000, guid: 2d54aeabc2f58bc41b2d80fc242efeae, type: 3}
+  atmosphereType: 0

@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbfee3b7b29906243966efafcd25c925, type: 3}
   m_Name: Reactor3
   m_EditorClassIdentifier: 
-  displayName: Antimatter Reactor
+  displayName: Antimatter reactor
   description: An immensely powerful reactor capable of powering even the largest
     ships.
   powerDraw: 0
   mass: 25
-  icon: {fileID: 21300000, guid: d6d5a60077288554aa68e2ee68bfc532, type: 3}
+  icon: {fileID: 21300000, guid: e1b52fc97b633404189575f6b003f7d0, type: 3}
   powerOutput: 5000
   powerType: Antimatter

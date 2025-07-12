@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbfee3b7b29906243966efafcd25c925, type: 3}
   m_Name: Reactor1
   m_EditorClassIdentifier: 
-  displayName: M-25 Fission Reactor
+  displayName: M-25 fission reactor
   description: An ancient reactor that provides adequate power to most ships.
   powerDraw: 0
-  mass: 5
-  icon: {fileID: 21300000, guid: 5cd66085d1bca4f48b3e5faa6fc45f78, type: 3}
+  mass: 10000
+  icon: {fileID: 21300000, guid: 4dd0c2cd1c8854a42a46453111f51daa, type: 3}
   powerOutput: 1000
   powerType: Fusion

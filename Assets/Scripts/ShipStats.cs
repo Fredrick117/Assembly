@@ -173,26 +173,34 @@ public class ShipStats : MonoBehaviour
 
         subsystems[index] = subsystemData;
 
+        Mass += subsystemData.mass;
+
+
         if (subsystemData is Reactor reactorData)
         {
             MaxPower += reactorData.powerOutput;
-            Mass += subsystemData.mass;
+            //Mass += subsystemData.mass;
         }
 
         if (subsystemData is Shielding shieldData)
         {
             ShieldStrength += shieldData.shieldStrength;
-            Mass += shieldData.mass;
+            //Mass += shieldData.mass;
             PowerDraw += shieldData.powerDraw;
+        }
+
+        if (subsystemData is Armor armorData)
+        {
+
         }
 
         //subsystemListPanel.slots[index].transform.GetChild(0).gameObject.GetComponent<Image>().sprite = subsystemData.icon;
         subsystemListPanel.slots[index].transform.GetChild(0).gameObject.GetComponent<TMP_Text>().text = subsystemData.displayName;
 
-        foreach (KeyValuePair<int, Subsystem> pair in subsystems)
-        {
-            print($"index: {pair.Key}, subsystem: {pair.Value.displayName}");
-        }
+        //foreach (KeyValuePair<int, Subsystem> pair in subsystems)
+        //{
+        //    print($"index: {pair.Key}, subsystem: {pair.Value.displayName}");
+        //}
     }
 
     public void SetBaseStats()

@@ -42,17 +42,15 @@ public class SubmitButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        print("enter!");
         isHovering = true;
-        feedbackTooltip.SetActive(true);
-        SetTooltipMessage();
+        //feedbackTooltip.SetActive(true);
+        //SetTooltipMessage();
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        print("exit!");
-        isHovering = false;
-        feedbackTooltip.SetActive(false);
+        //isHovering = false;
+        //feedbackTooltip.SetActive(false);
     }
 
     private void SetTooltipMessage()
@@ -78,14 +76,14 @@ public class SubmitButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
             {
                 feedbackText.text += "This ship is not the right class!\n";
             }
-            if (shipStats.Armor < request.minArmor)
-            {
-                feedbackText.text += "This ship doesn't have enough armor!\n";
-            }
-            if (shipStats.MaxPower < request.minPower)
-            {
-                feedbackText.text += "This ship doesn't produce enough power!\n";
-            }
+            //if (shipStats.Armor < request.minArmor)
+            //{
+            //    feedbackText.text += "This ship doesn't have enough armor!\n";
+            //}
+            //if (shipStats.MaxPower < request.minPower)
+            //{
+            //    feedbackText.text += "This ship doesn't produce enough power!\n";
+            //}
         }
     }
 }

@@ -17,7 +17,9 @@ public class ShipDetailsPanel : MonoBehaviour
     [SerializeField]
     private TMP_Text shipHullText;
     [SerializeField]
-    private TMP_Text shipPowerText;
+    private TMP_Text shipPowerConsumptionText;
+    [SerializeField]
+    private TMP_Text shipPowerOutputText;
     [SerializeField]
     private TMP_Text shipMassText;
 
@@ -36,8 +38,10 @@ public class ShipDetailsPanel : MonoBehaviour
         shipClassText.text = ShipStats.Instance.baseStats.shipClass;
         shipArmorText.text = ShipStats.Instance.Armor.ToString();
         shipHullText.text = ShipStats.Instance.Hull.ToString();
-        shipPowerText.text = $"{ShipStats.Instance.PowerDraw}/{ShipStats.Instance.MaxPower}";
+        shipPowerConsumptionText.text = $"{ShipStats.Instance.PowerDraw}";
+        shipPowerOutputText.text = $"{ShipStats.Instance.MaxPower}";
         shipMaxSpeedText.text = ShipStats.Instance.Speed.ToString();
         shipMassText.text = ShipStats.Instance.Mass.ToString();
+        shipShieldText.text = ShipStats.Instance.ShieldStrength.ToString();
     }
 }

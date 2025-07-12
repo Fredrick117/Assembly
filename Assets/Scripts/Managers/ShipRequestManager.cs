@@ -10,6 +10,8 @@ public class ShipRequestManager : MonoBehaviour
     public int attemptsRemaining = 3;
     public int numSuccesses = 0;
 
+    private int randomRequestNumber = 0;
+
     public RequestData activeShipRequest = new RequestData();
 
     delegate void CreateNewRequest(RequestData Request);
@@ -17,7 +19,23 @@ public class ShipRequestManager : MonoBehaviour
 
     public TMP_Text requestText;
 
+    public TMP_Text headerText;
+
     public List<ShipBaseStats> shipBaseStats = new List<ShipBaseStats>();
+
+    public Dictionary<Species, DamageType> speciesWeaponPreferences = new Dictionary<Species, DamageType> 
+    { 
+        { Species.Human, DamageType.Kinetic },
+        { Species.Vynotian, DamageType.Plasma },
+        { Species.Arachnid, DamageType.Laser }
+    };
+
+    public Dictionary<Species, int> speciesMilitaryShipProbability = new Dictionary<Species, int>
+    {
+        { Species.Human, 67 },
+        { Species.Vynotian, 30 },
+        { Species.Arachnid, 90 },
+    };
 
     public static ShipRequestManager Instance { get; private set; }
 
@@ -36,7 +54,12 @@ public class ShipRequestManager : MonoBehaviour
 
     private void Start()
     {
+        randomRequestNumber = Random.Range(1, 100000);
+
+        headerText.text = $"Request #{randomRequestNumber}";
+
         SetNewRequest();
+        SetRequestText();
     }
 
     private void OnEnable()
@@ -49,30 +72,54 @@ public class ShipRequestManager : MonoBehaviour
         EventManager.onSubmit -= OnSubmission;
     }
 
-    /// <summary>
-    /// Creates a random request for a ship and sets it to the current ship request.
-    /// </summary>
+    private RequestData CreateRandomShipRequest()
+    {
+        RequestData request = new RequestData();
+
+        request.customerSpecies = Utilities.GetRandomEnumValue<Species>();
+
+        int contextProbability = Random.Range(0, 100);
+        ShipClass shipClass;
+        if (contextProbability < speciesMilitaryShipProbability[request.customerSpecies])
+        {
+            shipClass = (ShipClass)Random.Range(4, 12);
+        }
+        else
+        {
+            shipClass = (ShipClass)Random.Range(0, 4);
+        }
+
+        request.shipClass = shipClass;
+
+        
+        if (request.customerSpecies == Species.Arachnid)
+        {
+            request.isFtlCapable = false;
+        }
+        else
+        {
+            request.isFtlCapable = Utilities.FlipCoin();
+        }
+
+        request.isAtmosphereCapable = Utilities.FlipCoin();
+
+        if (request.customerSpecies != Species.Arachnid)
+        {
+            request.isAutonomous = false;
+        }
+        else
+        {
+            request.isAutonomous = Utilities.FlipCoin();
+        }
+
+        request.armorMaterial = Utilities.GetRandomEnumValue<ArmorMaterial>();
+
+        return request;
+    }
+
     public void SetNewRequest()
     {
-        int baseStatIndex = Random.Range(0, shipBaseStats.Count);
-        activeShipRequest.shipClass = shipBaseStats[baseStatIndex].shipClass;
-        //data.size = Random.Range(0, 4);
-
-        // Speed can be the base speed of the ship +/- 2500 km/h
-        float extraSpeed = Random.Range(0, 26) * 100f;
-        activeShipRequest.minSpeed = shipBaseStats[baseStatIndex].baseSpeed + extraSpeed;
-
-        //data.unarmed = Random.Range(0, 2) == 0 ? false : true;
-        // TODO: until weapons can be added, always unarmed ship
-        activeShipRequest.isUnarmed = true;
-
-        int extraArmor = Random.Range(0, 10) * 10;
-        activeShipRequest.minArmor = shipBaseStats[baseStatIndex].baseArmor + extraArmor;
-
-        int extraPower = Random.Range(0, 100) * 10;
-        activeShipRequest.minPower = shipBaseStats[baseStatIndex].basePower + extraPower;
-
-        SetRequestText();
+        activeShipRequest = CreateRandomShipRequest();
     }
 
     private void OnSubmission()
@@ -88,10 +135,12 @@ public class ShipRequestManager : MonoBehaviour
         else
         {
             numSuccesses++;
-            attemptsRemaining = 3;
+            randomRequestNumber++;
 
             ShipManager.Instance.ClearShip();
+            //CreateRandomShipRequest();
             SetNewRequest();
+            SetRequestText();
         }
     }
 
@@ -107,18 +156,25 @@ public class ShipRequestManager : MonoBehaviour
         //bool metSpeedReq = activeShipRequest.minSpeed <= ship.currentSpeed;
         bool metClassReq = activeShipRequest.shipClass.Equals(ship.baseStats.shipClass);
         bool metUnarmedReq = true;  // TODO: change
-        bool metArmorReq = activeShipRequest.minArmor <= ship.Armor;
+       // bool metArmorReq = activeShipRequest.minArmor <= ship.Armor;
         //bool metPowerReq = activeShipRequest.minPower <= ship.currentMaxPower;
 
-        return /*metSpeedReq && */metClassReq && metUnarmedReq && metArmorReq/* && metPowerReq*/;
+        return /*metSpeedReq && */metClassReq && metUnarmedReq /*&& metArmorReq && metPowerReq*/;
     }
 
     private void SetRequestText()
     {
-        requestText.text = "Is a <b>" + activeShipRequest.shipClass.ToString() + "</b>\n\n";
-        requestText.text += "Has a speed of at least <b>" + activeShipRequest.minSpeed.ToString() + " m/s</b>\n\n";
-        requestText.text += "Is <b>" + (activeShipRequest.isUnarmed ? "unarmed" : "armed") + "</b>\n\n";
-        requestText.text += "Has an <b>armor</b> rating of at least <b>" + activeShipRequest.minArmor + "</b>\n\n";
-        requestText.text += "Has a total power output of at least <b>" + activeShipRequest.minPower + " GW</b>\n\n";
+        headerText.text = $"Request #{randomRequestNumber}";
+
+        requestText.text = $"Customer species: <b>{activeShipRequest.customerSpecies.ToString()}</b>\n";
+        requestText.text += $"Ship class: <b>{activeShipRequest.shipClass.ToString()}</b>\n";
+        //requestText.text += "Minimum speed: <b>" + activeShipRequest.minSpeed.ToString() + " m/s</b>\n\n";
+        requestText.text += $"Armed: <b>{(activeShipRequest.isUnarmed ? "no" : "yes")}</b>\n";
+        requestText.text += $"Capable of FTL travel: <b>{(activeShipRequest.isFtlCapable ? "yes" : "no")}</b>\n";
+        requestText.text += $"Capable of atmospheric entry: <b>{(activeShipRequest.isAtmosphereCapable ? "yes" : "no")}</b>\n";
+        requestText.text += $"Autonomous: <b>{(activeShipRequest.isAutonomous? "yes" : "no")}</b>\n";
+        requestText.text += $"Requested armor material: <b>{activeShipRequest.armorMaterial}</b>";
+        //requestText.text += "Has an <b>armor</b> rating of at least <b>" + activeShipRequest.minArmor + "</b>\n\n";
+        //requestText.text += "Has a total power output of at least <b>" + activeShipRequest.minPower + " GW</b>\n\n";
     }
 }

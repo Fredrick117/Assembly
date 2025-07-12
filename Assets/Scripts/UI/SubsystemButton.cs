@@ -3,39 +3,57 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class SubsystemButton : MonoBehaviour, IPointerClickHandler
 {
-    public TMP_Text descriptor;
-    public TMP_Text description;
-    public TMP_Text statDescription;
-    public Subsystem data;
+    public Subsystem subsystemData;
+
+    private TMP_Text descriptorText;
+
+    private TMP_Text descriptionText;
+
+    private TMP_Text statsText;
+
+    private Image icon;
 
     private SubsystemSelectionMenu menuRef;
-
-    public void OnPointerClick(PointerEventData eventData)
-    {
-        //menuRef.AddSubsystemToSlot(data);
-
-        ShipStats.Instance.AddSubsystem(menuRef.selectedSlot, data);
-        menuRef.gameObject.SetActive(false);
-    }
 
     void Start()
     {
         menuRef = transform.parent.transform.parent.GetComponent<SubsystemSelectionMenu>();
 
-        descriptor = transform.GetChild(1).transform.GetChild(0).GetComponent<TMP_Text>();
-        description = transform.GetChild(1).transform.GetChild(1).GetComponent<TMP_Text>();
+        descriptorText = transform.GetChild(1).transform.GetChild(0).GetComponent<TMP_Text>();
+        descriptionText = transform.GetChild(1).transform.GetChild(1).GetComponent<TMP_Text>();
+        statsText = transform.GetChild(1).transform.GetChild(2).GetComponent<TMP_Text>();
 
-        descriptor.text = data.displayName;
-        description.text = data.description;
+        descriptorText.text = subsystemData.displayName;
 
-        if (data is Reactor reactorData)
-            statDescription.text = $"Power output: {reactorData.powerOutput} GW\tPower type: {reactorData.powerType}";
-        if (data is Shielding shieldData)
-            statDescription.text = $"Shield strength: {shieldData.shieldStrength}/100\tRecharge speed: {shieldData.rechargeSpeed}% per second";
-        if (data is LifeSupport lifeSupportData)
-            statDescription.text = $"Crew capacity: {lifeSupportData.crewCapacity}";
+        if (subsystemData.description.Length > 0)
+            descriptionText.text = subsystemData.description;
+        else
+            descriptionText.text = "No description available.";
+
+        statsText.text = $"Mass: {subsystemData.mass}\tPower draw: {subsystemData.powerDraw}\t";
+
+        if (subsystemData is Reactor reactorData)
+            statsText.text += $"Power output: {reactorData.powerOutput} GW\tPower type: {reactorData.powerType}\t";
+        if (subsystemData is Shielding shieldData)
+            statsText.text += $"Shield strength: {shieldData.shieldStrength}/100\tRecharge speed: {shieldData.rechargeSpeed}%/second\t";
+        if (subsystemData is FTLDrive ftl)
+            statsText.text += $"Grade: {ftl.grade}";
+        if (subsystemData is Armor armor)
+            statsText.text += $"Armor rating: {armor.rating}\tMass increase: {armor.massIncrease}\t";
+        if (subsystemData is Thrusters thrusters)
+            statsText.text += $"Speed increase: {thrusters.maxSpeed}\t Capable of atmospheric entry: {thrusters.atmosphericEntryCapable}\t";
+
+        icon = transform.GetChild(0).GetComponent<Image>();
+        icon.sprite = subsystemData.icon;
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        ShipStats.Instance.AddSubsystem(menuRef.selectedSlot, subsystemData);
+        menuRef.gameObject.SetActive(false);
     }
 }

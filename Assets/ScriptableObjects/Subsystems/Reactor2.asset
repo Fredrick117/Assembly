@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbfee3b7b29906243966efafcd25c925, type: 3}
   m_Name: Reactor2
   m_EditorClassIdentifier: 
-  displayName: M-1991 Fusion Reactor
+  displayName: M-1991 fusion reactor
   description: A very powerful reactor capable of powering larger and smaller ships
     alike.
   powerDraw: 0
   mass: 10
-  icon: {fileID: 21300000, guid: 0da7ac8a6175fbe44b8e6155a0caf409, type: 3}
+  icon: {fileID: 21300000, guid: 97922e2f63ac64044990881bc5a24cab, type: 3}
   powerOutput: 2000
   powerType: Fission

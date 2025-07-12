@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f4b599a078d21847afe1631371fb59b, type: 3}
+  m_Name: CardboardArmor
+  m_EditorClassIdentifier: 
+  displayName: Cardboard and duct tape "plating"
+  description: Dirt cheap and not at all effective against any kind of weapon.
+  powerDraw: 0
+  mass: 0
+  icon: {fileID: 21300000, guid: fa90a00d60ad6b04f8d3a9bc27b2080a, type: 3}
+  armor: 5
+  massIncrease: 1
+  armorMaterial: 0
