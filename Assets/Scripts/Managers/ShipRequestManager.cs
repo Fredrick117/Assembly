@@ -21,23 +21,29 @@ public class ShipRequestManager : MonoBehaviour
 
     public TMP_Text headerText;
 
-    public List<ShipBaseStats> shipBaseStats = new List<ShipBaseStats>();
+    public Canvas mainCanvas;
 
-    public Dictionary<Species, DamageType> speciesWeaponPreferences = new Dictionary<Species, DamageType> 
+    private NoShipSelectedText noShipSelectedText;
+
+    private List<ShipBaseStats> shipBaseStatsList = new List<ShipBaseStats>();
+
+    private List<Subsystem> subsystemsList = new List<Subsystem>();
+
+    public static ShipRequestManager Instance { get; private set; }
+
+    private Dictionary<Species, DamageType> speciesWeaponPreferences = new Dictionary<Species, DamageType> 
     { 
         { Species.Human, DamageType.Kinetic },
         { Species.Vynotian, DamageType.Plasma },
         { Species.Arachnid, DamageType.Laser }
     };
 
-    public Dictionary<Species, int> speciesMilitaryShipProbability = new Dictionary<Species, int>
+    private Dictionary<Species, int> speciesMilitaryShipProbability = new Dictionary<Species, int>
     {
         { Species.Human, 67 },
         { Species.Vynotian, 30 },
         { Species.Arachnid, 90 },
     };
-
-    public static ShipRequestManager Instance { get; private set; }
 
     private void Awake()
     {
@@ -51,11 +57,13 @@ public class ShipRequestManager : MonoBehaviour
         }
     }
 
-
     private void Start()
     {
-        randomRequestNumber = Random.Range(1, 100000);
+        noShipSelectedText = mainCanvas.GetComponentInChildren<NoShipSelectedText>();
+        
+        LoadScriptableObjects();
 
+        randomRequestNumber = Random.Range(1, 100000);
         headerText.text = $"Request #{randomRequestNumber}";
 
         SetNewRequest();
@@ -70,6 +78,11 @@ public class ShipRequestManager : MonoBehaviour
     private void OnDisable()
     {
         EventManager.onSubmit -= OnSubmission;
+    }
+
+    public void SetNewRequest()
+    {
+        activeShipRequest = CreateRandomShipRequest();
     }
 
     private RequestData CreateRandomShipRequest()
@@ -90,6 +103,8 @@ public class ShipRequestManager : MonoBehaviour
         }
 
         request.shipClass = shipClass;
+
+        //ShipBaseStats shipStats = shipBaseStatsList.First(stats => stats.shipClass == shipClass);
 
         
         if (request.customerSpecies == Species.Arachnid)
@@ -117,9 +132,10 @@ public class ShipRequestManager : MonoBehaviour
         return request;
     }
 
-    public void SetNewRequest()
+    private void LoadScriptableObjects()
     {
-        activeShipRequest = CreateRandomShipRequest();
+        shipBaseStatsList = Resources.LoadAll<ShipBaseStats>("ScriptableObjects/Ships").ToList();
+        subsystemsList = Resources.LoadAll<Subsystem>("ScriptableObjects/Subsystems").ToList(); // is any data lost by doing this?
     }
 
     private void OnSubmission()
@@ -136,12 +152,12 @@ public class ShipRequestManager : MonoBehaviour
         {
             numSuccesses++;
             randomRequestNumber++;
-
-            ShipManager.Instance.ClearShip();
-            //CreateRandomShipRequest();
-            SetNewRequest();
-            SetRequestText();
         }
+
+        noShipSelectedText.ShowText();
+        SetNewRequest();
+        SetRequestText();
+        ShipManager.Instance.ClearShip();
     }
 
     private bool FulfillsRequirements()
@@ -155,11 +171,20 @@ public class ShipRequestManager : MonoBehaviour
 
         //bool metSpeedReq = activeShipRequest.minSpeed <= ship.currentSpeed;
         bool metClassReq = activeShipRequest.shipClass.Equals(ship.baseStats.shipClass);
-        bool metUnarmedReq = true;  // TODO: change
-       // bool metArmorReq = activeShipRequest.minArmor <= ship.Armor;
-        //bool metPowerReq = activeShipRequest.minPower <= ship.currentMaxPower;
 
-        return /*metSpeedReq && */metClassReq && metUnarmedReq /*&& metArmorReq && metPowerReq*/;
+        bool metUnarmedReq = activeShipRequest.isUnarmed == !ship.HasWeapons();
+        
+        bool hasFtlSubsystem = ship.subsystems.Values.Any(subsystem => subsystem is FTLDrive);
+
+        List<Subsystem> thrusterSubsystems = ship.subsystems.Values.Where(subsystem => subsystem is Thrusters).ToList();
+        bool metAtmosphereReq = activeShipRequest.isAtmosphereCapable == thrusterSubsystems.Any(thruster => ((Thrusters)thruster).atmosphericEntryCapable);
+
+        bool metAutonomousReq = activeShipRequest.isAutonomous == ship.subsystems.Values.Any(subsystem => subsystem is ArtificialIntelligence);
+
+        List<Subsystem> armorSubsystems = ship.subsystems.Values.Where(subsystem => subsystem is Armor).ToList();
+        bool metArmorReq = armorSubsystems.Any(subsystem => ((Armor)subsystem).armorMaterial == activeShipRequest.armorMaterial);
+
+        return metClassReq && metUnarmedReq && hasFtlSubsystem && metAtmosphereReq && metAutonomousReq && metArmorReq;
     }
 
     private void SetRequestText()
@@ -173,7 +198,9 @@ public class ShipRequestManager : MonoBehaviour
         requestText.text += $"Capable of FTL travel: <b>{(activeShipRequest.isFtlCapable ? "yes" : "no")}</b>\n";
         requestText.text += $"Capable of atmospheric entry: <b>{(activeShipRequest.isAtmosphereCapable ? "yes" : "no")}</b>\n";
         requestText.text += $"Autonomous: <b>{(activeShipRequest.isAutonomous? "yes" : "no")}</b>\n";
-        requestText.text += $"Requested armor material: <b>{activeShipRequest.armorMaterial}</b>";
+        requestText.text += $"Requested armor material: <b>{activeShipRequest.armorMaterial}</b>\n";
+        RequestInequality speed = activeShipRequest.requestedSpeed.lessOrGreaterThan;
+        requestText.text += $"Speed is {(speed == RequestInequality.LessThan ? "greater than " : "less than ")}{activeShipRequest.requestedSpeed.speed}\n";
         //requestText.text += "Has an <b>armor</b> rating of at least <b>" + activeShipRequest.minArmor + "</b>\n\n";
         //requestText.text += "Has a total power output of at least <b>" + activeShipRequest.minPower + " GW</b>\n\n";
     }

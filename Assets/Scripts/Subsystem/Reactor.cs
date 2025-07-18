@@ -2,9 +2,32 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
+public enum ReactorType
+{
+    Fusion,
+    Fission,
+    Antimatter,
+    Solar,
+    Geothermal,
+    Nuclear
+}
+
 [CreateAssetMenu(fileName = "NewReactor", menuName = "Subsystem/Reactor")]
 public class Reactor : Subsystem
 {
-    public int powerOutput;
-    public string powerType;
+    public float powerOutput;
+    public ReactorType reactorType;
+
+    public override void ApplyToShip(ShipStats ship)
+    {
+        base.ApplyToShip(ship);
+        ship.MaxPower += powerOutput;
+    }
+
+    public override void RemoveFromShip(ShipStats ship)
+    {
+        base.RemoveFromShip(ship);
+        ship.MaxPower -= powerOutput;
+    }
 }

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShipClassSelector : MonoBehaviour
+public class ShipClassSelectionMenu : MonoBehaviour
 {
     [SerializeField]
     private SubsystemListPanel subsystemListPanel;

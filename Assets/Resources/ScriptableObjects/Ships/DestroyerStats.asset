@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2281ea210a57d0d4a919fdd8c077b7a3, type: 3}
-  m_Name: CargoStats
+  m_Name: DestroyerStats
   m_EditorClassIdentifier: 
-  sprite: {fileID: 0}
-  shipClass: Cargo
-  baseArmor: 0
-  baseHull: 50
-  baseSpeed: 50000
-  basePower: 1000
-  baseMass: 125000
-  subsystemSlots: 4
+  sprite: {fileID: 21300000, guid: 1addd97aab782204082389182836728b, type: 3}
+  shipClass: 4
+  baseArmor: 125
+  baseHull: 125
+  baseSpeed: 0
+  basePower: 1500
+  baseMass: 40000
+  subsystemSlots: 3

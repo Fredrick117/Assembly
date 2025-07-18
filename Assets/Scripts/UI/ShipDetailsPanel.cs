@@ -35,7 +35,9 @@ public class ShipDetailsPanel : MonoBehaviour
 
     public void UpdateText()
     {
-        shipClassText.text = ShipStats.Instance.baseStats.shipClass;
+        shipClassText.text = ShipStats.Instance.baseStats != null ? 
+            ShipStats.Instance.baseStats.shipClass.ToString() : "NONE SELECTED";
+
         shipArmorText.text = ShipStats.Instance.Armor.ToString();
         shipHullText.text = ShipStats.Instance.Hull.ToString();
         shipPowerConsumptionText.text = $"{ShipStats.Instance.PowerDraw}";

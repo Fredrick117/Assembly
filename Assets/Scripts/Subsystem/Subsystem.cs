@@ -11,4 +11,16 @@ public class Subsystem : ScriptableObject
     public int mass;
     //public int price;
     public Sprite icon;
+
+    public virtual void ApplyToShip(ShipStats ship)
+    {
+        ship.Mass += mass;
+        ship.PowerDraw += powerDraw;
+    }
+
+    public virtual void RemoveFromShip(ShipStats ship)
+    {
+        ship.Mass -= mass;
+        ship.PowerDraw -= powerDraw;
+    }
 }

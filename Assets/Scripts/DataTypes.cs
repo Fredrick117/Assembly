@@ -7,8 +7,8 @@ public enum ShipClass
 {
     Cargo,
     Yacht,
-    Shuttle,
-    Prison,
+    //Shuttle,
+    //Prison,
     Research,
     Corvette,
     Destroyer,
@@ -25,8 +25,10 @@ public struct RequestData
     public Species customerSpecies;
     public ShipClass shipClass;
     public ArmorMaterial armorMaterial;
+    public WeaponType preferredWeaponType;
     //public int budget;
-    public int minSpeed;
+    //public int minSpeed;
+    public RequestedSpeed requestedSpeed;
     public int minHullPoints;
     //public int maxPowerOutput;
     public bool isUnarmed;
@@ -57,4 +59,14 @@ public enum DamageType
     Explosive,
 }
 
-public enum Request
+public enum RequestInequality
+{
+    LessThan,
+    GreaterThan,
+}
+
+public struct RequestedSpeed
+{
+    public RequestInequality lessOrGreaterThan;
+    public int speed;
+}

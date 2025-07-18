@@ -12,6 +12,12 @@ public class ShipStats : MonoBehaviour
 
     public ShipBaseStats baseStats;
 
+    public UnityEvent onStatsChanged;
+
+    public Dictionary<int, Subsystem> subsystems = new();
+
+    public SubsystemListPanel subsystemListPanel;
+
     // Fields
     private int currentArmor;
     private int currentHull;
@@ -20,8 +26,7 @@ public class ShipStats : MonoBehaviour
     private float currentMaxPower;
     private int currentMass;
     private int currentShielding;
-    private string currentClass;
-
+    private ShipClass currentClass;
 
     // Properties
     public int Armor
@@ -111,7 +116,7 @@ public class ShipStats : MonoBehaviour
             }
         }
     }
-    public string Class
+    public ShipClass Class
     {
         get { return currentClass; }
         set
@@ -124,83 +129,28 @@ public class ShipStats : MonoBehaviour
         }
     }
 
-
-    public UnityEvent onStatsChanged;
-
-    public Dictionary<int, Subsystem> subsystems = new Dictionary<int, Subsystem>();
-
-    public SubsystemListPanel subsystemListPanel;
-
     private void Awake()
     {
         Instance = this;
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.V))
-        {
-            Debug.LogWarning(subsystems.Count);
-        }
-    }
-
     public void RemoveSubsystem(int index)
     {
-        if (subsystems.ContainsKey(index))
+        if (subsystems.TryGetValue(index, out var subsystem))
         {
-            Subsystem subsystemData = subsystems[index];
-
-            if (subsystemData is Reactor reactorData)
-            {
-                MaxPower -= reactorData.powerOutput;
-                Mass -= subsystemData.mass;
-            }
-
-            if (subsystemData is Shielding shieldData)
-            {
-                ShieldStrength -= shieldData.shieldStrength;
-                Mass -= shieldData.mass;
-                PowerDraw -= shieldData.powerDraw;
-            }
-
+            subsystem.RemoveFromShip(this);
             subsystems.Remove(index);
         }
     }
 
     public void AddSubsystem(int index, Subsystem subsystemData)
     {
-        RemoveSubsystem(index);
+        subsystemData.ApplyToShip(this);
 
         subsystems[index] = subsystemData;
 
-        Mass += subsystemData.mass;
-
-
-        if (subsystemData is Reactor reactorData)
-        {
-            MaxPower += reactorData.powerOutput;
-            //Mass += subsystemData.mass;
-        }
-
-        if (subsystemData is Shielding shieldData)
-        {
-            ShieldStrength += shieldData.shieldStrength;
-            //Mass += shieldData.mass;
-            PowerDraw += shieldData.powerDraw;
-        }
-
-        if (subsystemData is Armor armorData)
-        {
-
-        }
-
         //subsystemListPanel.slots[index].transform.GetChild(0).gameObject.GetComponent<Image>().sprite = subsystemData.icon;
         subsystemListPanel.slots[index].transform.GetChild(0).gameObject.GetComponent<TMP_Text>().text = subsystemData.displayName;
-
-        //foreach (KeyValuePair<int, Subsystem> pair in subsystems)
-        //{
-        //    print($"index: {pair.Key}, subsystem: {pair.Value.displayName}");
-        //}
     }
 
     public void SetBaseStats()
@@ -222,6 +172,26 @@ public class ShipStats : MonoBehaviour
         PowerDraw = 0;
         MaxPower = 0;
         Mass = 0;
-        Class = "";
+        Class = 0;
+    }
+
+    public bool HasWeapons()
+    {
+        foreach(var subsystem in subsystems.Values)
+        {
+            if (subsystem is Weapon weapon)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public void ClearSubsystems()
+    {
+        subsystems.Clear();
+        subsystemListPanel.UpdateSubsystemSlots();
+        onStatsChanged.Invoke();
     }
 }

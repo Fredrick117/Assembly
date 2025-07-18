@@ -37,7 +37,7 @@ public class SubsystemButton : MonoBehaviour, IPointerClickHandler
         statsText.text = $"Mass: {subsystemData.mass}\tPower draw: {subsystemData.powerDraw}\t";
 
         if (subsystemData is Reactor reactorData)
-            statsText.text += $"Power output: {reactorData.powerOutput} GW\tPower type: {reactorData.powerType}\t";
+            statsText.text += $"Power output: {reactorData.powerOutput} GW\tPower type: {reactorData.reactorType}\t";
         if (subsystemData is Shielding shieldData)
             statsText.text += $"Shield strength: {shieldData.shieldStrength}/100\tRecharge speed: {shieldData.rechargeSpeed}%/second\t";
         if (subsystemData is FTLDrive ftl)

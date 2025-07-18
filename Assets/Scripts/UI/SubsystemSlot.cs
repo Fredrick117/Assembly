@@ -16,11 +16,6 @@ public class SubsystemSlot : MonoBehaviour, IPointerClickHandler
 
     public TMP_Text slotText;
 
-    private void Start()
-    {
-        
-    }
-
     public void SetSubsystem(Subsystem subsystem)
     {
         subsystemData = subsystem;
@@ -34,6 +29,10 @@ public class SubsystemSlot : MonoBehaviour, IPointerClickHandler
         {
             subsystemData = null;
         }
+
+        icon.sprite = null;
+        slotText.text = "";
+        print("Removed subsystem");
     }
 
     public void OnPointerClick(PointerEventData eventData)
@@ -41,9 +40,7 @@ public class SubsystemSlot : MonoBehaviour, IPointerClickHandler
         if (eventData.button == PointerEventData.InputButton.Right)
         {
             RemoveSubsystem();
-            icon.sprite = null;
-            slotText.text = "";
-            print("Removed subsystem");
+            
             return;
         }
 

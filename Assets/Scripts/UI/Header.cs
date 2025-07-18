@@ -10,6 +10,11 @@ public class Header : MonoBehaviour
     [SerializeField]
     private TMP_Text attemptsText;
 
+    private void Start()
+    {
+        SetSubmissionStats();
+    }
+
     private void OnEnable()
     {
         EventManager.onSubmit += SetSubmissionStats;
@@ -23,6 +28,6 @@ public class Header : MonoBehaviour
     private void SetSubmissionStats()
     {
         submissionsText.text = $"Successful submissions: {ShipRequestManager.Instance.numSuccesses}";
-        attemptsText.text = $"Attempts remaining: {ShipRequestManager.Instance.attemptsRemaining}";
+        attemptsText.text = $"Failures remaining: <color=red>{ShipRequestManager.Instance.attemptsRemaining}</color>";
     }
 }

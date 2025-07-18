@@ -6,10 +6,10 @@ using UnityEngine;
 public class ShipBaseStats : ScriptableObject
 {
     public Sprite sprite;
-    public string shipClass;
+    public ShipClass shipClass;
     public int baseArmor;
     public int baseHull;
-    public float baseSpeed;
+    public int baseSpeed;
     public int basePower;
     public int baseMass;
     //public int basePrice;

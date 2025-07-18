@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: BattleshipStats
   m_EditorClassIdentifier: 
   sprite: {fileID: 21300000, guid: 7d36f3da972ca6649b25139718ea932b, type: 3}
-  shipClass: Battleship
+  shipClass: 8
   baseArmor: 400
   baseHull: 400
-  baseSpeed: 25000
+  baseSpeed: 0
   basePower: 3500
   baseMass: 200000
   subsystemSlots: 6

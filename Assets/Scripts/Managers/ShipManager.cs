@@ -42,6 +42,7 @@ public class ShipManager : MonoBehaviour
         currentShip.GetComponent<SpriteRenderer>().sprite = null;
 
         ShipStats.Instance.ClearShipStats();
+        ShipStats.Instance.ClearSubsystems();
     }
 
     public void SetShipBaseStats(ShipBaseStats stats)

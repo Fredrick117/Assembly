@@ -15,9 +15,10 @@ public class SubsystemListPanel : MonoBehaviour
 
     public void UpdateSubsystemSlots()
     {
-        if (ShipManager.Instance.currentShip == null)
+        if (ShipManager.Instance.currentShip.GetComponent<ShipStats>().baseStats == null)
         {
-            Debug.LogError("Current ship is null, can't populate subsystem slots");
+            print("UpdateSubsystemSlots: base stats is null!");
+            ClearSlots();
             return;
         }
 
