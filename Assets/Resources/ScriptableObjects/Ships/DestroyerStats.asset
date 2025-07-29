@@ -13,10 +13,8 @@ MonoBehaviour:
   m_Name: DestroyerStats
   m_EditorClassIdentifier: 
   sprite: {fileID: 21300000, guid: 1addd97aab782204082389182836728b, type: 3}
-  shipClass: 4
-  baseArmor: 125
-  baseHull: 125
-  baseSpeed: 0
-  basePower: 1500
-  baseMass: 40000
-  subsystemSlots: 3
+  shipClass: 2
+  baseMass: 4000
+  weaponSlots: 8
+  utilitySlots: 6
+  reactorSlots: 1

@@ -3,51 +3,36 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public enum ShipClass
+public enum ShipClassification
 {
-    Cargo,
-    Yacht,
-    //Shuttle,
-    //Prison,
-    Research,
+    //None,
+    //Cargo,
+    //Yacht,
+    //Research,
+    //Corvette,
+    //Destroyer,
+    //LightCruiser,
+    //HeavyCruiser,
+    //Carrier,
+    //Battleship,
+    //Dreadnought
+    None,
     Corvette,
     Destroyer,
-    LightCruiser,
-    HeavyCruiser,
-    Carrier,
-    Battleship,
-    Dreadnought
+    Cruiser
 }
 
 [System.Serializable]
 public struct RequestData
 {
-    public Species customerSpecies;
-    public ShipClass shipClass;
-    public ArmorMaterial armorMaterial;
-    public WeaponType preferredWeaponType;
-    //public int budget;
-    //public int minSpeed;
-    public RequestedSpeed requestedSpeed;
-    public int minHullPoints;
-    //public int maxPowerOutput;
-    public bool isUnarmed;
+    public ShipClassification shipClass;
+    public int minSpeed;
+    public bool isArmed;
     public bool isAtmosphereCapable;
     public bool isAutonomous;
     public bool isFtlCapable;
-}
 
-public enum Species
-{ 
-    Human,
-    Arachnid,
-    Vynotian,
-}
-
-public enum ContractContext
-{
-    Military,
-    Civilian,
+    public List<DamageType> preferredDamageTypes;
 }
 
 public enum DamageType
@@ -57,16 +42,4 @@ public enum DamageType
     Electric,
     Kinetic,
     Explosive,
-}
-
-public enum RequestInequality
-{
-    LessThan,
-    GreaterThan,
-}
-
-public struct RequestedSpeed
-{
-    public RequestInequality lessOrGreaterThan;
-    public int speed;
 }

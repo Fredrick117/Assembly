@@ -13,10 +13,8 @@ MonoBehaviour:
   m_Name: CarrierStats
   m_EditorClassIdentifier: 
   sprite: {fileID: 21300000, guid: 921141a95a2e1354e9c4fd01a7ebfba4, type: 3}
-  shipClass: 7
-  baseArmor: 175
-  baseHull: 400
-  baseSpeed: 0
-  basePower: 3000
+  shipClass: 8
   baseMass: 150000
-  subsystemSlots: 5
+  weaponSlots: 8
+  utilitySlots: 10
+  reactorSlots: 4

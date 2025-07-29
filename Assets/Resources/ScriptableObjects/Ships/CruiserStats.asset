@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2281ea210a57d0d4a919fdd8c077b7a3, type: 3}
-  m_Name: LightCruiserStats
+  m_Name: CruiserStats
   m_EditorClassIdentifier: 
   sprite: {fileID: 21300000, guid: 800ee3b5d229ff54f901ded6f029fc0c, type: 3}
-  shipClass: 6
-  baseMass: 75000
-  weaponSlots: 8
-  utilitySlots: 5
+  shipClass: 3
+  baseMass: 10000
+  weaponSlots: 12
+  utilitySlots: 6
   reactorSlots: 2

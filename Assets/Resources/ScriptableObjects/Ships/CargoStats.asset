@@ -13,10 +13,8 @@ MonoBehaviour:
   m_Name: CargoStats
   m_EditorClassIdentifier: 
   sprite: {fileID: 21300000, guid: 2d54aeabc2f58bc41b2d80fc242efeae, type: 3}
-  shipClass: 0
-  baseArmor: 0
-  baseHull: 50
-  baseSpeed: 0
-  basePower: 1000
+  shipClass: 1
   baseMass: 125000
-  subsystemSlots: 4
+  weaponSlots: 0
+  utilitySlots: 5
+  reactorSlots: 2

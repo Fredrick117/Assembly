@@ -34,18 +34,22 @@ public class SubsystemButton : MonoBehaviour, IPointerClickHandler
         else
             descriptionText.text = "No description available.";
 
-        statsText.text = $"Mass: {subsystemData.mass}\tPower draw: {subsystemData.powerDraw}\t";
+        statsText.text = $"Mass: +{subsystemData.mass}\tPower draw: {subsystemData.powerDraw}\t";
 
         if (subsystemData is Reactor reactorData)
-            statsText.text += $"Power output: {reactorData.powerOutput} GW\tPower type: {reactorData.reactorType}\t";
+            statsText.text += $"Power output: +{reactorData.powerOutput} MW\tPower type: {reactorData.reactorType}";
         if (subsystemData is Shielding shieldData)
-            statsText.text += $"Shield strength: {shieldData.shieldStrength}/100\tRecharge speed: {shieldData.rechargeSpeed}%/second\t";
+            statsText.text += $"Shield strength: +{shieldData.shieldStrength}\tRecharge speed: +{shieldData.rechargeSpeed}%/second";
         if (subsystemData is FTLDrive ftl)
             statsText.text += $"Grade: {ftl.grade}";
-        if (subsystemData is Armor armor)
-            statsText.text += $"Armor rating: {armor.rating}\tMass increase: {armor.massIncrease}\t";
         if (subsystemData is Thrusters thrusters)
-            statsText.text += $"Speed increase: {thrusters.maxSpeed}\t Capable of atmospheric entry: {thrusters.atmosphericEntryCapable}\t";
+            statsText.text += $"Speed: +{thrusters.speed} m/s\t Capable of atmospheric entry: {thrusters.atmosphericEntryCapable}";
+        if (subsystemData is HangarBay hangarBay)
+            statsText.text += $"Strike craft capacity: +{hangarBay.maxStarfighters}";
+        if (subsystemData is Armor armor)
+            statsText.text += $"Armor type: {armor.armorMaterial}";
+        if (subsystemData is Weapon weapon)
+            statsText.text += $"Damage per second: +???";
 
         icon = transform.GetChild(0).GetComponent<Image>();
         icon.sprite = subsystemData.icon;

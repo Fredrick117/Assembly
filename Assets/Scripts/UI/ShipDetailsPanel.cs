@@ -17,9 +17,7 @@ public class ShipDetailsPanel : MonoBehaviour
     [SerializeField]
     private TMP_Text shipHullText;
     [SerializeField]
-    private TMP_Text shipPowerConsumptionText;
-    [SerializeField]
-    private TMP_Text shipPowerOutputText;
+    private TMP_Text shipPowerText;
     [SerializeField]
     private TMP_Text shipMassText;
 
@@ -36,13 +34,18 @@ public class ShipDetailsPanel : MonoBehaviour
     public void UpdateText()
     {
         shipClassText.text = ShipStats.Instance.baseStats != null ? 
-            ShipStats.Instance.baseStats.shipClass.ToString() : "NONE SELECTED";
+            ShipStats.Instance.baseStats.shipClass.ToString() : "None";
 
-        shipArmorText.text = ShipStats.Instance.Armor.ToString();
-        shipHullText.text = ShipStats.Instance.Hull.ToString();
-        shipPowerConsumptionText.text = $"{ShipStats.Instance.PowerDraw}";
-        shipPowerOutputText.text = $"{ShipStats.Instance.MaxPower}";
-        shipMaxSpeedText.text = ShipStats.Instance.Speed.ToString();
+        shipArmorText.text = ShipStats.Instance.ArmorMaterial.ToString();
+
+        bool hasAdequatePower = ShipStats.Instance.PowerDraw > ShipStats.Instance.MaxPower;
+        string powerString = $"{ShipStats.Instance.PowerDraw}/{ShipStats.Instance.MaxPower} MW";
+        if (hasAdequatePower)
+            shipPowerText.text = $"<color=red>{powerString}</color>";
+        else
+            shipPowerText.text = powerString;
+
+            shipMaxSpeedText.text = ShipStats.Instance.Speed.ToString();
         shipMassText.text = ShipStats.Instance.Mass.ToString();
         shipShieldText.text = ShipStats.Instance.ShieldStrength.ToString();
     }

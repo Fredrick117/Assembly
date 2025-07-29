@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32874fc7283c54f41b03d472c6b0b07d, type: 3}
   m_Name: Railgun
   m_EditorClassIdentifier: 
-  displayName: Mark 117 Railgun
+  displayName: 1x Railgun Mount
   description: An extremely powerful weapon that can pierce the hull of even the
     strongest capital ship.
   powerDraw: 1500

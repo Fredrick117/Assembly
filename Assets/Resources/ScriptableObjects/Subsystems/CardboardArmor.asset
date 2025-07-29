@@ -17,6 +17,6 @@ MonoBehaviour:
   powerDraw: 0
   mass: 0
   icon: {fileID: 21300000, guid: fa90a00d60ad6b04f8d3a9bc27b2080a, type: 3}
-  armor: 5
+  rating: 0
   massIncrease: 1
-  armorMaterial: 0
+  armorMaterial: 1

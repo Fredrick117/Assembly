@@ -13,10 +13,8 @@ MonoBehaviour:
   m_Name: YachtStats
   m_EditorClassIdentifier: 
   sprite: {fileID: 21300000, guid: 2d54aeabc2f58bc41b2d80fc242efeae, type: 3}
-  shipClass: 1
-  baseArmor: 0
-  baseHull: 5
-  baseSpeed: 0
-  basePower: 1000
+  shipClass: 2
   baseMass: 10000
-  subsystemSlots: 2
+  weaponSlots: 0
+  utilitySlots: 2
+  reactorSlots: 1

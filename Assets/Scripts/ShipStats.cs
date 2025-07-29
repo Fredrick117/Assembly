@@ -26,9 +26,23 @@ public class ShipStats : MonoBehaviour
     private float currentMaxPower;
     private int currentMass;
     private int currentShielding;
-    private ShipClass currentClass;
+    private ArmorMaterial currentArmorMaterial = ArmorMaterial.None;
+    private ShipClassification currentClass = ShipClassification.None;
+    private int maxStarfighters;
 
     // Properties
+    public int Starfighters
+    { 
+        get { return maxStarfighters; }
+        set 
+        { 
+            if (maxStarfighters != value)
+            {
+                maxStarfighters = value;
+                onStatsChanged.Invoke();
+            }
+        }
+    }
     public int Armor
     { 
         get { return currentArmor; }
@@ -116,7 +130,19 @@ public class ShipStats : MonoBehaviour
             }
         }
     }
-    public ShipClass Class
+    public ArmorMaterial ArmorMaterial
+    {
+        get { return currentArmorMaterial; }
+        set
+        {
+            if (value != currentArmorMaterial)
+            {
+                currentArmorMaterial = value;
+                onStatsChanged.Invoke();
+            }
+        }
+    }
+    public ShipClassification Class
     {
         get { return currentClass; }
         set
@@ -140,25 +166,31 @@ public class ShipStats : MonoBehaviour
         {
             subsystem.RemoveFromShip(this);
             subsystems.Remove(index);
+
+
+            subsystemListPanel.slots[index].transform.GetChild(0).gameObject.GetComponent<Image>().sprite = null;
+            subsystemListPanel.slots[index].transform.GetChild(1).gameObject.GetComponent<TMP_Text>().text = "";
         }
     }
 
     public void AddSubsystem(int index, Subsystem subsystemData)
     {
+        if (subsystems.ContainsKey(index))
+        {
+            subsystems[index].RemoveFromShip(this);
+            subsystems.Remove(index);
+        }
+
         subsystemData.ApplyToShip(this);
 
         subsystems[index] = subsystemData;
 
-        //subsystemListPanel.slots[index].transform.GetChild(0).gameObject.GetComponent<Image>().sprite = subsystemData.icon;
-        subsystemListPanel.slots[index].transform.GetChild(0).gameObject.GetComponent<TMP_Text>().text = subsystemData.displayName;
+        subsystemListPanel.slots[index].transform.GetChild(0).gameObject.GetComponent<Image>().sprite = subsystemData.icon;
+        subsystemListPanel.slots[index].transform.GetChild(1).gameObject.GetComponent<TMP_Text>().text = subsystemData.displayName;
     }
 
     public void SetBaseStats()
     {
-        Armor = baseStats.baseArmor;
-        Hull = baseStats.baseHull;
-        Speed = baseStats.baseSpeed;
-        PowerDraw = baseStats.basePower;
         MaxPower = 0;
         Mass = baseStats.baseMass;
         Class = baseStats.shipClass;

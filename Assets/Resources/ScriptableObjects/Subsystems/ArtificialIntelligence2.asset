@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   displayName: Advanced shipborne AI
   description: A highly intelligent Artificial Intelligence model capable of complex
-    thought and reasons. Potentially dangerous, but that's not our problem.
+    thought and reasoning. Potentially dangerous, but that's not our problem.
   powerDraw: 2000
   mass: 0
   icon: {fileID: 21300000, guid: 3f03d76af03bbdf4f96bef4751b5675c, type: 3}

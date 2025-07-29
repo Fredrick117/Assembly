@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32874fc7283c54f41b03d472c6b0b07d, type: 3}
   m_Name: PointDefense1
   m_EditorClassIdentifier: 
-  displayName: Shield-class Point Defense System
-  description: 'A basic point-defense system capable of taking down '
+  displayName: 4x Point Defense Cannon Mounts
+  description: Four mounts, each capable of holding a Point Defense system.
   powerDraw: 100
   mass: 10
   icon: {fileID: 21300000, guid: 2d54aeabc2f58bc41b2d80fc242efeae, type: 3}

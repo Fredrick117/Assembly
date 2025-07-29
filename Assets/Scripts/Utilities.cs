@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Utilities
@@ -23,5 +24,10 @@ public class Utilities
             return false;
         else
             return true;
+    }
+
+    public static T GetRandomListElement<T>(List<T> list)
+    {
+        return list[UnityEngine.Random.Range(0, list.Count)];
     }
 }

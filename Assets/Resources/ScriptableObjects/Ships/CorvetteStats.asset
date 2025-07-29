@@ -13,10 +13,8 @@ MonoBehaviour:
   m_Name: CorvetteStats
   m_EditorClassIdentifier: 
   sprite: {fileID: 21300000, guid: 208d0a4606774bf469404fd4f4a655f7, type: 3}
-  shipClass: 3
-  baseArmor: 100
-  baseHull: 100
-  baseSpeed: 0
-  basePower: 1000
-  baseMass: 25000
-  subsystemSlots: 2
+  shipClass: 1
+  baseMass: 2000
+  weaponSlots: 4
+  utilitySlots: 3
+  reactorSlots: 1

@@ -13,10 +13,8 @@ MonoBehaviour:
   m_Name: HeavyCruiserStats
   m_EditorClassIdentifier: 
   sprite: {fileID: 21300000, guid: a6fa12cd8c3918d41b6137d5f0ec3748, type: 3}
-  shipClass: 6
-  baseArmor: 250
-  baseHull: 250
-  baseSpeed: 0
-  basePower: 2200
+  shipClass: 7
   baseMass: 75000
-  subsystemSlots: 5
+  weaponSlots: 10
+  utilitySlots: 5
+  reactorSlots: 2

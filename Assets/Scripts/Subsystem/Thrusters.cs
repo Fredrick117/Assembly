@@ -15,19 +15,19 @@ public enum ThrusterType
 [CreateAssetMenu(fileName = "NewThrusters", menuName = "Subsystem/Thrusters")]
 public class Thrusters : Subsystem
 {
-    public int maxSpeed;
+    public int speed;
     public bool atmosphericEntryCapable;
     public ThrusterType thrusterType;
 
     public override void ApplyToShip(ShipStats ship)
     {
         base.ApplyToShip(ship);
-        ship.Speed += maxSpeed;
+        ship.Speed += speed;
     }
 
     public override void RemoveFromShip(ShipStats ship)
     {
         base.RemoveFromShip(ship);
-        ship.Speed -= maxSpeed;
+        ship.Speed -= speed;
     }
 }

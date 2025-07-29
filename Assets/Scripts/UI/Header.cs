@@ -28,6 +28,6 @@ public class Header : MonoBehaviour
     private void SetSubmissionStats()
     {
         submissionsText.text = $"Successful submissions: {ShipRequestManager.Instance.numSuccesses}";
-        attemptsText.text = $"Failures remaining: <color=red>{ShipRequestManager.Instance.attemptsRemaining}</color>";
+        attemptsText.text = $"Failures remaining: {ShipRequestManager.Instance.attemptsRemaining}";
     }
 }

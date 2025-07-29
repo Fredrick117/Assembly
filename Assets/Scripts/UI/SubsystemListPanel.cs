@@ -24,7 +24,7 @@ public class SubsystemListPanel : MonoBehaviour
 
         ClearSlots();
 
-        int numSlots = ShipManager.Instance.currentShip.GetComponent<ShipStats>().baseStats.subsystemSlots;
+        int numSlots = ShipManager.Instance.currentShip.GetComponent<ShipStats>().baseStats.utilitySlots;
 
         for (int i = 0; i < numSlots; i++)
         {

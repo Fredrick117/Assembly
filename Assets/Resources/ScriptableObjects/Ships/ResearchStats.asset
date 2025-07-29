@@ -13,10 +13,8 @@ MonoBehaviour:
   m_Name: ResearchStats
   m_EditorClassIdentifier: 
   sprite: {fileID: 21300000, guid: 2d54aeabc2f58bc41b2d80fc242efeae, type: 3}
-  shipClass: 2
-  baseArmor: 0
-  baseHull: 10
-  baseSpeed: 0
-  basePower: 1000
+  shipClass: 3
   baseMass: 15000
-  subsystemSlots: 5
+  weaponSlots: 0
+  utilitySlots: 3
+  reactorSlots: 1

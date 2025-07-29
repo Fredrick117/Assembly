@@ -13,10 +13,8 @@ MonoBehaviour:
   m_Name: DreadnoughtStats
   m_EditorClassIdentifier: 
   sprite: {fileID: 21300000, guid: f280b208a6a16234fa2561f9bce88da7, type: 3}
-  shipClass: 9
-  baseArmor: 500
-  baseHull: 500
-  baseSpeed: 0
-  basePower: 5000
+  shipClass: 10
   baseMass: 225000
-  subsystemSlots: 6
+  weaponSlots: 12
+  utilitySlots: 8
+  reactorSlots: 4

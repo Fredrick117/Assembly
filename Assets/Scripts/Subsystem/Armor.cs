@@ -4,6 +4,7 @@ using UnityEngine;
 
 public enum ArmorMaterial
 {
+    None,
     Cardboard,
     Steel,
     Diamond,
@@ -13,20 +14,19 @@ public enum ArmorMaterial
 public class Armor : Subsystem
 {
     public int rating;
-    public float massIncrease;
     public ArmorMaterial armorMaterial;
 
     public override void ApplyToShip(ShipStats ship)
     {
         base.ApplyToShip(ship);
-        ship.Mass = Mathf.RoundToInt(ship.Mass * massIncrease);
+        ship.Armor += rating;
+        ship.ArmorMaterial = armorMaterial;
     }
 
     public override void RemoveFromShip(ShipStats ship)
     {
         base.RemoveFromShip(ship);
-
-        if (massIncrease != 0)
-            ship.Mass = Mathf.RoundToInt(ship.Mass / massIncrease); // If changes to mass are made before removal, is the final value correct?
+        ship.Armor -= rating;
+        ship.ArmorMaterial = ArmorMaterial.None;
     }
 }

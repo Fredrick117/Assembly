@@ -12,4 +12,10 @@ public class SubsystemSelectionMenu : MonoBehaviour
     {
         selectedSlot = index;
     }
+
+    public void Close()
+    {
+        gameObject.SetActive(false);
+        selectedSlot = -1;
+    }
 }
