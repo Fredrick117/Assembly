@@ -14,13 +14,23 @@ public class Ship
     public int armorRating;
     public int speed;
 
+    public bool isAutonomous;
+    public bool isFTL;
+    public bool isAtmospheric;
+
     public List<Subsystem> subsystems = new();
 }
 
+// Ship generation:
+// 1) Select a random classification (corvette, destroyer, carrier)
+// 2) Select a random set of thrusters (also decides atmospheric entry capabilities) (future: choose thrusters based on mass)
+// 3) Shielding subsystem (if ship is supposed to be energy shielded)
+// 4) FTL drive (if enough remaining slots)
+// 5) AI (if enough slots)
+// 6) Pick the reactor with the minimum power necessary to make the above work
+
 public class ShipGenerator : MonoBehaviour
 {
-    Ship ship = new();
-
     private List<ShipBaseStats> shipStatsList = new();
 
     private List<ArtificialIntelligence> aiSubsystems = new();
@@ -43,19 +53,25 @@ public class ShipGenerator : MonoBehaviour
         shieldingSubsystems = Resources.LoadAll<Shielding>("ScriptableObjects/Subsystems").ToList();
         ftlSubsystems = Resources.LoadAll<FTLDrive>("ScriptableObjects/Subsystems").ToList();
         thrusterSubsystems = Resources.LoadAll<Thrusters>("ScriptableObjects/Subsystems").ToList();
+
+        reactorSubsystems.OrderBy(reactor => reactor.powerOutput);
     }
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            Ship ship = GenerateShipDesign();
+            Ship ship = GenerateShip();
             print("Ship design generated!");
             print($"Classification: {ship.classification}, utility slots: {ship.utilitySlots}, weapon slots: {ship.weaponSlots}, reactor slots: {ship.reactorSlots}, mass: {ship.mass}");
+            foreach (Subsystem s in ship.subsystems)
+            {
+                print($"Subsystem: {s.displayName}");
+            }
         }
     }
 
-    private void AddCoreSystems(Ship ship)
+    private void SetBaseStats(Ship ship)
     {
         ship.classification = Utilities.GetRandomEnumValue<ShipClassification>();
 
@@ -68,21 +84,91 @@ public class ShipGenerator : MonoBehaviour
 
     private void AddThrusters(Ship ship)
     {
-        if (ship.speed > 0)
+        if (ship.subsystems.Count < ship.utilitySlots - 1)
         {
-            foreach (Thrusters thruster in thrusterSubsystems)
-            {
-
-            }
+            Thrusters selectedThruster = thrusterSubsystems[Random.Range(0, thrusterSubsystems.Count)];
+            ship.subsystems.Add(selectedThruster);
+            ship.isAtmospheric = selectedThruster.atmosphericEntryCapable;
+            ship.speed += selectedThruster.speed;
         }
     }
 
-    private Ship GenerateShipDesign()
+    private void AddShielding(Ship ship)
+    {
+        if (ship.subsystems.Count < ship.utilitySlots - 1)
+        {
+            ship.subsystems.Add(shieldingSubsystems[Random.Range(0, shieldingSubsystems.Count)]);
+        }
+    }
+
+    private void AddFTL(Ship ship)
+    {
+        bool ftl = Random.Range(0, 7) > 2;
+        if (!ftl)
+        {
+            ship.isFTL = false;
+            return;
+        }
+
+        if (ship.subsystems.Count < ship.utilitySlots - 1)
+        {
+            FTLDrive selectedFTL = ftlSubsystems[Random.Range(0, ftlSubsystems.Count)];
+            ship.subsystems.Add(selectedFTL);
+            ship.isFTL = true;
+        }
+    }
+
+    private void AddAI(Ship ship)
+    {
+        bool ai = Random.Range(0, 7) > 5;
+
+        if (!ai)
+        {
+            ship.isAutonomous = false;
+            return;
+        }
+
+        if (ship.subsystems.Count < ship.utilitySlots - 1)
+        {
+            ArtificialIntelligence selectedAI = aiSubsystems[Random.Range(0, aiSubsystems.Count)];
+            ship.subsystems.Add(selectedAI);
+            ship.isAutonomous = true;
+        }
+    }
+
+    private void AddReactor(Ship ship)
+    {
+        foreach (Reactor r in reactorSubsystems)  // what order?
+        {
+            if (r.powerOutput > GetTotalPowerConsumption(ship))
+            {
+                ship.subsystems.Add(r);
+                return;
+            }
+        }
+        Debug.LogWarning("ShipGenerator: Could not find suitable reactor for this design!");
+    }
+
+    private int GetTotalPowerConsumption(Ship ship)
+    {
+        int power = 0;
+        foreach (Subsystem subsystem in ship.subsystems)
+        {
+            power += subsystem.powerDraw;
+        }
+
+        return power;
+    }
+
+    public Ship GenerateShip()
     {
         Ship ship = new();
-        AddCoreSystems(ship);
-
-
+        SetBaseStats(ship);
+        AddThrusters(ship);
+        AddShielding(ship);
+        AddFTL(ship);
+        AddReactor(ship);
+        AddAI(ship);
 
         return ship;
     }

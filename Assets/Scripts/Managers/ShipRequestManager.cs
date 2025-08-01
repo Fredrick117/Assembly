@@ -33,6 +33,9 @@ public class ShipRequestManager : MonoBehaviour
 
     private List<Thrusters> thrusterSubsystems = new();
 
+    [SerializeField]
+    private ShipGenerator shipGenerator;
+
     public static ShipRequestManager Instance { get; private set; }
 
     //private Dictionary<Species, DamageType> speciesWeaponPreferences = new Dictionary<Species, DamageType> 
@@ -85,8 +88,39 @@ public class ShipRequestManager : MonoBehaviour
 
     public void SetNewRequest()
     {
-        activeShipRequest = CreateRandomShipRequest();
+        Ship shipFoundation = shipGenerator.GenerateShip();
+        activeShipRequest = GetRequestDataFromShip(shipFoundation);
+
         SetRequestText();
+    }
+
+    private RequestData GetRequestDataFromShip(Ship ship)
+    {
+        RequestData request = new();
+
+        Thrusters thrusters = (Thrusters)ship.subsystems.FirstOrDefault(t => t is Thrusters);
+        if (thrusters != null)
+        {
+            request.isAtmosphereCapable = thrusters.atmosphericEntryCapable;
+        }
+        else
+        {
+            Debug.LogError("ShipRequestManager: no thrusters :(");
+        }
+
+        request.minSpeed = ship.speed;
+        request.isFtlCapable = ship.isFTL;
+        request.isAutonomous = ship.isAutonomous;
+        request.isAtmosphereCapable = ship.isAtmospheric;
+        request.shipClass = ship.classification;
+
+        Shielding shields = (Shielding)ship.subsystems.FirstOrDefault(s => s is Shielding);
+        if (shields != null)
+        {
+            request.minShieldStrength = shields.shieldStrength;
+        }
+
+        return request;
     }
 
     private RequestData CreateRandomShipRequest()
@@ -97,7 +131,6 @@ public class ShipRequestManager : MonoBehaviour
 
         Thrusters minThrusters = thrusterSubsystems[Random.Range(0, thrusterSubsystems.Count)];
         request.minSpeed = minThrusters.speed;
-        //request.minSpeed = Random.Range(2, 11) * 100;
         request.isFtlCapable = Utilities.FlipCoin();
         request.isAtmosphereCapable = minThrusters.atmosphericEntryCapable;
         request.isAutonomous = Utilities.FlipCoin();
@@ -108,7 +141,7 @@ public class ShipRequestManager : MonoBehaviour
     private void LoadScriptableObjects()
     {
         shipBaseStatsList = Resources.LoadAll<ShipBaseStats>("ScriptableObjects/Ships").ToList();
-        subsystemsList = Resources.LoadAll<Subsystem>("ScriptableObjects/Subsystems").ToList(); // is any data lost by doing this?
+        subsystemsList = Resources.LoadAll<Subsystem>("ScriptableObjects/Subsystems").ToList();
     }
 
     private void OnSubmission()
@@ -187,13 +220,17 @@ public class ShipRequestManager : MonoBehaviour
     {
         headerText.text = $"Request {requestNumber.ToString("D3")}";
 
-        requestText.text = $"Design a {activeShipRequest.shipClass.ToString().ToLower()}-class vessel capable of {activeShipRequest.minSpeed} m/s";
+        requestText.text = $"Design a {activeShipRequest.shipClass.ToString().ToLower()}-class vessel with:\n\nA minimum speed of {activeShipRequest.minSpeed} m/s\n";
+
         if (activeShipRequest.isFtlCapable)
-            requestText.text += ", with faster-than-light capabilities";
+            requestText.text += "\nFaster-than-light travel capability\n";
+
         if (activeShipRequest.isAtmosphereCapable)
-            requestText.text += " and atmospheric entry systems";
-        requestText.text += ". ";
+            requestText.text += "\nAtmospheric entry systems\n";
+
         if (activeShipRequest.isAutonomous)
-            requestText.text += "The vessel should also be autonomous.";
+            requestText.text += "\nA shipborne artificial intelligence\n";
+
+        requestText.text += $"\nShield strength of at least {activeShipRequest.minShieldStrength}\n";   // What if no shields needed?
     }
 }

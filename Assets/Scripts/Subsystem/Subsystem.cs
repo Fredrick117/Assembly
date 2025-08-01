@@ -7,7 +7,7 @@ public class Subsystem : ScriptableObject
 {
     public string displayName;
     public string description;
-    public float powerDraw;
+    public int powerDraw;
     public int mass;
     //public int price;
     public Sprite icon;

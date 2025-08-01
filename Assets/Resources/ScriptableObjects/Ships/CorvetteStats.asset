@@ -16,5 +16,5 @@ MonoBehaviour:
   shipClass: 1
   baseMass: 2000
   weaponSlots: 4
-  utilitySlots: 3
+  utilitySlots: 6
   reactorSlots: 1

@@ -5162,11 +5162,13 @@ MonoBehaviour:
     isAtmosphereCapable: 0
     isAutonomous: 0
     isFtlCapable: 0
+    minShieldStrength: 0
     preferredDamageTypes: 
   requestText: {fileID: 1030282715}
   headerText: {fileID: 1149514433}
   mainCanvas: {fileID: 1353073001}
   feedbackPanel: {fileID: 708323227}
+  shipGenerator: {fileID: 405081028}
 --- !u!1 &611986959
 GameObject:
   m_ObjectHideFlags: 0
@@ -9212,8 +9214,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 289.14, y: -144.14185}
-  m_SizeDelta: {x: 541.73, y: 172.8442}
+  m_AnchoredPosition: {x: 304.77167, y: -230.11597}
+  m_SizeDelta: {x: 572.9933, y: 344.7924}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &976669037
 MonoBehaviour:
@@ -11232,7 +11234,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 1
+  m_fontStyle: 5
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 256
   m_textAlignment: 65535
@@ -16837,7 +16839,7 @@ MonoBehaviour:
   m_ChildAlignment: 1
   m_StartCorner: 0
   m_StartAxis: 0
-  m_CellSize: {x: 60, y: 60}
+  m_CellSize: {x: 50, y: 50}
   m_Spacing: {x: 5, y: 5}
   m_Constraint: 0
   m_ConstraintCount: 2

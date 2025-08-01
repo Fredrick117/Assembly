@@ -31,6 +31,7 @@ public struct RequestData
     public bool isAtmosphereCapable;
     public bool isAutonomous;
     public bool isFtlCapable;
+    public int minShieldStrength;
 
     public List<DamageType> preferredDamageTypes;
 }
