@@ -8,38 +8,22 @@ public class ShipController : MonoBehaviour
 
     public float maxSpeed = 10f;
 
+    private Vector2 input = Vector2.zero;
+
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
     }
 
+    private void Update()
+    {
+        input.y = Input.GetAxisRaw("Vertical");
+    }
+
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (Input.GetKey(KeyCode.W))
-        {
-            rb.AddForce(new Vector2(0.0f, 1f));
-        }
-
-        if (Input.GetKey(KeyCode.S))
-        {
-            rb.AddForce(new Vector2(0.0f, -1f));
-        }
-
-        if (Input.GetKey(KeyCode.A))
-        {
-            rb.AddForce(new Vector2(-1f, 0.0f));
-        }
-
-        if (Input.GetKey(KeyCode.D))
-        {
-            rb.AddForce(new Vector2(1f, 0.0f));
-        }
-
-        if (rb.velocity.magnitude > maxSpeed)
-        {
-            rb.velocity = rb.velocity.normalized * maxSpeed;
-        }
+        rb.AddForce(input.normalized * maxSpeed);
     }
 }
