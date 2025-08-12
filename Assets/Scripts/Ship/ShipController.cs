@@ -6,24 +6,53 @@ public class ShipController : MonoBehaviour
 {
     private Rigidbody2D rb;
 
-    public float maxSpeed = 10f;
+    public float thrustForce = 10f;
+    public float brakingForce = 8.0f;
+    public float rotationSpeed = 100f;
 
-    private Vector2 input = Vector2.zero;
+    private float thrustInput;
+    private float rotationInput;
 
-    // Start is called before the first frame update
+    private bool isBraking = false;
+
+    private float maxSpeed;
+
+    public Ship shipStats;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+
+        rb.mass = shipStats.mass;
+        //maxSpeed = shipStats.speed;
+        thrustForce = shipStats.speed;
     }
 
     private void Update()
     {
-        input.y = Input.GetAxisRaw("Vertical");
+        thrustInput = Input.GetAxisRaw("Vertical");
+        rotationInput = Input.GetAxisRaw("Horizontal");
+
+        if (Input.GetKey(KeyCode.Space) && !isBraking)
+        {
+            isBraking = true;
+        }
+        else if (isBraking)
+        {
+            isBraking = false;
+        }
     }
 
-    // Update is called once per frame
     void FixedUpdate()
     {
-        rb.AddForce(input.normalized * maxSpeed);
+        if (!isBraking)
+        {
+            rb.AddForce(transform.up * thrustInput * thrustForce);
+            rb.MoveRotation(rb.rotation + rotationInput * rotationSpeed * Time.fixedDeltaTime);
+        }
+        else
+        {
+            rb.AddForce(-(rb.velocity * brakingForce));
+        }
     }
 }
