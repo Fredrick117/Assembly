@@ -9,9 +9,12 @@ EditorBuildSettings:
     path: Assets/Scenes/MainMenu.unity
     guid: 2323dd18ef545c84382aa341d5904a09
   - enabled: 0
-    path: Assets/Scenes/SampleScene.unity
+    path: Assets/Scenes/OldSceneDONOTUSE.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 1
-    path: Assets/Scenes/TestScene.unity
+    path: Assets/Scenes/ShipDesignScene.unity
     guid: 6eac2b5020ed05d4d9d4112d36737f01
+  - enabled: 1
+    path: Assets/Scenes/ShipTestScene.unity
+    guid: fb50fe0b4be3c944ba5ad8d909d31cd7
   m_configObjects: {}

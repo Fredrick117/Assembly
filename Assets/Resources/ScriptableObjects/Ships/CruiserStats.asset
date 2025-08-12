@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2281ea210a57d0d4a919fdd8c077b7a3, type: 3}
   m_Name: CruiserStats
   m_EditorClassIdentifier: 
-  sprite: {fileID: 21300000, guid: 800ee3b5d229ff54f901ded6f029fc0c, type: 3}
+  sprite: {fileID: 21300000, guid: 42712e235b92eb648a7e77f4b38ec059, type: 3}
   shipClass: 3
   baseMass: 10000
   weaponSlots: 12

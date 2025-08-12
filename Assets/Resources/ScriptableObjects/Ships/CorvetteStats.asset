@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2281ea210a57d0d4a919fdd8c077b7a3, type: 3}
   m_Name: CorvetteStats
   m_EditorClassIdentifier: 
-  sprite: {fileID: 21300000, guid: 208d0a4606774bf469404fd4f4a655f7, type: 3}
+  sprite: {fileID: 21300000, guid: 66157eb8bdcc4734a8ecaebbc9dca49c, type: 3}
   shipClass: 1
   baseMass: 2000
   weaponSlots: 4

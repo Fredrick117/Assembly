@@ -37,6 +37,8 @@ public class GameManager : MonoBehaviour
         }
 
         creditsText.text = credits.ToString();
+
+        DontDestroyOnLoad(gameObject);
     }
     void Update()
     {

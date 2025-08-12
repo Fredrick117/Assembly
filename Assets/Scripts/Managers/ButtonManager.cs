@@ -11,11 +11,6 @@ public class ButtonManager : MonoBehaviour
         uiElement.SetActive(false);
     }
 
-    public void OnSelectTypeClicked(GameObject selectionMenu)
-    {
-        selectionMenu.SetActive(true);
-    }
-
     public void OnStartGameClicked()
     {
         SceneManager.LoadScene("TestScene");

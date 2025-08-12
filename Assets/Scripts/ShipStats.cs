@@ -158,6 +158,8 @@ public class ShipStats : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+
+        DontDestroyOnLoad(gameObject);
     }
 
     public void RemoveSubsystem(int index)
