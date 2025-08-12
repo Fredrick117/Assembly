@@ -13,7 +13,7 @@ public class ButtonManager : MonoBehaviour
 
     public void OnStartGameClicked()
     {
-        SceneManager.LoadScene("TestScene");
+        SceneManager.LoadScene("ShipDesignScene");
     }
 
     public void OnQuitClicked()
