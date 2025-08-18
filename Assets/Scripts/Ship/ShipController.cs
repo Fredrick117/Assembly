@@ -47,8 +47,12 @@ public class ShipController : MonoBehaviour
     {
         if (!isBraking)
         {
-            rb.AddForce(transform.up * thrustInput * thrustForce);
-            rb.MoveRotation(rb.rotation + rotationInput * rotationSpeed * Time.fixedDeltaTime);
+            if (rb.velocity.magnitude >= maxSpeed)
+            {
+                rb.AddForce(transform.up * thrustInput * thrustForce);
+            }
+            // TODO fix this shit
+            rb.AddTorque(rotationSpeed * -rotationInput, ForceMode2D.Force);
         }
         else
         {
