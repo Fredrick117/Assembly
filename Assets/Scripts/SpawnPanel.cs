@@ -22,7 +22,7 @@ public class SpawnPanel : MonoBehaviour
 
         foreach(GameObject hull in hullPrefabs)
         {
-            GameObject button = GameObject.Instantiate(spawnButtonPrefab, this.transform);
+            GameObject button = GameObject.Instantiate(spawnButtonPrefab, content.transform);
             SpawnButton buttonData = button.GetComponent<SpawnButton>();
 
             buttonData.objectToSpawn = hull;

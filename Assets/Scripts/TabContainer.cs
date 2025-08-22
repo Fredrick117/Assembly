@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class TabContainer : MonoBehaviour
 {
-    [HideInInspector]
     public List<Transform> tabs = new List<Transform>();
 
     public SpawnPanelTab GetTabByName(string name)

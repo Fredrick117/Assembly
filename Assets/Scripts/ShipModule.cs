@@ -1,18 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum ModuleType
-{
-    Hull,
-    Hangar,
-    Engine,
-    Cockpit
-}
-
 public class ShipModule : MonoBehaviour
 {
-    public ModuleType moduleType;
-
     [HideInInspector]
     public Connector[] connectors;
 

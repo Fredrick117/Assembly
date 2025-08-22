@@ -687,7 +687,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 10
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -1327,8 +1327,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 64.5625, y: -94.625}
-  m_SizeDelta: {x: 129.123, y: 189.2507}
+  m_AnchoredPosition: {x: 49.702606, y: -44.15738}
+  m_SizeDelta: {x: 99.4032, y: 88.3155}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &976669037
 MonoBehaviour:
@@ -1889,7 +1889,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aabe9ba0a0eba6146b43ccbd7ba9e0d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tabs: []
+  tabs:
+  - {fileID: 126736360}
+  - {fileID: 912063431}
 --- !u!1 &1607373155
 GameObject:
   m_ObjectHideFlags: 0
@@ -2585,7 +2587,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.6156863}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

@@ -7,7 +7,7 @@ using UnityEngine;
 [Serializable]
 public enum ConnectorType
 {
-    Module, Thruster, Weapon
+    Small,
 };
 
 public class Connector : MonoBehaviour
@@ -21,26 +21,37 @@ public class Connector : MonoBehaviour
 
     private SpriteRenderer spriteRenderer;
 
+    public bool left;
+
     private void Awake()
     {
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
 
         switch (type)
         {
-            case ConnectorType.Module:
-                spriteRenderer.color = Color.grey;
-                break;
-
-            case ConnectorType.Thruster:
+            case ConnectorType.Small:
                 spriteRenderer.color = Color.cyan;
                 break;
 
-            case ConnectorType.Weapon:
-                spriteRenderer.color = Color.red;
-                break;
+            //case ConnectorType.Medium:
+            //    spriteRenderer.color = Color.cyan;
+            //    break;
+
+            //case ConnectorType.Large:
+            //    spriteRenderer.color = Color.red;
+            //    break;
+
+            //case ConnectorType.Massive:
+            //    spriteRenderer.color = Color.black;
+            //    break;
 
             default:
                 break;
         }
+    }
+
+    public void RemoveAllConnections()
+    {
+        otherConnector = null;
     }
 }

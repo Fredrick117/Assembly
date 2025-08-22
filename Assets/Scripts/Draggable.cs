@@ -27,6 +27,8 @@ public class Draggable : MonoBehaviour
 
     private bool canPlace = false;
 
+    private bool isSnappedToConnector = false;
+
     private void Awake()
     {
         originalColor = hullSprite.color;
@@ -39,61 +41,55 @@ public class Draggable : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
     }
 
-    private void SetRoundedPosition()
-    {
-        Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        Vector3 roundedPosition = new Vector3(Mathf.Round(mousePosition.x * 2f) / 2f, Mathf.Round(mousePosition.y * 2f) / 2f, mousePosition.z);
-
-        if (rb.position != (Vector2)roundedPosition)
-        {
-            rb.position = roundedPosition;
-        }
-    }
-
     void Update()
     {
         if (isDragging)
         {
-            SetRoundedPosition();
-            SetCanPlaceModule();
-            OnPositionChanged();
-        }
-    }
+            if (!isSnappedToConnector)
+                MoveModuleToMousePosition();
 
-    private void OnPositionChanged()
-    {
-        hullSprite.color = canPlace ? validPlacementColor : invalidPlacementColor;
+            canPlace = GetCanPlaceModule();
+
+            hullSprite.color = canPlace ? validPlacementColor : invalidPlacementColor;
+        }
+
+        // Fixes a bug with instantiated objects not able to fire OnMouseUp events...
+        if (Input.GetMouseButtonUp(0))
+        {
+            if (this.isDragging)
+                PlaceObject();
+        }
     }
 
     private void OnMouseDown()
     {
-        // Send message to DraggableManager, see if this can be dragged
-
-        if (this.isDragging)
-        {
-            print("place object");
-            PlaceObject();
-        }
-        else
-        {
-            print("begin dragging");
+        if (!this.isDragging)
             PickUpObject();
-        }
     }
 
-    private void SetCanPlaceModule()
+    private void OnMouseUp()
+    {
+        if (this.isDragging)
+            PlaceObject();
+    }
+
+    private void MoveModuleToMousePosition()
+    {
+        Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        rb.position = mousePosition;
+    }
+
+    private bool GetCanPlaceModule()
     {
         if (ShipManager.Instance.rootModule == null || ShipManager.Instance.rootModule == this.gameObject)
         {
-            canPlace = true;
-            return;
+            return true;
         }
 
         if (shipModule.IsColliding())
         {
             Debug.LogError("Cannot place, is colliding!");
-            canPlace = false;
-            return;
+            return false;
         }
 
         // Check if colliding with valid components
@@ -112,14 +108,21 @@ public class Draggable : MonoBehaviour
 
                 if (connector.type == nearbyConnector.type)
                 {
-                    canPlace = true;
+                    if (!isSnappedToConnector)
+                    {
+                        float thisConnectorOffset = Vector2.Distance(gameObject.transform.position, connector.transform.position);
 
-                    return;
+                        transform.position = nearbyConnector.transform.position + new Vector3(thisConnectorOffset, 0, 0);
+
+                        isSnappedToConnector = true;
+                    }
+
+                    return true;
                 }
             }
         }
 
-        canPlace = false;
+        return false;
     }
 
     public void PickUpObject()
@@ -166,8 +169,10 @@ public class Draggable : MonoBehaviour
     {
         foreach (Connector connector in shipModule.connectors)
         {
-            connector.otherConnector.otherConnector = null;
-            connector.otherConnector = null;
+            connector.RemoveAllConnections();
+
+            if (connector.otherConnector)
+                connector.otherConnector.RemoveAllConnections();
         }
     }
 
