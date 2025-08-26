@@ -3,17 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public enum Subsystem
-{
-    Reactor,
-    Navigation,
-    LifeSupport,
-    Shields,
-    AI,
-    FTLDrive
-}
-
-[System.Serializable]
 public enum ShipType
 {
     Warship,
@@ -30,7 +19,7 @@ public enum ShipClass
 }
 
 [System.Serializable]
-public struct RequestData
+public struct ShipRequestData
 {
     public int budget;
     public float minSpeed;
@@ -38,4 +27,12 @@ public struct RequestData
     public ShipType shipType;
     public ShipClass shipClass;
     public HashSet<Subsystem> requiredSubsystems;
+}
+
+[System.Serializable]
+public struct ShipContract
+{
+    public string name;
+    public string description;
+    public ShipRequestData data;
 }

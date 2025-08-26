@@ -29,6 +29,9 @@ public class Draggable : MonoBehaviour
 
     private bool isSnappedToConnector = false;
 
+    [SerializeField]
+    private float maxSnapDistance = 2.0f;
+
     private void Awake()
     {
         originalColor = hullSprite.color;
@@ -45,8 +48,25 @@ public class Draggable : MonoBehaviour
     {
         if (isDragging)
         {
-            if (!isSnappedToConnector)
+            if (isSnappedToConnector)
+            {
+                // 1. Get distance between cursor and current location of module
+                // 2. If distance > maxAllowedDistance, un-snap
+                Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                float distanceToMouse = Vector2.Distance(mousePosition, gameObject.transform.position);
+
+                print(distanceToMouse);
+
+                if (distanceToMouse > maxSnapDistance)
+                {
+                    isSnappedToConnector = false;
+                    MoveModuleToMousePosition();
+                }
+            }
+            else
+            {
                 MoveModuleToMousePosition();
+            }
 
             canPlace = GetCanPlaceModule();
 

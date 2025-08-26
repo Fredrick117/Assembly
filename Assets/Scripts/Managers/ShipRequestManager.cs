@@ -5,9 +5,11 @@ using UnityEngine;
 
 public class ShipRequestManager : MonoBehaviour
 {
-    public RequestData currentShipRequest;
+    public ShipRequestData currentShipRequest;
 
-    delegate void CreateNewRequest(RequestData Request);
+    public ShipContract selectedContract;
+
+    delegate void CreateNewRequest(ShipRequestData Request);
     CreateNewRequest createNewShipRequest;
 
     public TMP_Text requestText;
@@ -27,8 +29,8 @@ public class ShipRequestManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        SetNewRequest();
-        SetRequestText();
+        //SetNewRequest();
+        //SetRequestText();
     }
 
     // Update is called once per frame
@@ -41,6 +43,19 @@ public class ShipRequestManager : MonoBehaviour
     {
         print("Checking if ship is valid...");
         print("Ship is valid: " + IsValidShip());
+    }
+
+    private void AcceptContract()
+    {
+
+    }
+
+    private void RemoveContractFromList()
+    {
+        foreach (Transform child in transform)
+        {
+            
+        }
     }
 
     /// <summary>
@@ -104,7 +119,7 @@ public class ShipRequestManager : MonoBehaviour
     {
         // TODO: get data from JSON file so that random distribution isn't equal
         
-        RequestData data = new RequestData();
+        ShipRequestData data = new ShipRequestData();
         data.shipType = Utilities.GetRandomEnumValue<ShipType>();
         data.shipClass = Utilities.GetRandomEnumValue<ShipClass>();
 
@@ -136,7 +151,7 @@ public class ShipRequestManager : MonoBehaviour
         
         for (int i = 0; i < Random.Range(1, System.Enum.GetNames(typeof(Subsystem)).Length); i++)
         {
-            data.requiredSubsystems.Add(Utilities.GetRandomEnumValue<Subsystem>());
+            //data.requiredSubsystems.Add(Utilities.GetRandomEnumValue<Subsystem>());
         }
 
         currentShipRequest = data;
