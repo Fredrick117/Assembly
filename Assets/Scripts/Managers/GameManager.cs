@@ -40,19 +40,29 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void SpawnObjectFromButton(GameObject newObject)
+    public void SelectModule(ModuleBase module)
+    {
+        GridManager gridManager = FindObjectOfType<GridManager>();
+        gridManager.previewModule = module;
+        gridManager.isPlacementMode = true; // TODO: Move this variable to this class?
+        gridManager.CreatePreviewObject(module);
+    }
+
+    public GameObject SpawnObjectFromButton(GameObject newObject)
     {
         GameObject spawnedObject = GameObject.Instantiate(newObject, (Vector2)Input.mousePosition, Quaternion.identity);
 
         if (spawnedObject == null)
         {
             Debug.LogError("SpawnedObject was null!");
-            return;
+            return null;
         }
         
         // TODO: what if object doesn't have Draggable component?
         draggableManager.currentlyDraggedObject = spawnedObject.GetComponent<Draggable>();
         DraggableManager.Instance.currentlyDraggedObject = spawnedObject.GetComponent<Draggable>();
-        spawnedObject.GetComponent<Draggable>().isDragging = true;
+        spawnedObject.GetComponent<Draggable>().SetIsDragging(true);
+
+        return spawnedObject;
     }
 }

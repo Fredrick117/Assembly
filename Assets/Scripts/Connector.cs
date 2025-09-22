@@ -5,47 +5,65 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
-public enum ConnectorType
+public enum ConnectorSize
 {
+    Large,
+    Medium,
     Small,
-};
+    Tiny,
+}
+
+[Serializable]
+public enum ConnectorDirection
+{
+    North,
+    South,
+    East,
+    West,
+}
+
+[Serializable]
+public enum ArmorType
+{
+    Iron,
+    Steel,
+    Titanium
+}
 
 public class Connector : MonoBehaviour
 {
-    public ConnectorType type;
+    public ConnectorSize type;
+    
+    public ConnectorDirection direction;
 
-    //public GameObject connectedObject = null;
+    [HideInInspector]
     public Connector otherConnector = null;
 
+    [HideInInspector]
     public Color connectorColor = Color.black;
 
     private SpriteRenderer spriteRenderer;
-
-    public bool left;
-
+    
     private void Awake()
     {
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
 
         switch (type)
         {
-            case ConnectorType.Small:
+            case ConnectorSize.Tiny:
+                spriteRenderer.color = Color.yellow;
+                break;
+            
+            case ConnectorSize.Small:
+                spriteRenderer.color = Color.green;
+                break;
+
+            case ConnectorSize.Medium:
                 spriteRenderer.color = Color.cyan;
                 break;
 
-            //case ConnectorType.Medium:
-            //    spriteRenderer.color = Color.cyan;
-            //    break;
-
-            //case ConnectorType.Large:
-            //    spriteRenderer.color = Color.red;
-            //    break;
-
-            //case ConnectorType.Massive:
-            //    spriteRenderer.color = Color.black;
-            //    break;
-
-            default:
+            case ConnectorSize.Large:
+                spriteRenderer.color = Color.red;
                 break;
         }
     }
@@ -53,5 +71,32 @@ public class Connector : MonoBehaviour
     public void RemoveAllConnections()
     {
         otherConnector = null;
+    }
+
+    public List<GameObject> GetNearbyValidConnectors()
+    {
+        List<GameObject> validConnectors = new();
+        Collider2D[] nearbyConnectors = Physics2D.OverlapCircleAll(transform.position, 0.1f, LayerMask.GetMask("Connector"));
+
+        foreach (Collider2D hit in nearbyConnectors)
+        {
+            Connector nearbyConnector = hit.GetComponent<Connector>();
+
+            if (nearbyConnector == null)
+                continue;
+
+            if (nearbyConnector == this)
+                continue;
+            
+            if (nearbyConnector.transform.IsChildOf(transform)) 
+                continue;
+
+            if (this.direction != Utilities.GetOppositeDirection(nearbyConnector.direction))
+                continue;
+
+            validConnectors.Add(nearbyConnector.gameObject);
+        }
+
+        return validConnectors;
     }
 }

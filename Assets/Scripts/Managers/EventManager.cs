@@ -1,29 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public class EventManager : MonoBehaviour
 {
-    public static EventManager Instance { get; private set; }
-
-    public delegate void SubmitDesign();
-    public static SubmitDesign onSubmit;
-
-    private void Awake()
-    {
-        if (Instance != null && Instance != this)
-        {
-            Destroy(this);
-        }
-        else
-        {
-            Instance = this;
-        }
-    }
+    public static event Action OnSubmit;
+    public static event Action OnClear;
 
     public void OnSubmitClicked()
     {
         print("On submit clicked");
-        onSubmit?.Invoke();
+        OnSubmit?.Invoke();
+    }
+
+    public void OnClearClicked()
+    {
+        OnClear?.Invoke();
     }
 }

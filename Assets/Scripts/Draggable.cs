@@ -6,217 +6,30 @@ using UnityEngine.EventSystems;
 
 public class Draggable : MonoBehaviour
 {
-    public bool isDragging = false;
+    protected bool isDragging = true;
 
-    private Vector3 offset;
+    protected Vector3 offset;
 
-    private Vector3 initialPickupPosition = Vector3.negativeInfinity;
+    protected Rigidbody2D rb;
 
-    private Rigidbody2D rb;
+    protected Color originalColor;
 
-    private Color originalColor;
+    protected readonly Color validPlacementColor = new Color(0, 255, 0, 10);
 
-    private Color validPlacementColor = Color.green;
+    protected readonly Color invalidPlacementColor = new Color(255, 0, 0, 10);
 
-    private Color invalidPlacementColor = Color.red;
-
-    [SerializeField]
-    private SpriteRenderer hullSprite;
-
-    private ShipModule shipModule;
-
-    private bool canPlace = false;
-
-    private bool isSnappedToConnector = false;
-
-    [SerializeField]
-    private float maxSnapDistance = 2.0f;
-
-    private void Awake()
+    public void SetIsDragging(bool dragging)
     {
-        originalColor = hullSprite.color;
+        isDragging = dragging;
     }
 
-    private void Start()
+    public bool GetIsDragging()
     {
-        shipModule = GetComponent<ShipModule>();
+        return isDragging;
+    }
 
+    protected virtual void Start()
+    {
         rb = GetComponent<Rigidbody2D>();
-    }
-
-    void Update()
-    {
-        if (isDragging)
-        {
-            if (isSnappedToConnector)
-            {
-                // 1. Get distance between cursor and current location of module
-                // 2. If distance > maxAllowedDistance, un-snap
-                Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                float distanceToMouse = Vector2.Distance(mousePosition, gameObject.transform.position);
-
-                print(distanceToMouse);
-
-                if (distanceToMouse > maxSnapDistance)
-                {
-                    isSnappedToConnector = false;
-                    MoveModuleToMousePosition();
-                }
-            }
-            else
-            {
-                MoveModuleToMousePosition();
-            }
-
-            canPlace = GetCanPlaceModule();
-
-            hullSprite.color = canPlace ? validPlacementColor : invalidPlacementColor;
-        }
-
-        // Fixes a bug with instantiated objects not able to fire OnMouseUp events...
-        if (Input.GetMouseButtonUp(0))
-        {
-            if (this.isDragging)
-                PlaceObject();
-        }
-    }
-
-    private void OnMouseDown()
-    {
-        if (!this.isDragging)
-            PickUpObject();
-    }
-
-    private void OnMouseUp()
-    {
-        if (this.isDragging)
-            PlaceObject();
-    }
-
-    private void MoveModuleToMousePosition()
-    {
-        Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        rb.position = mousePosition;
-    }
-
-    private bool GetCanPlaceModule()
-    {
-        if (ShipManager.Instance.rootModule == null || ShipManager.Instance.rootModule == this.gameObject)
-        {
-            return true;
-        }
-
-        if (shipModule.IsColliding())
-        {
-            Debug.LogError("Cannot place, is colliding!");
-            return false;
-        }
-
-        // Check if colliding with valid components
-        foreach (Connector connector in shipModule.connectors)
-        {
-            Collider2D[] nearbyConnectors = Physics2D.OverlapCircleAll(connector.transform.position, 0.1f, LayerMask.GetMask("Connector"));
-
-            foreach (Collider2D hit in nearbyConnectors)
-            {
-                Connector nearbyConnector = hit.GetComponent<Connector>();
-
-                if (nearbyConnector == null || nearbyConnector == connector || nearbyConnector.transform.IsChildOf(transform))
-                {
-                    continue;
-                }
-
-                if (connector.type == nearbyConnector.type)
-                {
-                    if (!isSnappedToConnector)
-                    {
-                        float thisConnectorOffset = Vector2.Distance(gameObject.transform.position, connector.transform.position);
-
-                        transform.position = nearbyConnector.transform.position + new Vector3(thisConnectorOffset, 0, 0);
-
-                        isSnappedToConnector = true;
-                    }
-
-                    return true;
-                }
-            }
-        }
-
-        return false;
-    }
-
-    public void PickUpObject()
-    {
-        print("pick up object");
-        offset = transform.position - Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        isDragging = true;
-
-        RemoveAllConnections();
-
-        initialPickupPosition = transform.position;
-    }
-
-    public void PlaceObject()
-    {
-        print("place object");
-
-        isDragging = false;
-
-        if (!canPlace)
-        {
-            if (Vector3.Equals(initialPickupPosition, Vector3.negativeInfinity))
-            {
-                Destroy(gameObject);
-                return;
-            }
-
-            transform.position = initialPickupPosition;
-        }
-
-        if (ShipManager.Instance.rootModule == null)
-        {
-            print("I am the root!");
-            ShipManager.Instance.rootModule = gameObject;
-        }
-
-        PopulateConnections();
-
-        // TODO: fix
-        hullSprite.color = originalColor;
-    }
-
-    private void RemoveAllConnections()
-    {
-        foreach (Connector connector in shipModule.connectors)
-        {
-            connector.RemoveAllConnections();
-
-            if (connector.otherConnector)
-                connector.otherConnector.RemoveAllConnections();
-        }
-    }
-
-    private void PopulateConnections()
-    {
-        foreach (Connector connector in shipModule.connectors)
-        {
-            Collider2D[] nearbyConnectors = Physics2D.OverlapCircleAll(connector.transform.position, 0.1f, LayerMask.GetMask("Connector"));
-
-            foreach (Collider2D hit in nearbyConnectors)
-            {
-                Connector nearbyConnector = hit.GetComponent<Connector>();
-
-                if (nearbyConnector == null || nearbyConnector == connector || nearbyConnector.transform.IsChildOf(transform))
-                {
-                    continue;
-                }
-
-                if (connector.type == nearbyConnector.type)
-                {
-                    connector.otherConnector = nearbyConnector;
-                    nearbyConnector.otherConnector = connector;
-                }
-            }
-        }
     }
 }

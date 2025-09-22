@@ -8,6 +8,8 @@ public class SpawnButton : MonoBehaviour, IPointerDownHandler
 {
     public GameObject objectToSpawn;
 
+    public ModuleBase module;
+
     private TMP_Text buttonText;
 
     private void Start()
@@ -16,7 +18,7 @@ public class SpawnButton : MonoBehaviour, IPointerDownHandler
 
         if (objectToSpawn != null)
         {
-            buttonText.text = objectToSpawn.name;
+            buttonText.text = module.name;
         }
         else
         {
@@ -26,6 +28,7 @@ public class SpawnButton : MonoBehaviour, IPointerDownHandler
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        GameManager.Instance.SpawnObjectFromButton(objectToSpawn);
+        //GameManager.Instance.SpawnObjectFromButton(objectToSpawn);
+        GameManager.Instance.SelectModule(module);
     }
 }

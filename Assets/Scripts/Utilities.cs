@@ -14,4 +14,26 @@ public class Utilities
     {
         return child.transform.IsChildOf(parent.transform);
     }
+
+    public static ConnectorDirection GetOppositeDirection(ConnectorDirection direction)
+    {
+        if (direction == ConnectorDirection.East)
+            return ConnectorDirection.West;
+        if (direction == ConnectorDirection.West)
+            return ConnectorDirection.East;
+        if (direction == ConnectorDirection.North)
+            return ConnectorDirection.South;
+        
+        return ConnectorDirection.North;
+    }
+
+    public static bool IsRootModule(GameObject module)
+    {
+        if (ShipManager.Instance.rootModule == null || ShipManager.Instance.rootModule == module)
+        {
+            return true;
+        }
+
+        return false;
+    }
 }

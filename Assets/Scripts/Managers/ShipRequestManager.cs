@@ -18,12 +18,14 @@ public class ShipRequestManager : MonoBehaviour
 
     private void OnEnable()
     {
-        EventManager.onSubmit += OnSubmission;
+        EventManager.OnSubmit += OnSubmission;
+        EventManager.OnClear += OnClearClicked;
     }
 
     private void OnDisable()
     {
-        EventManager.onSubmit -= OnSubmission;
+        EventManager.OnSubmit -= OnSubmission;
+        EventManager.OnClear -= OnClearClicked;
     }
 
     // Start is called before the first frame update
@@ -43,6 +45,23 @@ public class ShipRequestManager : MonoBehaviour
     {
         print("Checking if ship is valid...");
         print("Ship is valid: " + IsValidShip());
+    }
+
+    private void OnClearClicked()
+    {
+        print("Clearing all ship modules");
+        
+        GameObject[] shipModules = GameObject.FindGameObjectsWithTag("ShipModule");
+
+        if (shipModules.Length == 0)
+        {
+            Debug.LogWarning("No ship modules to clear!");
+        }
+        
+        foreach (GameObject module in shipModules)
+        {
+            Destroy(module);
+        }
     }
 
     private void AcceptContract()

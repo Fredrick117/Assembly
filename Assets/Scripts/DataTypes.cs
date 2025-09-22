@@ -30,9 +30,19 @@ public struct ShipRequestData
 }
 
 [System.Serializable]
+public enum Affiliation
+{
+    UnitedEarthNations,
+    UnitedMartianNations,
+    LunaCorp,
+    Pirate,
+}
+
+[System.Serializable]
 public struct ShipContract
 {
-    public string name;
+    public string customerName;
+    public Affiliation customerAffiliation;
     public string description;
     public ShipRequestData data;
 }

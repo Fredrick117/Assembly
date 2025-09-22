@@ -18,14 +18,14 @@ public class SpawnPanel : MonoBehaviour
 
     void Start()
     {
-        GameObject[] hullPrefabs = Resources.LoadAll<GameObject>("HullPrefabs");
+        ScriptableObject[] hullPrefabs = Resources.LoadAll<ScriptableObject>("HullPrefabs");
 
-        foreach(GameObject hull in hullPrefabs)
+        foreach(ScriptableObject hull in hullPrefabs)
         {
             GameObject button = GameObject.Instantiate(spawnButtonPrefab, content.transform);
             SpawnButton buttonData = button.GetComponent<SpawnButton>();
 
-            buttonData.objectToSpawn = hull;
+            buttonData.module = (ModuleBase)hull;
         }
     }
 
