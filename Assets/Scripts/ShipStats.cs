@@ -26,8 +26,8 @@ public class ShipStats : MonoBehaviour
     private float currentMaxPower;
     private int currentMass;
     private int currentShielding;
-    private ArmorMaterial currentArmorMaterial = ArmorMaterial.None;
-    private ShipClassification currentClass = ShipClassification.None;
+    private int currentArmorRating;
+    private ShipClassification currentClass;
     private int maxStarfighters;
 
     // Properties
@@ -130,14 +130,14 @@ public class ShipStats : MonoBehaviour
             }
         }
     }
-    public ArmorMaterial ArmorMaterial
+    public int ArmorRating
     {
-        get { return currentArmorMaterial; }
+        get { return currentArmorRating; }
         set
         {
-            if (value != currentArmorMaterial)
+            if (value != currentArmorRating)
             {
-                currentArmorMaterial = value;
+                currentArmorRating = value;
                 onStatsChanged.Invoke();
             }
         }

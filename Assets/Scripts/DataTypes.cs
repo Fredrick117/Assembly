@@ -13,13 +13,13 @@ public enum ShipClassification
     //Destroyer,
     //LightCruiser,
     //HeavyCruiser,
-    //Carrier,
     //Battleship,
     //Dreadnought
-    None,
     Corvette,
     Destroyer,
-    Cruiser
+    Cruiser,
+    Carrier,
+    //Moonbreaker,
 }
 
 [System.Serializable]
@@ -32,6 +32,7 @@ public struct RequestData
     public bool isAutonomous;
     public bool isFtlCapable;
     public int minShieldStrength;
+    public int armorRating;
 
     public List<DamageType> preferredDamageTypes;
 }
@@ -43,4 +44,30 @@ public enum DamageType
     Electric,
     Kinetic,
     Explosive,
+}
+
+public enum ShipSpeed
+{
+    Slow,
+    Average,
+    Fast,
+}
+
+public enum ArmorRating
+{
+    None,
+    D,
+    C,
+    B,
+    A,
+    S
+}
+
+public enum ShipRole
+{
+    Stealth,
+    Escort,
+    Artillery,
+    Gunship,
+    Fast_Attack
 }

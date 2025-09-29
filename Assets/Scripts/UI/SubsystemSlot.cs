@@ -23,6 +23,12 @@ public class SubsystemSlot : MonoBehaviour, IPointerClickHandler
 
     public void RemoveSubsystem()
     {
+        if (subsystemData == null)
+        {
+            Debug.LogWarning("No subsystem data to remove!");
+            return;
+        }
+
         ShipStats.Instance.RemoveSubsystem(slotIndex);
 
         if (subsystemData != null)

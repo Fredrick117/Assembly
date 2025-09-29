@@ -30,4 +30,9 @@ public class Utilities
     {
         return list[UnityEngine.Random.Range(0, list.Count)];
     }
+
+    public static string ArmorRatingToString(int armorRating)
+    {
+        return ((ArmorRating)armorRating).ToString();
+    }
 }

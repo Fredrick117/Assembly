@@ -51,6 +51,6 @@ public class ShipManager : MonoBehaviour
         ship.baseStats = stats;
         ship.SetBaseStats();
         currentShip.GetComponent<ShipStats>().baseStats = stats;
-        currentShip.GetComponent<SpriteRenderer>().sprite = currentShip.GetComponent<ShipStats>().baseStats.sprite;
+        currentShip.GetComponent<SpriteRenderer>().sprite = currentShip.GetComponent<ShipStats>().baseStats.baseSprite;
     }
 }

@@ -9,10 +9,10 @@ public class Ship
     public ShipClassification classification;
     public int mass;
     public int weaponSlots;
+    public int speed;
     public int utilitySlots;
     public int reactorSlots;
     public int armorRating;
-    public int speed;
 
     public bool isAutonomous;
     public bool isFTL;
@@ -75,7 +75,13 @@ public class ShipGenerator : MonoBehaviour
     {
         ship.classification = Utilities.GetRandomEnumValue<ShipClassification>();
 
-        ShipBaseStats baseStats = shipStatsList.FirstOrDefault(stats => stats.shipClass == ship.classification);
+        ShipBaseStats baseStats = shipStatsList.First(stats => stats.shipClass == ship.classification);
+
+        if (baseStats == null)
+        {
+            Debug.LogError($"Could not find base stats for {ship.classification.ToString()}");
+        }
+
         ship.utilitySlots = baseStats.utilitySlots;
         ship.weaponSlots = baseStats.weaponSlots;
         ship.reactorSlots = baseStats.reactorSlots;
@@ -138,15 +144,23 @@ public class ShipGenerator : MonoBehaviour
 
     private void AddReactor(Ship ship)
     {
-        foreach (Reactor r in reactorSubsystems)  // what order?
+        foreach (Reactor reactor in reactorSubsystems)  // what order?
         {
-            if (r.powerOutput > GetTotalPowerConsumption(ship))
+            if (reactor.powerOutput > GetTotalPowerConsumption(ship))
             {
-                ship.subsystems.Add(r);
+                ship.subsystems.Add(reactor);
                 return;
             }
         }
+
         Debug.LogWarning("ShipGenerator: Could not find suitable reactor for this design!");
+    }
+
+    private void AddArmor(Ship ship)
+    {
+        Armor armor = armorSubsystems[Random.Range(0, armorSubsystems.Count())];
+        ship.subsystems.Add(armor);
+        ship.armorRating = armor.armorRating;
     }
 
     private int GetTotalPowerConsumption(Ship ship)
@@ -167,8 +181,9 @@ public class ShipGenerator : MonoBehaviour
         AddThrusters(ship);
         AddShielding(ship);
         AddFTL(ship);
-        AddReactor(ship);
         AddAI(ship);
+        AddArmor(ship);
+        AddReactor(ship);
 
         return ship;
     }

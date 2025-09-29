@@ -47,7 +47,7 @@ public class SubsystemButton : MonoBehaviour, IPointerClickHandler
         if (subsystemData is HangarBay hangarBay)
             statsText.text += $"Strike craft capacity: +{hangarBay.maxStarfighters}";
         if (subsystemData is Armor armor)
-            statsText.text += $"Armor type: {armor.armorMaterial}";
+            statsText.text += $"Armor rating: {Utilities.ArmorRatingToString(armor.armorRating)}";
         if (subsystemData is Weapon weapon)
             statsText.text += $"Damage per second: +???";
 

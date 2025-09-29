@@ -27,11 +27,11 @@ public class ShipRequestManager : MonoBehaviour
 
     private NoShipSelectedText noShipSelectedText;
 
-    private List<ShipBaseStats> shipBaseStatsList = new List<ShipBaseStats>();
+    private static List<ShipBaseStats> shipBaseStatsList = new List<ShipBaseStats>();
 
-    private List<Subsystem> subsystemsList = new List<Subsystem>();
+    private static List<Subsystem> subsystemsList = new List<Subsystem>();
 
-    private List<Thrusters> thrusterSubsystems = new();
+    private static List<Thrusters> thrusterSubsystems = new();
 
     [SerializeField]
     private ShipGenerator shipGenerator;
@@ -108,11 +108,12 @@ public class ShipRequestManager : MonoBehaviour
             Debug.LogError("ShipRequestManager: no thrusters :(");
         }
 
-        request.minSpeed = ship.speed;
+        request.minSpeed = Random.Range(2, 20) * 100;
         request.isFtlCapable = ship.isFTL;
         request.isAutonomous = ship.isAutonomous;
         request.isAtmosphereCapable = ship.isAtmospheric;
         request.shipClass = ship.classification;
+        request.armorRating = ship.armorRating;
 
         Shielding shields = (Shielding)ship.subsystems.FirstOrDefault(s => s is Shielding);
         if (shields != null)
@@ -230,6 +231,8 @@ public class ShipRequestManager : MonoBehaviour
 
         if (activeShipRequest.isAutonomous)
             requestText.text += "\nA shipborne artificial intelligence\n";
+
+        requestText.text += $"\nHas an armor rating of at least {activeShipRequest.armorRating}\n";
 
         requestText.text += $"\nShield strength of at least {activeShipRequest.minShieldStrength}\n";   // What if no shields needed?
     }

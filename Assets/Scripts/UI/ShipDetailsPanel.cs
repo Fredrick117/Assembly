@@ -36,7 +36,7 @@ public class ShipDetailsPanel : MonoBehaviour
         shipClassText.text = ShipStats.Instance.baseStats != null ? 
             ShipStats.Instance.baseStats.shipClass.ToString() : "None";
 
-        shipArmorText.text = ShipStats.Instance.ArmorMaterial.ToString();
+        shipArmorText.text = ShipStats.Instance.ArmorRating.ToString();
 
         bool hasAdequatePower = ShipStats.Instance.PowerDraw > ShipStats.Instance.MaxPower;
         string powerString = $"{ShipStats.Instance.PowerDraw}/{ShipStats.Instance.MaxPower} MW";
