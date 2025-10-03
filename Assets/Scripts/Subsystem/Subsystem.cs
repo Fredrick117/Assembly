@@ -14,13 +14,13 @@ public class Subsystem : ScriptableObject
 
     public virtual void ApplyToShip(ShipStats ship)
     {
-        ship.Mass += mass;
-        ship.PowerDraw += powerDraw;
+        ship.currentMass += mass;
+        ship.currentPowerDraw += powerDraw;
     }
 
     public virtual void RemoveFromShip(ShipStats ship)
     {
-        ship.Mass -= mass;
-        ship.PowerDraw -= powerDraw;
+        ship.currentMass -= mass;
+        ship.currentPowerDraw -= powerDraw;
     }
 }

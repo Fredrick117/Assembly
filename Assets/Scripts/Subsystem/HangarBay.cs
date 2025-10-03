@@ -9,13 +9,13 @@ public class HangarBay : Subsystem
 
     public override void ApplyToShip(ShipStats ship)
     {
+        ship.currentMaxStarfighters += maxStarfighters;
         base.ApplyToShip(ship);
-        ship.Starfighters += maxStarfighters;
     }
 
     public override void RemoveFromShip(ShipStats ship)
     {
+        ship.currentMaxStarfighters -= maxStarfighters;
         base.RemoveFromShip(ship);
-        ship.Starfighters -= maxStarfighters;
     }
 }

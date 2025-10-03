@@ -28,7 +28,7 @@ public class FeedbackPanel : MonoBehaviour
         GameObject player = GameObject.Instantiate(listItemPrefab, playerSubmissionColumn);
 
         customer.GetComponent<TMP_Text>().text = $"Capable of {request.minSpeed} m/s";
-        player.GetComponent<TMP_Text>().text = $"{submission.Speed} m/s";
+        player.GetComponent<TMP_Text>().text = $"{submission.currentSpeed} m/s";
     }
 
     public void AddShipClassDiscrapancy(ShipStats submission, RequestData request)
@@ -37,7 +37,7 @@ public class FeedbackPanel : MonoBehaviour
         GameObject player = GameObject.Instantiate(listItemPrefab, playerSubmissionColumn);
 
         customer.GetComponent<TMP_Text>().text = request.shipClass.ToString();
-        player.GetComponent<TMP_Text>().text = submission.Class.ToString();
+        player.GetComponent<TMP_Text>().text = submission.currentClass.ToString();
     }
 
     //public void AddArmorDiscrepancy(ShipStats submission, RequestData request)
@@ -118,6 +118,6 @@ public class FeedbackPanel : MonoBehaviour
 
         customer.GetComponent<TMP_Text>().text = "";
 
-        player.GetComponent<TMP_Text>().text = $"Power draw is {submission.PowerDraw} MW while power output is {submission.MaxPower} MW";
+        player.GetComponent<TMP_Text>().text = $"Power draw is {submission.currentPowerDraw} MW while power output is {submission.currentMaxPower} MW";
     }
 }

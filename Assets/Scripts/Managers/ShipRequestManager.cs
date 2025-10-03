@@ -181,7 +181,7 @@ public class ShipRequestManager : MonoBehaviour
     {
         ShipStats ship = ShipManager.Instance.currentShip.GetComponent<ShipStats>();
 
-        bool metSpeedReq = ship.Speed >= activeShipRequest.minSpeed;
+        bool metSpeedReq = ship.currentSpeed >= activeShipRequest.minSpeed;
         if (!metSpeedReq)
             feedbackPanel.AddSpeedDiscrepancy(ship, activeShipRequest);
 
@@ -210,7 +210,7 @@ public class ShipRequestManager : MonoBehaviour
         //if (!metArmorReq)
         //    feedbackPanel.AddArmorDiscrepancy(ship, activeShipRequest);
 
-        bool shipHasAdequatePower = ship.PowerDraw <= ship.MaxPower;
+        bool shipHasAdequatePower = ship.currentPowerDraw <= ship.currentMaxPower;
         if (!shipHasAdequatePower)
             feedbackPanel.AddPowerDiscrepancy(ship);
 

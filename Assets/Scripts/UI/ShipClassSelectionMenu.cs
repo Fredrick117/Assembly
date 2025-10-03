@@ -18,7 +18,7 @@ public class ShipClassSelectionMenu : MonoBehaviour
 
     public void OnSelectShipClass(ShipBaseStats shipStats)
     {
-        ShipManager.Instance.SetShipBaseStats(shipStats);
+        ShipManager.Instance.SetNewShipClass(shipStats);
         
         subsystemListPanel.UpdateSubsystemSlots();
         

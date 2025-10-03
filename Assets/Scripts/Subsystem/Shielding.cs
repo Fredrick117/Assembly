@@ -10,13 +10,13 @@ public class Shielding : Subsystem
 
     public override void ApplyToShip(ShipStats ship)
     {
+        ship.currentShielding += shieldStrength;
         base.ApplyToShip(ship);
-        ship.ShieldStrength += shieldStrength;
     }
 
     public override void RemoveFromShip(ShipStats ship)
     {
+        ship.currentShielding -= shieldStrength;
         base.RemoveFromShip(ship);
-        ship.ShieldStrength -= shieldStrength;
     }
 }

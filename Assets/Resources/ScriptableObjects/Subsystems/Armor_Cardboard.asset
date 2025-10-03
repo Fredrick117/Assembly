@@ -15,6 +15,7 @@ MonoBehaviour:
   displayName: Cardboard and duct tape "plating"
   description: Dirt cheap and not at all effective against any kind of weapon.
   powerDraw: 0
-  mass: 0
+  mass: 1
   icon: {fileID: 21300000, guid: fa90a00d60ad6b04f8d3a9bc27b2080a, type: 3}
   armorRating: 1
+  massMultiplier: 1

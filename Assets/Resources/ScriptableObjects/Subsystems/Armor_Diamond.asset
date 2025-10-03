@@ -15,6 +15,7 @@ MonoBehaviour:
   displayName: Diamond-studded armor plating
   description: For those who like to show off their wealth.
   powerDraw: 0
-  mass: 25000
+  mass: 1000
   icon: {fileID: 21300000, guid: 2951eff8f961c944583b43b5d67a6e70, type: 3}
   armorRating: 5
+  massMultiplier: 2

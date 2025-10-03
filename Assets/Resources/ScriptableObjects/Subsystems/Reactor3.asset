@@ -16,7 +16,7 @@ MonoBehaviour:
   description: An immensely powerful reactor capable of powering even the largest
     ships.
   powerDraw: 0
-  mass: 25
+  mass: 250
   icon: {fileID: 21300000, guid: e1b52fc97b633404189575f6b003f7d0, type: 3}
-  powerOutput: 5000
-  powerType: Antimatter
+  powerOutput: 500
+  reactorType: 2

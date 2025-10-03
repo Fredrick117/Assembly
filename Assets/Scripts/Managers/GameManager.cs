@@ -8,17 +8,9 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
 
-    [SerializeField]
-    private DraggableManager draggableManager;
-
-    [SerializeField]
-    private ShipRequestManager shipRequestManager;
-
-    [SerializeField]
-    private ShipManager shipManager;
-
     [HideInInspector]
     public int credits = 5000;
+
     public TMP_Text creditsText;
 
     public GameObject subsystemSelectionMenu;
@@ -56,29 +48,6 @@ public class GameManager : MonoBehaviour
     public void HideSubsystemMenu()
     {
         subsystemSelectionMenu.SetActive(false);
-    }
-
-    public void SpawnObjectFromButton(GameObject newObject)
-    {
-        GameObject spawnedObject = GameObject.Instantiate(newObject, (Vector2)Input.mousePosition, Quaternion.identity);
-
-        if (spawnedObject == null)
-        {
-            Debug.LogError("SpawnedObject was null!");
-            return;
-        }
-        
-        // TODO: what if object doesn't have Draggable component?
-        draggableManager.currentlyDraggedObject = spawnedObject.GetComponent<Draggable>();
-        DraggableManager.Instance.currentlyDraggedObject = spawnedObject.GetComponent<Draggable>();
-        spawnedObject.GetComponent<Draggable>().isDragging = true;
-    }
-
-    public void UpdateCredits(int amount)
-    {
-        credits += amount;
-
-        creditsText.text = credits.ToString();
     }
 
     public void ShowGameOverScreen()

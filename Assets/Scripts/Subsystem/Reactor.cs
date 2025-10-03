@@ -21,13 +21,13 @@ public class Reactor : Subsystem
 
     public override void ApplyToShip(ShipStats ship)
     {
+        ship.currentMaxPower += powerOutput;
         base.ApplyToShip(ship);
-        ship.MaxPower += powerOutput;
     }
 
     public override void RemoveFromShip(ShipStats ship)
     {
+        ship.currentMaxPower -= powerOutput;
         base.RemoveFromShip(ship);
-        ship.MaxPower -= powerOutput;
     }
 }

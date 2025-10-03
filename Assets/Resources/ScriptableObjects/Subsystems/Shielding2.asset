@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82b858f2dc0739348b89a210acd91417, type: 3}
   m_Name: Shielding2
   m_EditorClassIdentifier: 
-  displayName: M-66 energy shield generator
+  displayName: Weak energy shield generator
   description: 
   powerDraw: 200
   mass: 5000

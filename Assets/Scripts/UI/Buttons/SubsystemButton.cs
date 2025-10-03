@@ -34,7 +34,7 @@ public class SubsystemButton : MonoBehaviour, IPointerClickHandler
         else
             descriptionText.text = "No description available.";
 
-        statsText.text = $"Mass: +{subsystemData.mass}\tPower draw: {subsystemData.powerDraw}\t";
+        statsText.text = $"currentMass: +{subsystemData.mass}\tPower draw: {subsystemData.powerDraw}\t";
 
         if (subsystemData is Reactor reactorData)
             statsText.text += $"Power output: +{reactorData.powerOutput} MW\tPower type: {reactorData.reactorType}";
@@ -43,7 +43,7 @@ public class SubsystemButton : MonoBehaviour, IPointerClickHandler
         if (subsystemData is FTLDrive ftl)
             statsText.text += $"Grade: {ftl.grade}";
         if (subsystemData is Thrusters thrusters)
-            statsText.text += $"Speed: +{thrusters.speed} m/s\t Capable of atmospheric entry: {thrusters.atmosphericEntryCapable}";
+            statsText.text += $"currentSpeed: +{thrusters.speed} m/s\t Capable of atmospheric entry: {thrusters.atmosphericEntryCapable}";
         if (subsystemData is HangarBay hangarBay)
             statsText.text += $"Strike craft capacity: +{hangarBay.maxStarfighters}";
         if (subsystemData is Armor armor)

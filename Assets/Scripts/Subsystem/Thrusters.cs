@@ -21,13 +21,13 @@ public class Thrusters : Subsystem
 
     public override void ApplyToShip(ShipStats ship)
     {
+        ship.currentSpeed += speed;
         base.ApplyToShip(ship);
-        ship.Speed += speed;
     }
 
     public override void RemoveFromShip(ShipStats ship)
     {
+        ship.currentSpeed -= speed;
         base.RemoveFromShip(ship);
-        ship.Speed -= speed;
     }
 }

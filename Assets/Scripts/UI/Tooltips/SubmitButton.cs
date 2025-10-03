@@ -68,7 +68,7 @@ public class SubmitButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
             RequestData request = ShipRequestManager.Instance.activeShipRequest;
             ShipStats shipStats = ShipStats.Instance;
 
-            //if (shipStats.Speed < request.requestedSpeed.speed)
+            //if (shipStats.currentSpeed < request.requestedSpeed.speed)
             //{
             //    feedbackText.text += "This ship is too slow!\n";
             //}
@@ -80,7 +80,7 @@ public class SubmitButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
             //{
             //    feedbackText.text += "This ship doesn't have enough armor!\n";
             //}
-            //if (shipStats.MaxPower < request.minPower)
+            //if (shipStats.currentMaxPower < request.minPower)
             //{
             //    feedbackText.text += "This ship doesn't produce enough power!\n";
             //}

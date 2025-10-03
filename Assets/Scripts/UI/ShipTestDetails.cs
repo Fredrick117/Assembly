@@ -18,6 +18,6 @@ public class ShipTestDetails : MonoBehaviour
 
     void Update()
     {
-        speedText.text = $"Speed: {Mathf.Round(shipRb.velocity.magnitude * 10000)} m/s";
+        speedText.text = $"currentSpeed: {Mathf.Round(shipRb.velocity.magnitude * 10000)} m/s";
     }
 }
