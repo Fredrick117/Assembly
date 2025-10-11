@@ -9,18 +9,20 @@ public class Subsystem : ScriptableObject
     public string description;
     public int powerDraw;
     public int mass;
-    //public int price;
+    public int price;
     public Sprite icon;
 
     public virtual void ApplyToShip(ShipStats ship)
     {
         ship.currentMass += mass;
         ship.currentPowerDraw += powerDraw;
+        ship.currentPrice += price;
     }
 
     public virtual void RemoveFromShip(ShipStats ship)
     {
         ship.currentMass -= mass;
         ship.currentPowerDraw -= powerDraw;
+        ship.currentPrice -= price;
     }
 }

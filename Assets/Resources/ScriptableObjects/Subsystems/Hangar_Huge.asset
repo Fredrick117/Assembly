@@ -10,11 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 500870fd6eaa20e49beb223c7e63b7be, type: 3}
-  m_Name: Hangar2
+  m_Name: Hangar_Huge
   m_EditorClassIdentifier: 
-  displayName: Large Hangar Bay
+  displayName: Massive Hangar
   description: 
   powerDraw: 0
-  mass: 0
+  mass: 600
+  price: 40000
   icon: {fileID: 21300000, guid: 4deaec8e4c8ef85479bdfda4e0d7ecba, type: 3}
-  maxStarfighters: 8
+  maxCraft: 16

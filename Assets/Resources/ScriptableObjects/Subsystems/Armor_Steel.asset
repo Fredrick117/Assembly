@@ -15,7 +15,9 @@ MonoBehaviour:
   displayName: Metal alloy
   description: A metal alloy that is used on most standard warships.
   powerDraw: 0
-  mass: 800
+  mass: 750
+  price: 35000
   icon: {fileID: 21300000, guid: 67ab9caed81df65489902d0b769c0d8d, type: 3}
-  armorRating: 3
+  armorRating: 4
   massMultiplier: 1.7
+  canEnterAtmosphere: 0

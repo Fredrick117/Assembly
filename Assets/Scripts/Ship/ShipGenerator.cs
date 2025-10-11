@@ -94,7 +94,6 @@ public class ShipGenerator : MonoBehaviour
         {
             Thrusters selectedThruster = thrusterSubsystems[Random.Range(0, thrusterSubsystems.Count)];
             ship.subsystems.Add(selectedThruster);
-            ship.isAtmospheric = selectedThruster.atmosphericEntryCapable;
             ship.speed += selectedThruster.speed;
         }
     }

@@ -10,13 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 079e7393baebfb848b6337e45812de75, type: 3}
-  m_Name: Thrusters1
+  m_Name: Thrusters_Slow
   m_EditorClassIdentifier: 
   displayName: Basic thrusters
   description: Nothing special.
-  powerDraw: 100
-  mass: 50
+  powerDraw: 25
+  mass: 85
+  price: 9000
   icon: {fileID: 21300000, guid: d9483a991b7574649a50a92fa662ab10, type: 3}
   speed: 200
-  atmosphericEntryCapable: 0
-  thrusterType: 0

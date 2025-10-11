@@ -20,6 +20,12 @@ public class ShipDetailsPanel : MonoBehaviour
     private TMP_Text shipPowerText;
     [SerializeField]
     private TMP_Text shipMassText;
+    [SerializeField]
+    private TMP_Text shipCrewText;
+    [SerializeField]
+    private TMP_Text shipCraftText;
+    [SerializeField]
+    private TMP_Text shipPriceText;
 
     private void Start()
     {
@@ -36,7 +42,7 @@ public class ShipDetailsPanel : MonoBehaviour
         shipClassText.text = ShipStats.Instance.baseStats != null ? 
             ShipStats.Instance.baseStats.shipClass.ToString() : "None";
 
-        shipArmorText.text = ShipStats.Instance.currentArmorRating.ToString();
+        shipArmorText.text = Utilities.ArmorRatingToString(ShipStats.Instance.currentArmorRating);
 
         bool hasAdequatePower = ShipStats.Instance.currentPowerDraw > ShipStats.Instance.currentMaxPower;
         string powerString = $"{ShipStats.Instance.currentPowerDraw}/{ShipStats.Instance.currentMaxPower} MW";
@@ -48,5 +54,8 @@ public class ShipDetailsPanel : MonoBehaviour
         shipMaxSpeedText.text = ShipStats.Instance.currentSpeed.ToString();
         shipMassText.text = ShipStats.Instance.currentMass.ToString();
         shipShieldText.text = ShipStats.Instance.currentShielding.ToString();
+        shipCraftText.text = ShipStats.Instance.currentMaxCraft.ToString();
+        shipCrewText.text = ShipStats.Instance.currentCrew.ToString();
+        shipPriceText.text = $"${ShipStats.Instance.currentPrice}";
     }
 }

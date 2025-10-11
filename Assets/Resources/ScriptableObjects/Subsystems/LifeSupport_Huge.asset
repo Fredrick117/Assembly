@@ -9,13 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d05e12cd9d9ddef40aedc11d445ac50c, type: 3}
-  m_Name: FTLDrive
+  m_Script: {fileID: 11500000, guid: ab6f0d6d311f5364bae6e014474d9add, type: 3}
+  m_Name: LifeSupport_Huge
   m_EditorClassIdentifier: 
-  displayName: Faster-than-light drive
-  description: Allows for near-instantaneous travel between solar systems. Extremely
-    expensive and power-hungry.
-  powerDraw: 500
-  mass: 5
+  displayName: Premium life support
+  description: 
+  powerDraw: 0
+  mass: 0
+  price: 0
   icon: {fileID: 21300000, guid: 2d54aeabc2f58bc41b2d80fc242efeae, type: 3}
-  grade: 83
+  atmosphereType: 0
+  crew: 200

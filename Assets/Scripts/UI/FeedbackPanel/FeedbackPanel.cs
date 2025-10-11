@@ -40,35 +40,27 @@ public class FeedbackPanel : MonoBehaviour
         player.GetComponent<TMP_Text>().text = submission.currentClass.ToString();
     }
 
-    //public void AddArmorDiscrepancy(ShipStats submission, RequestData request)
-    //{
-    //    GameObject customer = GameObject.Instantiate(listItemPrefab, customerRequestColumn);
-    //    customer.GetComponent<TMP_Text>().text = request.armorMaterial != ArmorMaterial.None ? 
-    //        request.armorMaterial.ToString() : "No armor plating";
-
-    //    GameObject player = GameObject.Instantiate(listItemPrefab, playerSubmissionColumn);
-
-    //    if (!submission.subsystems.Values.Any(subsystem => subsystem is Armor) && request.armorMaterial != ArmorMaterial.None)
-    //    {
-    //        player.GetComponent<TMP_Text>().text = "No armor plating";
-    //        return;
-    //    }
-
-    //    player.GetComponent<TMP_Text>().text = submission.ArmorMaterial.ToString();
-    //}
-
-    public void AddArmedDiscrepancy(ShipStats submission, RequestData request)
+    public void AddArmorDiscrepancy(ShipStats submission, RequestData request)
     {
         GameObject customer = GameObject.Instantiate(listItemPrefab, customerRequestColumn);
         GameObject player = GameObject.Instantiate(listItemPrefab, playerSubmissionColumn);
 
-        customer.GetComponent<TMP_Text>().text = request.isArmed ? "Armed" : "Unarmed";
-
-        if (submission.subsystems.Values.Any(subsystem => subsystem is Weapon))
-            player.GetComponent<TMP_Text>().text = "Armed";
-        else
-            player.GetComponent<TMP_Text>().text = "Unarmed";
+        customer.GetComponent<TMP_Text>().text = Utilities.ArmorRatingToString(request.armorRating);
+        player.GetComponent<TMP_Text>().text = Utilities.ArmorRatingToString(submission.currentArmorRating);
     }
+
+    //public void AddArmedDiscrepancy(ShipStats submission, RequestData request)
+    //{
+    //    GameObject customer = GameObject.Instantiate(listItemPrefab, customerRequestColumn);
+    //    GameObject player = GameObject.Instantiate(listItemPrefab, playerSubmissionColumn);
+
+    //    customer.GetComponent<TMP_Text>().text = request.isArmed ? "Armed" : "Unarmed";
+
+    //    if (submission.subsystems.Values.Any(subsystem => subsystem is Weapon))
+    //        player.GetComponent<TMP_Text>().text = "Armed";
+    //    else
+    //        player.GetComponent<TMP_Text>().text = "Unarmed";
+    //}
 
     public void AddFtlDiscrepancy(ShipStats submission, RequestData request)
     {
@@ -92,8 +84,8 @@ public class FeedbackPanel : MonoBehaviour
 
         if (submission.subsystems.Values.Any(subsystem => subsystem is Thrusters))
         {
-            Thrusters thrusters = (Thrusters)submission.subsystems.Values.First(subsystem => subsystem is Thrusters);
-            player.GetComponent<TMP_Text>().text = thrusters.atmosphericEntryCapable ? "Possible" : "Not possible";
+            Armor armor = (Armor)submission.subsystems.Values.First(subsystem => subsystem is Armor);
+            player.GetComponent<TMP_Text>().text = armor.canEnterAtmosphere? "Possible" : "Not possible";
         }
         else
             player.GetComponent<TMP_Text>().text = "No thrusters added";

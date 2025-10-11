@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ff0fc6dd1bf559b43814e631be64713f, type: 3}
-  m_Name: ArtificialIntelligence
+  m_Name: AI_Advanced
   m_EditorClassIdentifier: 
-  displayName: Basic shipborne AI
-  description: A basic Artificial Intelligence model that lives within the ship and
-    assists with menial tasks.
-  powerDraw: 500
-  mass: 0
-  icon: {fileID: 21300000, guid: b4f829038d0a13046a0db51ffa7e3f7b, type: 3}
-  rank: 67
+  displayName: Advanced AI
+  description: 
+  powerDraw: 18
+  mass: 10
+  price: 1200
+  icon: {fileID: 21300000, guid: 3f03d76af03bbdf4f96bef4751b5675c, type: 3}
+  rank: 66

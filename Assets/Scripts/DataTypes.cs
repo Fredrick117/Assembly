@@ -27,7 +27,7 @@ public struct RequestData
 {
     public ShipClassification shipClass;
     public int minSpeed;
-    public bool isArmed;
+    //public bool isArmed;
     public bool isAtmosphereCapable;
     public bool isAutonomous;
     public bool isFtlCapable;
@@ -46,13 +46,6 @@ public enum DamageType
     Explosive,
 }
 
-public enum ShipSpeed
-{
-    Slow,
-    Average,
-    Fast,
-}
-
 public enum ArmorRating
 {
     None,
@@ -61,13 +54,4 @@ public enum ArmorRating
     B,
     A,
     S
-}
-
-public enum ShipRole
-{
-    Stealth,
-    Escort,
-    Artillery,
-    Gunship,
-    Fast_Attack
 }

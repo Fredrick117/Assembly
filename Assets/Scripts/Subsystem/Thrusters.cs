@@ -16,8 +16,8 @@ public enum ThrusterType
 public class Thrusters : Subsystem
 {
     public int speed;
-    public bool atmosphericEntryCapable;
-    public ThrusterType thrusterType;
+    //public bool atmosphericEntryCapable;
+    //public ThrusterType thrusterType;
 
     public override void ApplyToShip(ShipStats ship)
     {

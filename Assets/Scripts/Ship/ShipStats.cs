@@ -27,10 +27,13 @@ public class ShipStats : MonoBehaviour
     public int currentShielding;
     public int currentArmorRating;
     public ShipClassification currentClass;
-    public int currentMaxStarfighters;
+    public int currentMaxCraft;
+    public int currentCrew;
     public int subsystemSlots;
     public int reactorSlots;
     public int weaponSlots;
+    public bool canEnterAtmosphere = false;
+    public int currentPrice;
 
     private void Awake()
     {
@@ -41,9 +44,8 @@ public class ShipStats : MonoBehaviour
     {
         if (subsystems.TryGetValue(index, out var subsystem))
         {
-            subsystem.RemoveFromShip(this);
             subsystems.Remove(index);
-
+            subsystem.RemoveFromShip(this);
 
             subsystemListPanel.slots[index].transform.GetChild(0).gameObject.GetComponent<Image>().sprite = null;
             subsystemListPanel.slots[index].transform.GetChild(1).gameObject.GetComponent<TMP_Text>().text = "";
@@ -60,13 +62,12 @@ public class ShipStats : MonoBehaviour
             subsystems.Remove(index);
         }
 
-        subsystemData.ApplyToShip(this);
-
         subsystems[index] = subsystemData;
 
         subsystemListPanel.slots[index].transform.GetChild(0).gameObject.GetComponent<Image>().sprite = subsystemData.icon;
         subsystemListPanel.slots[index].transform.GetChild(1).gameObject.GetComponent<TMP_Text>().text = subsystemData.displayName;
 
+        subsystemData.ApplyToShip(this);
         onStatsChanged?.Invoke();
     }
 
@@ -79,7 +80,8 @@ public class ShipStats : MonoBehaviour
         currentMaxPower = 0;
         currentMass = 0;
         currentClass = 0;
-        currentMaxStarfighters = 0;
+        currentMaxCraft = 0;
+        currentCrew = 0;
     }
 
     public void SetBaseStats(ShipBaseStats newBaseStats)
@@ -97,5 +99,21 @@ public class ShipStats : MonoBehaviour
     {
         subsystems.Clear();
         subsystemListPanel.UpdateSubsystemSlots();
+    }
+
+    public int GetHighestArmorRating()
+    {
+        var allArmor = subsystems.Where(s => s.Value is Armor).ToList();
+
+        int highestArmorRating = 0;
+
+        foreach (KeyValuePair<int, Subsystem> kvp in allArmor)
+        {
+            Armor armor = (Armor)kvp.Value;
+            if (armor.armorRating > highestArmorRating)
+                highestArmorRating = armor.armorRating;
+        }
+
+        return highestArmorRating;
     }
 }

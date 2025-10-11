@@ -9,12 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ab6f0d6d311f5364bae6e014474d9add, type: 3}
-  m_Name: LifeSupport1
+  m_Script: {fileID: 11500000, guid: d05e12cd9d9ddef40aedc11d445ac50c, type: 3}
+  m_Name: FTL_MediumRange
   m_EditorClassIdentifier: 
-  displayName: Nitrogen-Oxygen atmosphere
-  description: Lethal for arachnids, ideal for humans and vynotians.
-  powerDraw: 0
-  mass: 2000
+  displayName: Medium-Range FTL Drive
+  description: 
+  powerDraw: 35
+  mass: 125
+  price: 15000
   icon: {fileID: 21300000, guid: 2d54aeabc2f58bc41b2d80fc242efeae, type: 3}
-  atmosphereType: 0
+  grade: 66

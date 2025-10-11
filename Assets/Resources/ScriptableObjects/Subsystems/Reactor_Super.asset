@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbfee3b7b29906243966efafcd25c925, type: 3}
-  m_Name: Reactor3
+  m_Name: Reactor_Super
   m_EditorClassIdentifier: 
   displayName: Antimatter reactor
   description: An immensely powerful reactor capable of powering even the largest

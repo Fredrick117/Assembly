@@ -34,22 +34,23 @@ public class SubsystemButton : MonoBehaviour, IPointerClickHandler
         else
             descriptionText.text = "No description available.";
 
-        statsText.text = $"currentMass: +{subsystemData.mass}\tPower draw: {subsystemData.powerDraw}\t";
+        statsText.text = $"Mass: +{subsystemData.mass}\tPower draw: {subsystemData.powerDraw}\t";
+        statsText.text += $"Price: ${subsystemData.price}\t";
 
         if (subsystemData is Reactor reactorData)
             statsText.text += $"Power output: +{reactorData.powerOutput} MW\tPower type: {reactorData.reactorType}";
         if (subsystemData is Shielding shieldData)
-            statsText.text += $"Shield strength: +{shieldData.shieldStrength}\tRecharge speed: +{shieldData.rechargeSpeed}%/second";
+            statsText.text += $"Shield strength: +{shieldData.shieldStrength}\t";
         if (subsystemData is FTLDrive ftl)
             statsText.text += $"Grade: {ftl.grade}";
         if (subsystemData is Thrusters thrusters)
-            statsText.text += $"currentSpeed: +{thrusters.speed} m/s\t Capable of atmospheric entry: {thrusters.atmosphericEntryCapable}";
+            statsText.text += $"Speed: +{thrusters.speed} m/s\t";
         if (subsystemData is HangarBay hangarBay)
-            statsText.text += $"Strike craft capacity: +{hangarBay.maxStarfighters}";
+            statsText.text += $"Maximum spacecraft capacity: +{hangarBay.maxCraft}";
         if (subsystemData is Armor armor)
-            statsText.text += $"Armor rating: {Utilities.ArmorRatingToString(armor.armorRating)}";
+            statsText.text += $"Armor rating: {Utilities.ArmorRatingToString(armor.armorRating)}\t Atmosphere capable: {armor.canEnterAtmosphere}";
         if (subsystemData is Weapon weapon)
-            statsText.text += $"Damage per second: +???";
+            statsText.text += $"Damage type: {weapon.weaponType}";
 
         icon = transform.GetChild(0).GetComponent<Image>();
         icon.sprite = subsystemData.icon;
@@ -57,7 +58,7 @@ public class SubsystemButton : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        ShipStats.Instance.AddSubsystem(menuRef.selectedSlot, subsystemData);
+        ShipStats.Instance.AddSubsystem(menuRef.GetSelectedSlot(), subsystemData);
         menuRef.gameObject.SetActive(false);
     }
 }

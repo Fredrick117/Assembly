@@ -32,6 +32,7 @@ public class ShipRequestManager : MonoBehaviour
     private static List<Subsystem> subsystemsList = new List<Subsystem>();
 
     private static List<Thrusters> thrusterSubsystems = new();
+    private static List<Armor> armorSubsystems = new();
 
     [SerializeField]
     private ShipGenerator shipGenerator;
@@ -67,6 +68,7 @@ public class ShipRequestManager : MonoBehaviour
     private void Start()
     {
         thrusterSubsystems = Resources.LoadAll<Thrusters>("ScriptableObjects/Subsystems").ToList();
+        armorSubsystems = Resources.LoadAll<Armor>("ScriptableObjects/Subsystems").ToList();
 
         noShipSelectedText = mainCanvas.GetComponentInChildren<NoShipSelectedText>();
         
@@ -98,17 +100,17 @@ public class ShipRequestManager : MonoBehaviour
     {
         RequestData request = new();
 
-        Thrusters thrusters = (Thrusters)ship.subsystems.FirstOrDefault(t => t is Thrusters);
-        if (thrusters != null)
+        Armor armor = (Armor)ship.subsystems.FirstOrDefault(a => a is Armor);
+        if (armor != null)
         {
-            request.isAtmosphereCapable = thrusters.atmosphericEntryCapable;
+            request.isAtmosphereCapable = armor.canEnterAtmosphere;
         }
         else
         {
             Debug.LogError("ShipRequestManager: no thrusters :(");
         }
 
-        request.minSpeed = Random.Range(2, 20) * 100;
+        request.minSpeed = thrusterSubsystems[Random.Range(0, thrusterSubsystems.Count())].speed;
         request.isFtlCapable = ship.isFTL;
         request.isAutonomous = ship.isAutonomous;
         request.isAtmosphereCapable = ship.isAtmospheric;
@@ -120,21 +122,6 @@ public class ShipRequestManager : MonoBehaviour
         {
             request.minShieldStrength = shields.shieldStrength;
         }
-
-        return request;
-    }
-
-    private RequestData CreateRandomShipRequest()
-    {
-        RequestData request = new RequestData();
-
-        request.shipClass = (ShipClassification)Random.Range(1, 4);
-
-        Thrusters minThrusters = thrusterSubsystems[Random.Range(0, thrusterSubsystems.Count)];
-        request.minSpeed = minThrusters.speed;
-        request.isFtlCapable = Utilities.FlipCoin();
-        request.isAtmosphereCapable = minThrusters.atmosphericEntryCapable;
-        request.isAutonomous = Utilities.FlipCoin();
 
         return request;
     }
@@ -198,7 +185,7 @@ public class ShipRequestManager : MonoBehaviour
             feedbackPanel.AddFtlDiscrepancy(ship, activeShipRequest);
 
         List<Subsystem> thrusterSubsystems = ship.subsystems.Values.Where(subsystem => subsystem is Thrusters).ToList();
-        bool metAtmosphereReq = activeShipRequest.isAtmosphereCapable == thrusterSubsystems.Any(thruster => ((Thrusters)thruster).atmosphericEntryCapable);
+        bool metAtmosphereReq = activeShipRequest.isAtmosphereCapable == armorSubsystems.Any(armor => ((Armor)armor).canEnterAtmosphere);
         if (!metAtmosphereReq)
             feedbackPanel.AddAtmosphereDiscrepancy(ship, activeShipRequest);
 
@@ -206,15 +193,15 @@ public class ShipRequestManager : MonoBehaviour
         if (!metAutonomousReq)
             feedbackPanel.AddAiDiscrepancy(ship, activeShipRequest);
 
-        //bool metArmorReq = ship.ArmorMaterial == activeShipRequest.armorMaterial;
-        //if (!metArmorReq)
-        //    feedbackPanel.AddArmorDiscrepancy(ship, activeShipRequest);
+        bool metArmorReq = ship.currentArmorRating >= activeShipRequest.armorRating;
+        if (!metArmorReq)
+            feedbackPanel.AddArmorDiscrepancy(ship, activeShipRequest);
 
         bool shipHasAdequatePower = ship.currentPowerDraw <= ship.currentMaxPower;
         if (!shipHasAdequatePower)
             feedbackPanel.AddPowerDiscrepancy(ship);
 
-        return metSpeedReq && metClassReq && metFtlReq && metAtmosphereReq && metAutonomousReq && shipHasAdequatePower;
+        return metSpeedReq && metClassReq && metFtlReq && metAtmosphereReq && metAutonomousReq && shipHasAdequatePower && metArmorReq;
     }
 
     private void SetRequestText()
@@ -232,7 +219,7 @@ public class ShipRequestManager : MonoBehaviour
         if (activeShipRequest.isAutonomous)
             requestText.text += "\nA shipborne artificial intelligence\n";
 
-        requestText.text += $"\nHas an armor rating of at least {activeShipRequest.armorRating}\n";
+        requestText.text += $"\nHas an armor rating of at least {Utilities.ArmorRatingToString(activeShipRequest.armorRating)}\n";
 
         requestText.text += $"\nShield strength of at least {activeShipRequest.minShieldStrength}\n";   // What if no shields needed?
     }

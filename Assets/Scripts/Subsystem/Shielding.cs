@@ -6,7 +6,7 @@ using UnityEngine;
 public class Shielding : Subsystem
 {
     public int shieldStrength;
-    public int rechargeSpeed;
+    //public int rechargeSpeed;
 
     public override void ApplyToShip(ShipStats ship)
     {
