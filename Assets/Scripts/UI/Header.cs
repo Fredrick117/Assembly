@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -6,28 +6,26 @@ using UnityEngine;
 public class Header : MonoBehaviour
 {
     [SerializeField]
-    private TMP_Text submissionsText;
+    private TMP_Text fundsText;
     [SerializeField]
-    private TMP_Text attemptsText;
-
-    private void Start()
-    {
-        SetSubmissionStats();
-    }
+    private TMP_Text marketShareText;
+    [SerializeField]
+    private TMP_Text contractsText;
 
     private void OnEnable()
     {
-        EventManager.onSubmit += SetSubmissionStats;
+        EventManager.onSubmit += UpdateHeaderText;
     }
 
     private void OnDisable()
     {
-        EventManager.onSubmit -= SetSubmissionStats;
+        EventManager.onSubmit -= UpdateHeaderText;
     }
 
-    private void SetSubmissionStats()
+    public void UpdateHeaderText()
     {
-        submissionsText.text = $"Successful submissions: {ShipRequestManager.Instance.numSuccesses}";
-        attemptsText.text = $"Failures remaining: {ShipRequestManager.Instance.attemptsRemaining}";
+        string formattedFunds = GameManager.Instance.currentCredits.ToString("N0");
+        fundsText.text = $"Funds remaining: ₡{formattedFunds}";
+        //marketShareText.text = $"Failures remaining: {ShipRequestManager.Instance.attemptsRemaining}";
     }
 }

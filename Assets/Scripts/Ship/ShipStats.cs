@@ -82,6 +82,7 @@ public class ShipStats : MonoBehaviour
         currentClass = 0;
         currentMaxCraft = 0;
         currentCrew = 0;
+        currentPrice = 0;
     }
 
     public void SetBaseStats(ShipBaseStats newBaseStats)
@@ -91,6 +92,7 @@ public class ShipStats : MonoBehaviour
         subsystemSlots = newBaseStats.utilitySlots;
         weaponSlots = newBaseStats.weaponSlots;
         reactorSlots = newBaseStats.reactorSlots;
+        currentPrice = newBaseStats.basePrice;
 
         baseStats = newBaseStats;
     }

@@ -8,14 +8,19 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
 
-    [HideInInspector]
-    public int credits = 5000;
+    public int startingCredits = 2500000;
 
-    public TMP_Text creditsText;
+    [HideInInspector]
+    public int currentCredits;
 
     public GameObject subsystemSelectionMenu;
 
     public Transform gameOverPanel;
+
+    public Transform pausePanel;
+
+    [SerializeField]
+    private Header headerPanel;
 
     private void Awake()
     {
@@ -28,15 +33,20 @@ public class GameManager : MonoBehaviour
             Instance = this;
         }
 
-        creditsText.text = credits.ToString();
-
         DontDestroyOnLoad(gameObject);
     }
+
+    private void Start()
+    {
+        currentCredits = startingCredits;
+        headerPanel.UpdateHeaderText();
+    }
+
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            Application.Quit();
+            pausePanel.gameObject.SetActive(true);
         }
     }
 

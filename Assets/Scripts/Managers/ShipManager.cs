@@ -43,6 +43,7 @@ public class ShipManager : MonoBehaviour
 
         ShipStats.Instance.ClearShipStats();
         ShipStats.Instance.ClearSubsystems();
+        ShipStats.Instance.onStatsChanged?.Invoke();
     }
 
     public void SetNewShipClass(ShipBaseStats stats)

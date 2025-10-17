@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -56,6 +56,7 @@ public class ShipDetailsPanel : MonoBehaviour
         shipShieldText.text = ShipStats.Instance.currentShielding.ToString();
         shipCraftText.text = ShipStats.Instance.currentMaxCraft.ToString();
         shipCrewText.text = ShipStats.Instance.currentCrew.ToString();
-        shipPriceText.text = $"${ShipStats.Instance.currentPrice}";
+        string formattedPrice = ShipStats.Instance.currentPrice.ToString("N0");
+        shipPriceText.text = $"₡{formattedPrice}";
     }
 }

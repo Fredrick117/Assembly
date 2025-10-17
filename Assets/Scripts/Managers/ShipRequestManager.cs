@@ -158,6 +158,8 @@ public class ShipRequestManager : MonoBehaviour
             numSuccesses++;
         }
 
+        GameManager.Instance.currentCredits -= ShipStats.Instance.currentPrice;
+
         noShipSelectedText.ShowText();
         SetNewRequest();
         SetRequestText();
