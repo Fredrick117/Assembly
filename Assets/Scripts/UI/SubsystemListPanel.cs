@@ -5,10 +5,6 @@ using UnityEngine.UI;
 
 public class SubsystemListPanel : MonoBehaviour
 {
-    public Sprite imageSprite;
-
-    public GameObject subsystemMenu;
-
     public GameObject slotPrefab;
 
     public List<GameObject> slots = new List<GameObject>();

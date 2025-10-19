@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: CorvetteStats
   m_EditorClassIdentifier: 
   baseSprite: {fileID: 21300000, guid: 208d0a4606774bf469404fd4f4a655f7, type: 3}
-  shipClass: 0
+  shipClass: 1
   baseMass: 2000
-  basePrice: 1000000
+  basePrice: 10000000
   weaponSlots: 4
   utilitySlots: 6
   reactorSlots: 1

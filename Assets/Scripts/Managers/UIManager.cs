@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class UIManager : MonoBehaviour
@@ -8,6 +9,8 @@ public class UIManager : MonoBehaviour
 
     public SubsystemListPanel subsystemContainer;
     public ShipDetailsPanel shipDetails;
+
+    public TMP_Text fundsText;
 
     private void Awake()
     {

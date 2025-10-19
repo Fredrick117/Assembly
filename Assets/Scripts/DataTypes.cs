@@ -5,7 +5,7 @@ using UnityEngine;
 [System.Serializable]
 public enum ShipClassification
 {
-    //None,
+    None,
     //Cargo,
     //Yacht,
     //Research,

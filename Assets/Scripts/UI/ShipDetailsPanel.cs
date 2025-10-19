@@ -46,6 +46,7 @@ public class ShipDetailsPanel : MonoBehaviour
 
         bool hasAdequatePower = ShipStats.Instance.currentPowerDraw > ShipStats.Instance.currentMaxPower;
         string powerString = $"{ShipStats.Instance.currentPowerDraw}/{ShipStats.Instance.currentMaxPower} MW";
+
         if (hasAdequatePower)
             shipPowerText.text = $"<color=red>{powerString}</color>";
         else

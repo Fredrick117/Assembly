@@ -6,8 +6,14 @@ public class Utilities
 {
     public static T GetRandomEnumValue<T>() where T : Enum
     {
+        int startingIndex = 0;
+        if (typeof(T) == typeof(ShipClassification))
+        {
+            startingIndex = 1;
+        }
+
         Array enumValues = Enum.GetValues(typeof(T));
-        int randomIndex = UnityEngine.Random.Range(0, enumValues.Length);
+        int randomIndex = UnityEngine.Random.Range(startingIndex, enumValues.Length);
         return (T)enumValues.GetValue(randomIndex);
     }
 

@@ -22,6 +22,11 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private Header headerPanel;
 
+    private bool isLastChance = false;
+
+    [SerializeField]
+    private GameObject bankruptcyWarningText;
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -32,8 +37,6 @@ public class GameManager : MonoBehaviour
         {
             Instance = this;
         }
-
-        DontDestroyOnLoad(gameObject);
     }
 
     private void Start()
@@ -42,12 +45,22 @@ public class GameManager : MonoBehaviour
         headerPanel.UpdateHeaderText();
     }
 
-    void Update()
+    private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             pausePanel.gameObject.SetActive(true);
         }
+    }
+
+    private void OnEnable()
+    {
+        EventManager.onSubmit += CheckForBankruptcy;
+    }
+
+    private void OnDisable()
+    {
+        EventManager.onSubmit -= CheckForBankruptcy;
     }
 
     public void ShowSubsystemMenu()
@@ -60,8 +73,28 @@ public class GameManager : MonoBehaviour
         subsystemSelectionMenu.SetActive(false);
     }
 
-    public void ShowGameOverScreen()
+    IEnumerator ShowGameOverScreen()
     {
+        yield return new WaitForSeconds(1.5f);
+
         gameOverPanel.gameObject.SetActive(true);
+    }
+
+    public void ModifyCredits(int inCredits)
+    {
+        currentCredits += inCredits;
+    }
+
+    private void CheckForBankruptcy()
+    {
+        if (currentCredits < 0 && !isLastChance)
+        {
+            bankruptcyWarningText.SetActive(true);
+            isLastChance = true;
+        }
+        else if (currentCredits < 0 && isLastChance)
+        {
+            StartCoroutine(ShowGameOverScreen());
+        }
     }
 }

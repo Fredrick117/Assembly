@@ -7,7 +7,9 @@ using UnityEngine;
 
 public class ShipRequestManager : MonoBehaviour
 {
-    public int attemptsRemaining = 3;
+    //[HideInInspector]
+    //public int attemptsRemaining = 3;
+    [HideInInspector]
     public int numSuccesses = 0;
 
     private int requestNumber = 1;
@@ -38,20 +40,6 @@ public class ShipRequestManager : MonoBehaviour
     private ShipGenerator shipGenerator;
 
     public static ShipRequestManager Instance { get; private set; }
-
-    //private Dictionary<Species, DamageType> speciesWeaponPreferences = new Dictionary<Species, DamageType> 
-    //{ 
-    //    { Species.Human, DamageType.Kinetic },
-    //    { Species.Vynotian, DamageType.Plasma },
-    //    { Species.Arachnid, DamageType.Laser }
-    //};
-
-    //private Dictionary<Species, int> speciesMilitaryShipProbability = new Dictionary<Species, int>
-    //{
-    //    { Species.Human, 67 },
-    //    { Species.Vynotian, 30 },
-    //    { Species.Arachnid, 90 },
-    //};
 
     private void Awake()
     {
@@ -144,21 +132,21 @@ public class ShipRequestManager : MonoBehaviour
 
         if (!FulfillsRequirements())
         {
-            attemptsRemaining--;
+            //attemptsRemaining--;
 
             feedbackPanel.Show();
 
-            if (attemptsRemaining <= 0)
-            {
-                GameManager.Instance.ShowGameOverScreen();
-            }
+            //if (attemptsRemaining <= 0)
+            //{
+            //    GameManager.Instance.ShowGameOverScreen();
+            //}
         }
         else
         {
             numSuccesses++;
         }
 
-        GameManager.Instance.currentCredits -= ShipStats.Instance.currentPrice;
+        GameManager.Instance.ModifyCredits(-ShipStats.Instance.currentPrice);
 
         noShipSelectedText.ShowText();
         SetNewRequest();

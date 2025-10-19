@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: CruiserStats
   m_EditorClassIdentifier: 
   baseSprite: {fileID: 21300000, guid: 800ee3b5d229ff54f901ded6f029fc0c, type: 3}
-  shipClass: 2
+  shipClass: 3
   baseMass: 10000
-  basePrice: 20000000
+  basePrice: 35000000
   weaponSlots: 12
   utilitySlots: 10
   reactorSlots: 2

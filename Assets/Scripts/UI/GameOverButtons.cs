@@ -7,7 +7,7 @@ public class GameOverButtons : MonoBehaviour
 {
     public void RestartGame()
     {
-        SceneManager.LoadScene("TestScene");
+        SceneManager.LoadScene("ShipDesignScene");
     }
 
     public void QuitGame()
