@@ -12,10 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbfee3b7b29906243966efafcd25c925, type: 3}
   m_Name: Reactor_Basic
   m_EditorClassIdentifier: 
-  displayName: Fission reactor
-  description: An ancient reactor that provides adequate power to most ships.
+  displayName: Tier I Reactor
+  description: A good option for when you're tight on funding and don't need the
+    extra power.
   powerDraw: 0
   mass: 50
+  price: 100000
   icon: {fileID: 21300000, guid: 4dd0c2cd1c8854a42a46453111f51daa, type: 3}
   powerOutput: 100
   reactorType: 1

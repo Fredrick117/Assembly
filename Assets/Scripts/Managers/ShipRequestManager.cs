@@ -111,7 +111,16 @@ public class ShipRequestManager : MonoBehaviour
             request.minShieldStrength = shields.shieldStrength;
         }
 
+        request.reward = GetRewardAmount(request.shipClass);
+
         return request;
+    }
+
+    private int GetRewardAmount(ShipClassification classification)
+    {
+        int baseStatsPrice = shipBaseStatsList.First(baseStat => baseStat.shipClass == classification).basePrice;
+
+        return Mathf.RoundToInt(baseStatsPrice * 1.6f);
     }
 
     private void LoadScriptableObjects()
@@ -122,6 +131,8 @@ public class ShipRequestManager : MonoBehaviour
 
     private void OnSubmission()
     {
+        bool submissionWasSuccessful = false;
+
         if (ShipManager.Instance.currentShip.GetComponent<ShipStats>().baseStats == null)
         {
             Debug.LogError("No design submitted!");
@@ -143,10 +154,19 @@ public class ShipRequestManager : MonoBehaviour
         }
         else
         {
+            submissionWasSuccessful = true;
             numSuccesses++;
         }
 
-        GameManager.Instance.ModifyCredits(-ShipStats.Instance.currentPrice);
+        int totalReward = 0;
+        totalReward -= ShipStats.Instance.currentPrice;
+        
+        if (submissionWasSuccessful)
+        {
+            totalReward += activeShipRequest.reward;
+        }
+
+        GameManager.Instance.ModifyCredits(totalReward);
 
         noShipSelectedText.ShowText();
         SetNewRequest();

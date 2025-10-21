@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ab6f0d6d311f5364bae6e014474d9add, type: 3}
-  m_Name: LifeSupport_Advanced
+  m_Name: LifeSupport_Premium
   m_EditorClassIdentifier: 
-  displayName: Advanced life support
+  displayName: Premium Life Support
   description: 
-  powerDraw: 0
-  mass: 0
-  price: 0
+  powerDraw: 30
+  mass: 100
+  price: 18000
   icon: {fileID: 21300000, guid: 2d54aeabc2f58bc41b2d80fc242efeae, type: 3}
   atmosphereType: 0
-  crew: 50
+  crew: 200

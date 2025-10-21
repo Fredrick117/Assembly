@@ -33,6 +33,7 @@ public struct RequestData
     public bool isFtlCapable;
     public int minShieldStrength;
     public int armorRating;
+    public int reward;
 
     public List<DamageType> preferredDamageTypes;
 }
