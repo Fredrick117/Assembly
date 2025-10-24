@@ -47,8 +47,10 @@ public class ShipStats : MonoBehaviour
             subsystems.Remove(index);
             subsystem.RemoveFromShip(this);
 
-            subsystemListPanel.slots[index].transform.GetChild(0).gameObject.GetComponent<Image>().sprite = null;
-            subsystemListPanel.slots[index].transform.GetChild(1).gameObject.GetComponent<TMP_Text>().text = "";
+            SubsystemSlot slot = subsystemListPanel.slots[index].GetComponent<SubsystemSlot>();
+            slot.icon.sprite = null;
+            slot.icon.color = Color.clear;
+            slot.slotText.text = "";
 
             onStatsChanged?.Invoke();
         }
@@ -64,8 +66,10 @@ public class ShipStats : MonoBehaviour
 
         subsystems[index] = subsystemData;
 
-        subsystemListPanel.slots[index].transform.GetChild(0).gameObject.GetComponent<Image>().sprite = subsystemData.icon;
-        subsystemListPanel.slots[index].transform.GetChild(1).gameObject.GetComponent<TMP_Text>().text = subsystemData.displayName;
+        SubsystemSlot slot = subsystemListPanel.slots[index].GetComponent<SubsystemSlot>();
+        slot.icon.sprite = subsystemData.icon;
+        slot.icon.color = Color.white;
+        slot.slotText.text = subsystemData.displayName;
 
         subsystemData.ApplyToShip(this);
         onStatsChanged?.Invoke();

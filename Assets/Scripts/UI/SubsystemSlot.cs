@@ -6,15 +6,23 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class SubsystemSlot : MonoBehaviour, IPointerClickHandler
+public class SubsystemSlot : MonoBehaviour, 
+                             IPointerClickHandler, 
+                             IPointerEnterHandler,
+                             IPointerExitHandler
 {
+    [HideInInspector]
     public Subsystem subsystemData;
+    [HideInInspector]
     public int slotIndex = -1;
 
-    // Already set in editor
+    [Header("Set these in editor")]
     public Image icon;
-
     public TMP_Text slotText;
+    public Image background;
+
+    [SerializeField]
+    private Color highlightColor = new Color(0.1f, 0.1f, 0.1f);
 
     public void SetSubsystem(Subsystem subsystem)
     {
@@ -51,5 +59,15 @@ public class SubsystemSlot : MonoBehaviour, IPointerClickHandler
 
         GameManager.Instance.ShowSubsystemMenu();
         GameManager.Instance.subsystemSelectionMenu.GetComponent<SubsystemSelectionMenu>().SetSelectedSlot(slotIndex);
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        background.color = Color.gray;
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        background.color = Color.white;
     }
 }
