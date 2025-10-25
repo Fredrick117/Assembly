@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -26,14 +27,30 @@ public enum ShipClassification
 public struct RequestData
 {
     public ShipClassification shipClass;
+
     public int minSpeed;
-    //public bool isArmed;
+    public int maxSpeed;
+
     public bool isAtmosphereCapable;
+
     public bool isAutonomous;
+
     public bool isFtlCapable;
+
     public int minShieldStrength;
-    public int armorRating;
+
+    public int minArmorRating;
+
+    public int budget;
     public int reward;
+
+    public ShipRole roles;
+
+    public int minDamagePerSecond;
+    public int maxDamagePerSecond;
+
+    public int minCrew;
+    public int maxCrew;
 
     public List<DamageType> preferredDamageTypes;
 }
@@ -47,12 +64,12 @@ public enum DamageType
     Explosive,
 }
 
-public enum ArmorRating
+public enum ShipRole
 {
-    None,
-    D,
-    C,
-    B,
-    A,
-    S
+    Ship_To_Ship,
+    Recon,
+    Transport,
+    Escort,
+    Patrol,
+    Carrier,
 }

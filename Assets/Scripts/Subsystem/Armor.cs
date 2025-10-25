@@ -3,6 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+public enum ArmorRating
+{
+    None,
+    D,
+    C,
+    B,
+    A,
+    S
+}
+
 [CreateAssetMenu(fileName = "NewArmor", menuName = "Subsystem/Armor")]
 public class Armor : Subsystem
 {

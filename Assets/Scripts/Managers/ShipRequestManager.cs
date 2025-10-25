@@ -218,19 +218,19 @@ public class ShipRequestManager : MonoBehaviour
     {
         headerText.text = $"Request {requestNumber.ToString("D3")}";
 
-        requestText.text = $"Design a {activeShipRequest.shipClass.ToString().ToLower()}-class vessel with:\n\nA minimum speed of {activeShipRequest.minSpeed} m/s\n";
+        requestText.text = $"Design a {activeShipRequest.shipClass.ToString().ToLower()}-class vessel with:\nA minimum speed of <b>{activeShipRequest.minSpeed} m/s</b>\n";
 
         if (activeShipRequest.isFtlCapable)
-            requestText.text += "\nFaster-than-light travel capability\n";
+            requestText.text += "Faster-than-light travel capability\n";
 
         if (activeShipRequest.isAtmosphereCapable)
-            requestText.text += "\nAtmospheric entry systems\n";
+            requestText.text += "Atmospheric entry systems\n";
 
         if (activeShipRequest.isAutonomous)
-            requestText.text += "\nA shipborne artificial intelligence\n";
+            requestText.text += "A shipborne artificial intelligence\n";
 
-        requestText.text += $"\nHas an armor rating of at least {Utilities.ArmorRatingToString(activeShipRequest.armorRating)}\n";
+        requestText.text += $"Has an armor rating of at least <b>{Utilities.ArmorRatingToString(activeShipRequest.armorRating)}</b>\n";
 
-        requestText.text += $"\nShield strength of at least {activeShipRequest.minShieldStrength}\n";   // What if no shields needed?
+        requestText.text += $"Shield strength of at least {activeShipRequest.minShieldStrength}\n";   // What if no shields needed?
     }
 }
