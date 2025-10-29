@@ -112,4 +112,22 @@ public class FeedbackPanel : MonoBehaviour
 
         player.GetComponent<TMP_Text>().text = $"Power draw is {submission.currentPowerDraw} MW while power output is {submission.currentMaxPower} MW";
     }
+
+    public void AddCrewDiscrepancy(ShipStats submission, RequestData request)
+    {
+        GameObject customer = GameObject.Instantiate(listItemPrefab, customerRequestColumn);
+        GameObject player = GameObject.Instantiate(listItemPrefab, playerSubmissionColumn);
+
+        customer.GetComponent<TMP_Text>().text = $"Minimum crew of {request.minCrew}";
+        player.GetComponent<TMP_Text>().text = $"{submission.currentCrew}";
+    }
+
+    public void AddShieldDiscrepancy(ShipStats submission, RequestData request)
+    {
+        GameObject customer = GameObject.Instantiate(listItemPrefab, customerRequestColumn);
+        GameObject player = GameObject.Instantiate(listItemPrefab, playerSubmissionColumn);
+
+        customer.GetComponent<TMP_Text>().text = $"Shield rating of at least {request.minShieldStrength}";
+        player.GetComponent<TMP_Text>().text = $"Shield rating was {submission.currentShielding}";
+    }
 }

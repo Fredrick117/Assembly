@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class SubsystemButton : MonoBehaviour, IPointerClickHandler
+public class SubsystemButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
     public Subsystem subsystemData;
 
@@ -19,8 +19,13 @@ public class SubsystemButton : MonoBehaviour, IPointerClickHandler
 
     private SubsystemSelectionMenu menuRef;
 
+    [SerializeField]
+    private Image background;
+
     void Start()
     {
+        background = GetComponent<Image>();
+
         menuRef = transform.parent.transform.parent.GetComponent<SubsystemSelectionMenu>();
 
         descriptorText = transform.GetChild(1).transform.GetChild(0).GetComponent<TMP_Text>();
@@ -60,5 +65,15 @@ public class SubsystemButton : MonoBehaviour, IPointerClickHandler
     {
         ShipStats.Instance.AddSubsystem(menuRef.GetSelectedSlot(), subsystemData);
         menuRef.gameObject.SetActive(false);
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        background.color = new Color(0, 0, 0, 0.3f);
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        background.color = new Color(0, 0, 0, 0.1f);
     }
 }

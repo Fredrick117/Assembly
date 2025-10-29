@@ -225,16 +225,13 @@ public class ShipRequestManager : MonoBehaviour
         bool metClassReq = activeShipRequest.shipClass.Equals(ship.baseStats.shipClass);
         if (!metClassReq)
             feedbackPanel.AddShipClassDiscrapancy(ship, activeShipRequest);
-
-        //bool metUnarmedReq = activeShipRequest.isArmed == !ship.HasWeapons();
-        //if (!metUnarmedReq)
-        //    feedbackPanel.AddArmedDiscrepancy(ship, activeShipRequest);
         
         bool metFtlReq = activeShipRequest.isFtlCapable == ship.subsystems.Values.Any(subsystem => subsystem is FTLDrive);
         if (!metFtlReq)
             feedbackPanel.AddFtlDiscrepancy(ship, activeShipRequest);
 
         List<Subsystem> thrusterSubsystems = ship.subsystems.Values.Where(subsystem => subsystem is Thrusters).ToList();
+
         bool metAtmosphereReq = activeShipRequest.isAtmosphereCapable == armorSubsystems.Any(armor => ((Armor)armor).canEnterAtmosphere);
         if (!metAtmosphereReq)
             feedbackPanel.AddAtmosphereDiscrepancy(ship, activeShipRequest);
@@ -251,7 +248,15 @@ public class ShipRequestManager : MonoBehaviour
         if (!shipHasAdequatePower)
             feedbackPanel.AddPowerDiscrepancy(ship);
 
-        return metSpeedReq && metClassReq && metFtlReq && metAtmosphereReq && metAutonomousReq && shipHasAdequatePower && metArmorReq;
+        bool metCrewReq = ship.currentCrew >= activeShipRequest.minCrew;
+        if (!metCrewReq)
+            feedbackPanel.AddCrewDiscrepancy(ship, activeShipRequest);
+
+        bool metShieldReq = ship.currentShielding >= activeShipRequest.minShieldStrength;
+        if (!metShieldReq)
+            feedbackPanel.AddShieldDiscrepancy(ship, activeShipRequest);
+
+        return metSpeedReq && metClassReq && metFtlReq && metAtmosphereReq && metAutonomousReq && shipHasAdequatePower && metArmorReq && metCrewReq;
     }
 
     private void SetRequestText()
