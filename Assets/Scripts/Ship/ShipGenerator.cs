@@ -73,7 +73,7 @@ public class ShipGenerator : MonoBehaviour
 
     private void SetBaseStats(Ship ship)
     {
-        ship.classification = Utilities.GetRandomEnumValue<ShipClassification>();
+        ship.classification = Utilities.GetRandomEnumValue<ShipClassification>(true);
 
         ShipBaseStats baseStats = shipStatsList.First(stats => stats.shipClass == ship.classification);
 

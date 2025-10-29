@@ -45,7 +45,7 @@ public class FeedbackPanel : MonoBehaviour
         GameObject customer = GameObject.Instantiate(listItemPrefab, customerRequestColumn);
         GameObject player = GameObject.Instantiate(listItemPrefab, playerSubmissionColumn);
 
-        customer.GetComponent<TMP_Text>().text = Utilities.ArmorRatingToString(request.armorRating);
+        customer.GetComponent<TMP_Text>().text = Utilities.ArmorRatingToString(request.minArmorRating);
         player.GetComponent<TMP_Text>().text = Utilities.ArmorRatingToString(submission.currentArmorRating);
     }
 

@@ -1,3 +1,4 @@
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,6 +37,37 @@ public class ShipRequestManager : MonoBehaviour
     private static List<Thrusters> thrusterSubsystems = new();
     private static List<Armor> armorSubsystems = new();
 
+    Dictionary<string, List<string>> orgNames = new()
+    {
+        { "S Corporation", new List<string> { "Nathan", "Jonathan", "Terrance", "Alexander", "Bryson", "Malcolm", "Reagan", "Nancy", "Margaret", "Alison", "Amanda", "Rex", "Samantha", "Katrina", "Carlos", "John", "Fred", "Rick", "Richard"} },
+        { "Arasaka Corporation", new List<string> { "Yorinobu", "Horishi", "Yukina", "Hikari", "Yuzuki", "Haruka", "Akari", "Saburo", "Yuuki", "Kouji", "Haruto", "Kaito", "Masato", "Riku", "Syouma", "Takashi", "Yoshiaki"} },
+        { "Galactic Dictatorship", new List<string> { "Zyl", "Llllk", "Oooiii", "Ashkoi", "Tal'narak", "Yyyyzzzzz"} },
+    };
+
+    Dictionary<ShipClassification, Tuple<int, int>> shipSpeedRanges = new()
+    {
+        { ShipClassification.Corvette, new Tuple<int, int>(300, 500) },
+        { ShipClassification.Destroyer, new Tuple<int, int>(200, 400) },
+        { ShipClassification.Cruiser, new Tuple<int, int>(100, 300) },
+        { ShipClassification.Carrier, new Tuple<int, int>(100, 300) },
+    };
+
+    Dictionary<ShipClassification, List<ShipRole>> shipRoles = new()
+    {
+        { ShipClassification.Corvette, new List<ShipRole> { ShipRole.Ship_To_Ship, ShipRole.Recon, ShipRole.Escort, ShipRole.Patrol, ShipRole.Enforcement } },
+        { ShipClassification.Destroyer, new List<ShipRole> { ShipRole.Ship_To_Ship, ShipRole.Recon, ShipRole.Escort, ShipRole.Enforcement } },
+        { ShipClassification.Cruiser, new List<ShipRole> { ShipRole.Ship_To_Ship, ShipRole.Enforcement, ShipRole.Escort } },
+        { ShipClassification.Carrier, new List<ShipRole> { ShipRole.Carrier, ShipRole.Transport } }
+    };
+
+    Dictionary<ShipClassification, Tuple<int, int>> shipCrewRange = new()
+    {
+        { ShipClassification.Corvette, new Tuple<int, int>(50, 250) },
+        { ShipClassification.Destroyer, new Tuple<int, int>(50, 350) },
+        { ShipClassification.Cruiser, new Tuple<int, int>(100, 450) },
+        { ShipClassification.Carrier, new Tuple<int, int>(200, 1000) },
+    };
+
     [SerializeField]
     private ShipGenerator shipGenerator;
 
@@ -62,7 +94,7 @@ public class ShipRequestManager : MonoBehaviour
         
         LoadScriptableObjects();
 
-        SetNewRequest();
+        activeShipRequest = GenerateNewRequest();
         SetRequestText();
     }
 
@@ -76,12 +108,28 @@ public class ShipRequestManager : MonoBehaviour
         EventManager.onSubmit -= OnSubmission;
     }
 
-    public void SetNewRequest()
+    public RequestData GenerateNewRequest()
     {
-        Ship shipFoundation = shipGenerator.GenerateShip();
-        activeShipRequest = GetRequestDataFromShip(shipFoundation);
+        RequestData request = new();
 
-        SetRequestText();
+        request.shipClass = Utilities.GetRandomEnumValue<ShipClassification>(true);
+
+        Tuple<int, int> speedRange = shipSpeedRanges[request.shipClass];
+        request.minSpeed = Mathf.RoundToInt(UnityEngine.Random.Range(speedRange.Item1 / 100, speedRange.Item2 / 100)) * 100;
+        request.isAtmosphereCapable = Utilities.FlipCoin();
+        request.isFtlCapable = Utilities.FlipCoin();
+        request.minArmorRating = (int)Utilities.GetRandomEnumValue<ArmorRating>(true);
+        request.isAutonomous = Utilities.FlipCoin();
+
+        if (!request.isAutonomous)
+        {
+            Tuple<int, int> crewRange = shipCrewRange[request.shipClass];
+            request.minCrew = Mathf.RoundToInt(UnityEngine.Random.Range(crewRange.Item1 / 100, crewRange.Item2 / 100)) * 100;
+        }
+
+        request.reward = 10000000;
+
+        return request;
     }
 
     private RequestData GetRequestDataFromShip(Ship ship)
@@ -98,12 +146,12 @@ public class ShipRequestManager : MonoBehaviour
             Debug.LogError("ShipRequestManager: no thrusters :(");
         }
 
-        request.minSpeed = thrusterSubsystems[Random.Range(0, thrusterSubsystems.Count())].speed;
+        request.minSpeed = thrusterSubsystems[UnityEngine.Random.Range(0, thrusterSubsystems.Count())].speed;
         request.isFtlCapable = ship.isFTL;
         request.isAutonomous = ship.isAutonomous;
         request.isAtmosphereCapable = ship.isAtmospheric;
         request.shipClass = ship.classification;
-        request.armorRating = ship.armorRating;
+        request.minArmorRating = ship.armorRating;
 
         Shielding shields = (Shielding)ship.subsystems.FirstOrDefault(s => s is Shielding);
         if (shields != null)
@@ -143,14 +191,7 @@ public class ShipRequestManager : MonoBehaviour
 
         if (!FulfillsRequirements())
         {
-            //attemptsRemaining--;
-
             feedbackPanel.Show();
-
-            //if (attemptsRemaining <= 0)
-            //{
-            //    GameManager.Instance.ShowGameOverScreen();
-            //}
         }
         else
         {
@@ -169,7 +210,6 @@ public class ShipRequestManager : MonoBehaviour
         GameManager.Instance.ModifyCredits(totalReward);
 
         noShipSelectedText.ShowText();
-        SetNewRequest();
         SetRequestText();
         ShipManager.Instance.ClearShip();
     }
@@ -203,7 +243,7 @@ public class ShipRequestManager : MonoBehaviour
         if (!metAutonomousReq)
             feedbackPanel.AddAiDiscrepancy(ship, activeShipRequest);
 
-        bool metArmorReq = ship.currentArmorRating >= activeShipRequest.armorRating;
+        bool metArmorReq = ship.currentArmorRating >= activeShipRequest.minArmorRating;
         if (!metArmorReq)
             feedbackPanel.AddArmorDiscrepancy(ship, activeShipRequest);
 
@@ -216,21 +256,54 @@ public class ShipRequestManager : MonoBehaviour
 
     private void SetRequestText()
     {
-        headerText.text = $"Request {requestNumber.ToString("D3")}";
+        headerText.text = $"Request #{requestNumber.ToString("D2")}";
 
-        requestText.text = $"Design a {activeShipRequest.shipClass.ToString().ToLower()}-class vessel with:\nA minimum speed of <b>{activeShipRequest.minSpeed} m/s</b>\n";
+        requestText.text = BuildRequestString();
+    }
 
-        if (activeShipRequest.isFtlCapable)
-            requestText.text += "Faster-than-light travel capability\n";
+    private string BuildRequestString()
+    {
+        KeyValuePair<string, List<string>> customerOrg = orgNames.ElementAt(UnityEngine.Random.Range(0, orgNames.Count));
+        string customerName = customerOrg.Value[UnityEngine.Random.Range(0, customerOrg.Value.Count)];
+        string header = $"Name: <b>{customerName}</b>\n" +
+                        $"Organization: <b>{customerOrg.Key}</b>\n\n";
+
+        List<string> requirements = new List<string>();
+
+        requirements.Add($"a minimum speed of {activeShipRequest.minSpeed} m/s");
 
         if (activeShipRequest.isAtmosphereCapable)
-            requestText.text += "Atmospheric entry systems\n";
+            requirements.Add("the ability to enter and exit a planet's atmosphere");
+
+        if (activeShipRequest.isFtlCapable)
+            requirements.Add("a faster-than-light drive");
 
         if (activeShipRequest.isAutonomous)
-            requestText.text += "A shipborne artificial intelligence\n";
+            requirements.Add("onboard artificial intelligence");
 
-        requestText.text += $"Has an armor rating of at least <b>{Utilities.ArmorRatingToString(activeShipRequest.armorRating)}</b>\n";
+        if (activeShipRequest.minShieldStrength > 0)
+            requirements.Add($"a total shield strength of at least {activeShipRequest.minShieldStrength}");
 
-        requestText.text += $"Shield strength of at least {activeShipRequest.minShieldStrength}\n";   // What if no shields needed?
+        if (activeShipRequest.minArmorRating > 0)
+            requirements.Add($"an armor rating of at least {Utilities.ArmorRatingToString(activeShipRequest.minArmorRating)}");
+
+        string requirementsString;
+        if (requirements.Count == 1)
+            requirementsString = requirements[0];
+        else if (requirements.Count == 2)
+            requirementsString = $"{requirements[0]} and {requirements[1]}";
+        else
+            requirementsString = string.Join(", ", requirements.Take(requirements.Count - 1)) + ", and " + requirements.Last();
+
+        string classString = activeShipRequest.shipClass.ToString().ToLower();
+        string body = $"{customerName} wants a {classString}-class ship that has {requirementsString}.\n\n" +
+            $"The reward for this contract is <b>₡{activeShipRequest.reward}</b>.\n\n";
+
+        if (activeShipRequest.budget == 0)
+            body += "There is <b>no budget</b> for this contract.";
+        else
+            body += $"There is a budget of <b>₡{activeShipRequest.budget}</b> for this contract.";
+
+        return header + body;
     }
 }

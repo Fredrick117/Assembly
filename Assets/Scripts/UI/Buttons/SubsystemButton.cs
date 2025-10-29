@@ -42,7 +42,7 @@ public class SubsystemButton : MonoBehaviour, IPointerClickHandler
         if (subsystemData is Shielding shieldData)
             statsText.text += $"Shield strength: +{shieldData.shieldStrength}\t";
         if (subsystemData is FTLDrive ftl)
-            statsText.text += $"Grade: {ftl.grade}";
+            statsText.text += $"Grade: {ftl.tier}";
         if (subsystemData is Thrusters thrusters)
             statsText.text += $"Speed: +{thrusters.speed} m/s\t";
         if (subsystemData is HangarBay hangarBay)

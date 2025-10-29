@@ -72,4 +72,5 @@ public enum ShipRole
     Escort,
     Patrol,
     Carrier,
+    Enforcement
 }
