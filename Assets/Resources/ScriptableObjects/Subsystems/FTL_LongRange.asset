@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: FTL_LongRange
   m_EditorClassIdentifier: 
   displayName: Long-Range FTL Drive
-  description: '"Brute ships! Staggered line! Shipmaster, they outnumber us 3 to
-    1!"'
+  description: An FTL drive that transport a ship from one side of the galaxy to
+    the other in minutes.
   powerDraw: 75
   mass: 150
   price: 45000
   icon: {fileID: 21300000, guid: 2d54aeabc2f58bc41b2d80fc242efeae, type: 3}
-  grade: 65
+  tier: 0

@@ -12,12 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbfee3b7b29906243966efafcd25c925, type: 3}
   m_Name: Reactor_SuperDuper
   m_EditorClassIdentifier: 
-  displayName: Antimatter reactor
-  description: An immensely powerful reactor capable of powering even the largest
-    ships.
+  displayName: Tier IV Reactor
+  description: Extremely powerful and extremely expensive.
   powerDraw: 0
-  mass: 250
-  price: 250000
-  icon: {fileID: 21300000, guid: e1b52fc97b633404189575f6b003f7d0, type: 3}
+  mass: 350
+  price: 500000
+  icon: {fileID: 21300000, guid: 9bc6904aa3db378409feb5da006bbe22, type: 3}
   powerOutput: 500
-  reactorType: 2
+  reactorType: 5

@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: AI_Basic
   m_EditorClassIdentifier: 
   displayName: Basic AI
-  description: 
+  description: A very basic, non-sentient artificial intelligence capable of performing
+    repetitive menial tasks throughout the ship.
   powerDraw: 5
   mass: 5
   price: 3500

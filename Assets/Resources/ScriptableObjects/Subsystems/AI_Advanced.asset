@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: AI_Advanced
   m_EditorClassIdentifier: 
   displayName: Advanced AI
-  description: 
+  description: A slightly more efficient and intelligent AI module, but one that
+    does not possess sentience.
   powerDraw: 18
   mass: 10
   price: 1200

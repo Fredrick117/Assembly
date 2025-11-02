@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: AI_Sentient
   m_EditorClassIdentifier: 
   displayName: Sentient AI
-  description: '"You ARE Forerunner...but this ring is MINE!"'
+  description: A sentient artificial intelligence. Extremely power, potentially dangeous...
   powerDraw: 50
   mass: 15
   price: 12000

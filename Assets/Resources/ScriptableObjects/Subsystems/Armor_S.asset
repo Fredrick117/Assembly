@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7f4b599a078d21847afe1631371fb59b, type: 3}
-  m_Name: Armor_Cardboard
+  m_Name: Armor_S
   m_EditorClassIdentifier: 
-  displayName: Cardboard and duct tape "plating"
-  description: Who knows, maybe they'll pity you too much to blow you up...
-  powerDraw: 0
-  mass: 1
-  price: 100
-  icon: {fileID: 21300000, guid: fa90a00d60ad6b04f8d3a9bc27b2080a, type: 3}
-  armorRating: 1
-  massMultiplier: 1
-  canEnterAtmosphere: 0
+  displayName: Unknown alloy armor plating
+  description: Armor made of an extremely reslient compound
+  powerDraw: 15
+  mass: 2000
+  price: 1000000
+  icon: {fileID: 21300000, guid: ad45b47b87dfd434b9b9653b7e0bd2ef, type: 3}
+  armorRating: 5
+  massMultiplier: 2.1
+  canEnterAtmosphere: 1

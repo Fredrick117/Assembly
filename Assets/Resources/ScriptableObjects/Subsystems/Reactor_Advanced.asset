@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Reactor_Advanced
   m_EditorClassIdentifier: 
   displayName: Tier II Reactor
-  description: A
+  description: A slightly more powerful reactor capable of powering most large warships.
   powerDraw: 0
   mass: 100
   price: 150000

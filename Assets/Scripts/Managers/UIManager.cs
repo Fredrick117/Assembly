@@ -9,8 +9,12 @@ public class UIManager : MonoBehaviour
 
     public SubsystemListPanel subsystemContainer;
     public ShipDetailsPanel shipDetails;
+    public GameObject shipGallery;
 
     public TMP_Text fundsText;
+
+    public AudioClip buttonPressAudio;
+    private AudioSource audioSource;
 
     private void Awake()
     {
@@ -22,5 +26,16 @@ public class UIManager : MonoBehaviour
         {
             Instance = this;
         }
+    }
+
+    public void PlayButtonPressSound()
+    {
+        audioSource.clip = buttonPressAudio;
+        audioSource.Play();
+    }
+
+    public void ShowShipGallery()
+    {
+        shipGallery.SetActive(shipGallery.activeSelf);
     }
 }

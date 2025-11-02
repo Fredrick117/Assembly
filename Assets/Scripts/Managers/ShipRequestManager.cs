@@ -39,9 +39,55 @@ public class ShipRequestManager : MonoBehaviour
 
     Dictionary<string, List<string>> orgNames = new()
     {
-        { "S Corporation", new List<string> { "Nathan", "Jonathan", "Terrance", "Alexander", "Bryson", "Malcolm", "Reagan", "Nancy", "Margaret", "Alison", "Amanda", "Rex", "Samantha", "Katrina", "Carlos", "John", "Fred", "Rick", "Richard"} },
-        { "Arasaka Corporation", new List<string> { "Yorinobu", "Horishi", "Yukina", "Hikari", "Yuzuki", "Haruka", "Akari", "Saburo", "Yuuki", "Kouji", "Haruto", "Kaito", "Masato", "Riku", "Syouma", "Takashi", "Yoshiaki"} },
-        { "Galactic Dictatorship", new List<string> { "Zyl", "Llllk", "Oooiii", "Ashkoi", "Tal'narak", "Yyyyzzzzz"} },
+        { "United Nations of Earth", new List<string> { "Nathan", "Jonathan", "Terrance", "Alexander", "Bryson", "Malcolm", "Reagan", "Nancy", "Margaret", "Alison", "Amanda", "Rex", "Samantha", "Katrina", "Carlos", "John", "Fred", "Rick", "Richard"} },
+        { "Human Empire", new List<string> 
+            { 
+                "Malachai",
+                "Lucilla",
+                "Garran",
+                "Varek",
+                "Elyra",
+                "Cassian",
+                "Lexum",
+                "Kora",
+                "Septimus",
+                "Rhen",
+                "Aurelia",
+                "Jast",
+                "Malvus",
+                "Lyssa",
+                "Torvix",
+                "Mara",
+                "Kalen",
+                "Tiber",
+                "Daren",
+                "Vexa"
+            } 
+        },
+        { "The Dominion", new List<string> 
+            {
+                "Varrash",
+                "Torkal'Neth",
+                "Zhur'ka",
+                "Maath",
+                "Khaal'tek",
+                "Ornak",
+                "Shra'ven",
+                "Kaarn",
+                "Drek'ra",
+                "Vorr'uun",
+                "Thresh",
+                "Graal'Tekh",
+                "Nur'vak",
+                "Shuun",
+                "Vorrek",
+                "Xel'nor",
+                "Korr'vek",
+                "Tar'vus",
+                "Baal'drun",
+                "Kaath'ra"
+            }
+        }
     };
 
     Dictionary<ShipClassification, Tuple<int, int>> shipSpeedRanges = new()
@@ -60,7 +106,7 @@ public class ShipRequestManager : MonoBehaviour
         { ShipClassification.Carrier, new List<ShipRole> { ShipRole.Carrier, ShipRole.Transport } }
     };
 
-    Dictionary<ShipClassification, Tuple<int, int>> shipCrewRange = new()
+    Dictionary<ShipClassification, Tuple<int, int>> shipCrewRanges = new()
     {
         { ShipClassification.Corvette, new Tuple<int, int>(50, 250) },
         { ShipClassification.Destroyer, new Tuple<int, int>(50, 350) },
@@ -89,6 +135,7 @@ public class ShipRequestManager : MonoBehaviour
     {
         thrusterSubsystems = Resources.LoadAll<Thrusters>("ScriptableObjects/Subsystems").ToList();
         armorSubsystems = Resources.LoadAll<Armor>("ScriptableObjects/Subsystems").ToList();
+        shipBaseStatsList = Resources.LoadAll<ShipBaseStats>("ScriptableObjects/Ships").ToList();
 
         noShipSelectedText = mainCanvas.GetComponentInChildren<NoShipSelectedText>();
         
@@ -113,56 +160,75 @@ public class ShipRequestManager : MonoBehaviour
         RequestData request = new();
 
         request.shipClass = Utilities.GetRandomEnumValue<ShipClassification>(true);
+        request.reward += shipBaseStatsList.First(ship => ship.shipClass == request.shipClass).basePrice;
 
         Tuple<int, int> speedRange = shipSpeedRanges[request.shipClass];
         request.minSpeed = Mathf.RoundToInt(UnityEngine.Random.Range(speedRange.Item1 / 100, speedRange.Item2 / 100)) * 100;
-        request.isAtmosphereCapable = Utilities.FlipCoin();
-        request.isFtlCapable = Utilities.FlipCoin();
+
+        bool atmosphereCapable = Utilities.FlipCoin();
+        if (atmosphereCapable)
+        {
+            request.reward += 50000 + UnityEngine.Random.Range(0, 11) * 1000;
+            request.isAtmosphereCapable = atmosphereCapable;
+        }
+
+        bool ftlCapable = Utilities.FlipCoin();
+        if (ftlCapable)
+        {
+            request.reward += 100000;
+            request.isFtlCapable = ftlCapable;
+        }
+
         request.minArmorRating = (int)Utilities.GetRandomEnumValue<ArmorRating>(true);
-        request.isAutonomous = Utilities.FlipCoin();
+        request.reward += 1000000;
+
+        bool aiRequired = Utilities.FlipCoin();
+        if (aiRequired)
+        {
+            request.reward += 500000;
+            request.isAutonomous = aiRequired;
+        }
 
         if (!request.isAutonomous)
         {
-            Tuple<int, int> crewRange = shipCrewRange[request.shipClass];
+            Tuple<int, int> crewRange = shipCrewRanges[request.shipClass];
             request.minCrew = Mathf.RoundToInt(UnityEngine.Random.Range(crewRange.Item1 / 100, crewRange.Item2 / 100)) * 100;
         }
 
-        request.reward = 10000000;
-
         return request;
     }
 
-    private RequestData GetRequestDataFromShip(Ship ship)
-    {
-        RequestData request = new();
+    //private RequestData GetRequestDataFromShip(Ship ship)
+    //{
+    //    RequestData request = new();
 
-        Armor armor = (Armor)ship.subsystems.FirstOrDefault(a => a is Armor);
-        if (armor != null)
-        {
-            request.isAtmosphereCapable = armor.canEnterAtmosphere;
-        }
-        else
-        {
-            Debug.LogError("ShipRequestManager: no thrusters :(");
-        }
+    //    Armor armor = (Armor)ship.subsystems.FirstOrDefault(a => a is Armor);
+    //    if (armor != null)
+    //    {
+    //        request.isAtmosphereCapable = armor.canEnterAtmosphere;
+    //    }
+    //    else
+    //    {
+    //        Debug.LogError("ShipRequestManager: no thrusters :(");
+    //    }
 
-        request.minSpeed = thrusterSubsystems[UnityEngine.Random.Range(0, thrusterSubsystems.Count())].speed;
-        request.isFtlCapable = ship.isFTL;
-        request.isAutonomous = ship.isAutonomous;
-        request.isAtmosphereCapable = ship.isAtmospheric;
-        request.shipClass = ship.classification;
-        request.minArmorRating = ship.armorRating;
+    //    request.minSpeed = thrusterSubsystems[UnityEngine.Random.Range(0, thrusterSubsystems.Count())].speed;
+    //    request.isFtlCapable = ship.isFTL;
+    //    request.isAutonomous = ship.isAutonomous;
+    //    request.isAtmosphereCapable = ship.isAtmospheric;
+    //    request.shipClass = ship.classification;
+    //    request.minArmorRating = ship.armorRating;
 
-        Shielding shields = (Shielding)ship.subsystems.FirstOrDefault(s => s is Shielding);
-        if (shields != null)
-        {
-            request.minShieldStrength = shields.shieldStrength;
-        }
+    //    Shielding shields = (Shielding)ship.subsystems.FirstOrDefault(s => s is Shielding);
+    //    if (shields != null)
+    //    {
+    //        request.minShieldStrength = shields.shieldStrength;
+    //    }
 
-        request.reward = GetRewardAmount(request.shipClass);
+    //    request.reward = GetRewardAmount(request.shipClass);
 
-        return request;
-    }
+    //    return request;
+    //}
 
     private int GetRewardAmount(ShipClassification classification)
     {
@@ -226,19 +292,26 @@ public class ShipRequestManager : MonoBehaviour
         if (!metClassReq)
             feedbackPanel.AddShipClassDiscrapancy(ship, activeShipRequest);
         
-        bool metFtlReq = activeShipRequest.isFtlCapable == ship.subsystems.Values.Any(subsystem => subsystem is FTLDrive);
-        if (!metFtlReq)
+        bool metFtlReq = true;
+        if (activeShipRequest.isFtlCapable && !ship.subsystems.Values.Any(subsystem => subsystem is FTLDrive))
+        {
             feedbackPanel.AddFtlDiscrepancy(ship, activeShipRequest);
+            metFtlReq = false;
+        }
 
-        List<Subsystem> thrusterSubsystems = ship.subsystems.Values.Where(subsystem => subsystem is Thrusters).ToList();
-
-        bool metAtmosphereReq = activeShipRequest.isAtmosphereCapable == armorSubsystems.Any(armor => ((Armor)armor).canEnterAtmosphere);
-        if (!metAtmosphereReq)
+        bool metAtmosphereReq = true;
+        if (activeShipRequest.isAtmosphereCapable && !armorSubsystems.Any(armor => ((Armor)armor).canEnterAtmosphere))
+        {
             feedbackPanel.AddAtmosphereDiscrepancy(ship, activeShipRequest);
+            metAtmosphereReq = false;
+        }
 
-        bool metAutonomousReq = activeShipRequest.isAutonomous == ship.subsystems.Values.Any(subsystem => subsystem is ArtificialIntelligence);
-        if (!metAutonomousReq)
+        bool metAutonomousReq = true;
+        if (activeShipRequest.isAutonomous && !ship.subsystems.Values.Any(subsystem => subsystem is ArtificialIntelligence))
+        {
             feedbackPanel.AddAiDiscrepancy(ship, activeShipRequest);
+            metAutonomousReq = false;
+        }
 
         bool metArmorReq = ship.currentArmorRating >= activeShipRequest.minArmorRating;
         if (!metArmorReq)
@@ -292,6 +365,9 @@ public class ShipRequestManager : MonoBehaviour
         if (activeShipRequest.minArmorRating > 0)
             requirements.Add($"an armor rating of at least {Utilities.ArmorRatingToString(activeShipRequest.minArmorRating)}");
 
+        if (activeShipRequest.minCrew > 0)
+            requirements.Add($"supports a crew of at least {activeShipRequest.minCrew}");
+
         string requirementsString;
         if (requirements.Count == 1)
             requirementsString = requirements[0];
@@ -302,7 +378,7 @@ public class ShipRequestManager : MonoBehaviour
 
         string classString = activeShipRequest.shipClass.ToString().ToLower();
         string body = $"{customerName} wants a {classString}-class ship that has {requirementsString}.\n\n" +
-            $"The reward for this contract is <b>₡{activeShipRequest.reward}</b>.\n\n";
+            $"The reward for this contract is <b>₡{activeShipRequest.reward.ToString("N0")}</b>.\n\n";
 
         if (activeShipRequest.budget == 0)
             body += "There is <b>no budget</b> for this contract.";

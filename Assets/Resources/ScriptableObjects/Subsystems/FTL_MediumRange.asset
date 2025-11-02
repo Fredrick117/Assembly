@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: FTL_MediumRange
   m_EditorClassIdentifier: 
   displayName: Medium-Range FTL Drive
-  description: 
+  description: An FTL drive that can transport a ship to a nearby star system quickly
+    and safely.
   powerDraw: 35
   mass: 125
   price: 15000
   icon: {fileID: 21300000, guid: 2d54aeabc2f58bc41b2d80fc242efeae, type: 3}
-  grade: 66
+  tier: 0
