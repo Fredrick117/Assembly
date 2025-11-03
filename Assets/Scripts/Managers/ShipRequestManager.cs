@@ -276,6 +276,7 @@ public class ShipRequestManager : MonoBehaviour
         GameManager.Instance.ModifyCredits(totalReward);
 
         noShipSelectedText.ShowText();
+        activeShipRequest = GenerateNewRequest();
         SetRequestText();
         ShipManager.Instance.ClearShip();
     }

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82b858f2dc0739348b89a210acd91417, type: 3}
   m_Name: Shielding_Heavy
   m_EditorClassIdentifier: 
-  displayName: Heavey shield generator
+  displayName: Heavy shield generator
   description: 
   powerDraw: 75
   mass: 125
