@@ -368,7 +368,6 @@ MonoBehaviour:
   pausePanel: {fileID: 0}
   headerPanel: {fileID: 0}
   bankruptcyWarningText: {fileID: 0}
-  gridManager: {fileID: 1107615078}
 --- !u!1 &601952522
 GameObject:
   m_ObjectHideFlags: 0
@@ -458,7 +457,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c28bd0611d0db94a9159b927b766590, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  data: {fileID: 0}
+  data: {fileID: 11400000, guid: 0dca236d9717b7a48a56a08ca23ee0eb, type: 2}
   currentSlot: {fileID: 0}
 --- !u!225 &601952527
 CanvasGroup:

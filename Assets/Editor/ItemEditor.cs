@@ -16,7 +16,7 @@ public class ItemEditor : Editor
 
         SerializedProperty shapeProp = serializedObject.FindProperty("shape");
 
-        float buttonSize = 40;
+        float buttonSize = 30;
         EditorGUILayout.BeginVertical();
 
         for (int row = 0; row < 3; row++)

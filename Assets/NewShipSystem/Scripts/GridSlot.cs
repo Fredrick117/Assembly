@@ -17,7 +17,9 @@ public class GridSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     private bool showPositions = false;
 
     [HideInInspector]
-    public Vector2Int position;
+    public int row;
+    [HideInInspector]
+    public int col;
 
     private TMP_Text debugText;
 
@@ -35,7 +37,7 @@ public class GridSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     void Start()
     {
         defaultColor = image.color;
-        debugText.text = $"({position.x}, {position.y})";
+        debugText.text = $"({row}, {col})";
         debugText.gameObject.SetActive(showPositions);
     }
 
@@ -49,9 +51,9 @@ public class GridSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
                 image.color = invalidColor;
             else
                 image.color = validColor;
+        }
 
-            HighlightNeighbors();
-        }   
+        GridManager.Instance.HighlightSlots();
     }
 
     public void OnPointerExit(PointerEventData eventData)
@@ -60,60 +62,16 @@ public class GridSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         {
             Item.currentDraggedItem.SetHoveredSlot(null);
             image.color = defaultColor;
-
-            DeselectNeighbors();
         }
     }
 
-    public List<GridSlot> GetNeighbors()
+    public void Highlight()
     {
-        GridManager grid = GameManager.Instance.gridManager;
-
-        List<GridSlot> neighbors = new();
-
-        int maskX = GameManager.Instance.gridManager.maskWidth;
-
-        for (int i = -maskX; i < maskX; i++)
-        {
-            for (int j = -maskX; j < maskX; j++)
-            {
-                int x = i + position.x;
-                int y = j + position.y;
-
-                if (grid.IsInBounds(x, y))
-                {
-                    neighbors.Add(grid.gridSlots[x, y]);
-                }
-            }
-        }
-
-        return neighbors;
+        image.color = isOccupied ? invalidColor : validColor;
     }
 
-    public void HighlightNeighbors()
+    public void ResetColor()
     {
-        List<GridSlot> neighbors = GetNeighbors();
-
-        foreach (GridSlot slot in neighbors)
-        {
-            if (slot.isOccupied)
-            {
-                slot.image.color = invalidColor;
-            }
-            else
-            {
-                slot.image.color = validColor;
-            }
-        }
+        image.color = defaultColor;
     }
-
-    private void DeselectNeighbors()
-    {
-        List<GridSlot> neighbors = GetNeighbors();
-
-        foreach (GridSlot slot in neighbors)
-        {
-            slot.image.color = defaultColor;
-        }
-    }    
 }

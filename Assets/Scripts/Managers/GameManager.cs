@@ -27,8 +27,6 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private GameObject bankruptcyWarningText;
 
-    public GridManager gridManager;
-
     private void Awake()
     {
         if (Instance != null && Instance != this)

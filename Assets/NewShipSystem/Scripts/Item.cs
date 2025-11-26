@@ -43,14 +43,7 @@ public class Item : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
         isDragging = true;
         Item.currentDraggedItem = this;
 
-        if (hoveredSlot)
-        {
-            List<GridSlot> neighbors = hoveredSlot.GetNeighbors();
-            foreach (GridSlot slot in neighbors)
-            {
-                slot.isOccupied = false;
-            }
-        }
+        hoveredSlot.isOccupied = false;
     }
 
     public void OnEndDrag(PointerEventData eventData)
@@ -63,13 +56,7 @@ public class Item : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
         {
             transform.position = hoveredSlot.transform.position;
             hoveredSlot.image.color = GridSlot.defaultColor;
-
-            List<GridSlot> neighbors = hoveredSlot.GetNeighbors();
-            foreach(GridSlot slot in neighbors)
-            {
-                slot.isOccupied = true;
-                slot.image.color = GridSlot.defaultColor;
-            }
+            hoveredSlot.isOccupied = true;
         }
     }
 

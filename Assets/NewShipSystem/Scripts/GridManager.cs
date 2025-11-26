@@ -4,6 +4,8 @@ using UnityEngine.UI;
 
 public class GridManager : MonoBehaviour
 {
+    public static GridManager Instance { get; private set; }
+
     [SerializeField]
     private GameObject slotPrefab;
 
@@ -18,6 +20,18 @@ public class GridManager : MonoBehaviour
     private GridLayoutGroup gridLayoutGroup;
 
     public GridSlot[,] gridSlots { get; private set; }
+
+    void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this);
+        }
+        else
+        {
+            Instance = this;
+        }
+    }
 
     void Start()
     {
@@ -57,6 +71,22 @@ public class GridManager : MonoBehaviour
         return (row >= 0 && row < rows && column >= 0 && column < columns);
     }
 
+    public void HighlightSlots(GridSlot slot, ItemData data)
+    {
+        for (int row = 0; row < 3; row++)
+        {
+            for (int col = 0; col < 3; col++)
+            {
+                if (!data.IsCellFilled(row, col))
+                {
+                    continue;
+                }
+
+                gridSlots[slot.row + row, slot.col + col].Highlight();
+            }
+        }
+    }
+
     private void GenerateGrid()
     {
         gridSlots = new GridSlot[rows, columns];
@@ -68,7 +98,8 @@ public class GridManager : MonoBehaviour
             for (int j = 0; j < columns; j++)
             {
                 GameObject slot = GameObject.Instantiate(slotPrefab, transform);
-                slot.GetComponent<GridSlot>().position = new Vector2Int(i, j);
+                slot.GetComponent<GridSlot>().row = i;
+                slot.GetComponent<GridSlot>().col = j;
                 gridSlots[i, j] = slot.GetComponent<GridSlot>();
             }
         }
