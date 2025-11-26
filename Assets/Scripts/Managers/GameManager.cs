@@ -27,6 +27,8 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private GameObject bankruptcyWarningText;
 
+    public GridManager gridManager;
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -42,7 +44,9 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         currentCredits = startingCredits;
-        headerPanel.UpdateHeaderText();
+
+        if (headerPanel)
+            headerPanel.UpdateHeaderText();
     }
 
     private void Update()
