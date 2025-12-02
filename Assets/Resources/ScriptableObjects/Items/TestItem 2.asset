@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: some shit
   itemSprite: {fileID: 21300000, guid: fa90a00d60ad6b04f8d3a9bc27b2080a, type: 3}
-  shape: 010000010000000000
+  shape: 000000000100000100

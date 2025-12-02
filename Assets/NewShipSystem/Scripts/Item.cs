@@ -47,15 +47,19 @@ public class Item : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        canvasGroup.blocksRaycasts = false;
+        SetAllItemsBlockRaycasts(false);
+
         isDragging = true;
         Item.currentDraggedItem = this;
 
-        hoveredSlot.isOccupied = false;
+        if (hoveredSlot != null)
+            hoveredSlot.isOccupied = false;
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
+        SetAllItemsBlockRaycasts(true);
+
         canvasGroup.blocksRaycasts = true;
         isDragging = false;
         Item.currentDraggedItem = null;
@@ -64,7 +68,7 @@ public class Item : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
         {
             transform.position = hoveredSlot.transform.position;
             hoveredSlot.image.color = GridSlot.defaultColor;
-            hoveredSlot.isOccupied = true;
+            //hoveredSlot.isOccupied = true;
         }
 
         GridManager.Instance.ClearPlacementPreview();
@@ -73,5 +77,49 @@ public class Item : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
     public void SetHoveredSlot(GridSlot slot)
     {
         hoveredSlot = slot;
+    }
+
+    private static void SetAllItemsBlockRaycasts(bool blocks)
+    {
+        foreach (var item in FindObjectsOfType<Item>())
+        {
+            if (item == null || item.canvasGroup == null)
+            {
+                continue;
+            }
+
+            item.canvasGroup.blocksRaycasts = blocks;
+        }
+    }
+
+    private void PlaceOnGrid(int row, int col)
+    {
+        for (int r = 0; r < 3; r++)
+        {
+            for (int c = 0; c < 3; c++)
+            {
+                if (!data.IsCellFilled(r, c))
+                    continue;
+
+                GridSlot slot = GridManager.Instance.gridSlots[(r + row) - 1, (c + col) - 1];
+                slot.isOccupied = true;
+                slot.currentItem = this;
+                slot.image.color = GridSlot.defaultColor;
+            }
+        }
+    }
+
+    private void PickUpFromGrid(int row, int col)
+    {
+        for (int r = 0; r < 3; r++)
+        {
+            for (int c = 0; c < 3; c++)
+            {
+                GridSlot slot = GridManager.Instance.gridSlots[(r + row) - 1, (c + col) - 1];
+                slot.isOccupied = false;
+                slot.currentItem = null;
+                slot.image.color = GridSlot.defaultColor;
+            }
+        }
     }
 }

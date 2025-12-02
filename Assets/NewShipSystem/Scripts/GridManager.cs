@@ -82,15 +82,15 @@ public class GridManager : MonoBehaviour
 
         bool outOfBounds = false;
 
-        for (int row = 0; row < 3; row++)
+        for (int rowOffset = 0; rowOffset < 3; rowOffset++)
         {
-            for (int col = 0; col < 3; col++)
+            for (int colOffset = 0; colOffset < 3; colOffset++)
             {
-                if (!data.IsCellFilled(row, col))
+                if (!data.IsCellFilled(rowOffset, colOffset))
                     continue;
 
-                int r = startRow + row;
-                int c = startCol + col;
+                int r = (startRow + rowOffset) - 1;
+                int c = (startCol + colOffset) - 1;
 
                 if (!IsInBounds(r, c))
                 {
@@ -98,7 +98,7 @@ public class GridManager : MonoBehaviour
                     continue;
                 }
 
-                GridSlot slot = gridSlots[row, col];
+                GridSlot slot = gridSlots[r, c];
                 slot.Preview(!slot.isOccupied);
                 previewedSlots.Add(slot);
             }

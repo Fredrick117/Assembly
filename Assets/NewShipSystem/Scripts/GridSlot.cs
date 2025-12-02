@@ -45,17 +45,8 @@ public class GridSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
         if (Item.currentDraggedItem != null)
         {
-            GridManager.Instance.ShowPlacementPreview(row, col, Item.currentDraggedItem.data);
-        }
-
-        if (Item.currentDraggedItem != null)
-        {
             Item.currentDraggedItem.SetHoveredSlot(this);
-
-            //if (isOccupied)
-            //    image.color = invalidColor;
-            //else
-            //    image.color = validColor;
+            GridManager.Instance.ShowPlacementPreview(row, col, Item.currentDraggedItem.data);
         }
     }
 
