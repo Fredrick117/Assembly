@@ -21,6 +21,8 @@ public class GridManager : MonoBehaviour
 
     public GridSlot[,] gridSlots { get; private set; }
 
+    private List<GridSlot> previewedSlots = new List<GridSlot>();
+
     void Awake()
     {
         if (Instance != null && Instance != this)
@@ -71,20 +73,58 @@ public class GridManager : MonoBehaviour
         return (row >= 0 && row < rows && column >= 0 && column < columns);
     }
 
-    public void HighlightSlots(GridSlot slot, ItemData data)
+    public void ShowPlacementPreview(int startRow, int startCol, ItemData data)
     {
+        ClearPlacementPreview();
+
+        if (data == null)
+            return;
+
+        bool outOfBounds = false;
+
         for (int row = 0; row < 3; row++)
         {
             for (int col = 0; col < 3; col++)
             {
                 if (!data.IsCellFilled(row, col))
+                    continue;
+
+                int r = startRow + row;
+                int c = startCol + col;
+
+                if (!IsInBounds(r, c))
                 {
+                    outOfBounds = true;
                     continue;
                 }
 
-                gridSlots[slot.row + row, slot.col + col].Highlight();
+                GridSlot slot = gridSlots[row, col];
+                slot.Preview(!slot.isOccupied);
+                previewedSlots.Add(slot);
             }
         }
+
+        if (outOfBounds && previewedSlots.Count > 0)
+        {
+            foreach (var slot in previewedSlots)
+            {
+                slot.Preview(false);
+            }
+        }
+    }
+
+    public void ClearPlacementPreview()
+    {
+        if (previewedSlots == null || previewedSlots.Count == 0)
+            return;
+
+        foreach (var slot in previewedSlots)
+        {
+            if (slot != null)
+                slot.ResetColor();
+        }
+
+        previewedSlots.Clear();
     }
 
     private void GenerateGrid()

@@ -22,11 +22,19 @@ public class Item : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
     public GridSlot currentSlot;
     private GridSlot hoveredSlot;
 
+    private Image icon;
+
     void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
         canvas = GetComponentInParent<Canvas>();
         canvasGroup = GetComponent<CanvasGroup>();
+        icon = GetComponentInChildren<Image>();
+    }
+
+    void Start()
+    {
+        icon.sprite = data.itemSprite;
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -58,6 +66,8 @@ public class Item : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
             hoveredSlot.image.color = GridSlot.defaultColor;
             hoveredSlot.isOccupied = true;
         }
+
+        GridManager.Instance.ClearPlacementPreview();
     }
 
     public void SetHoveredSlot(GridSlot slot)

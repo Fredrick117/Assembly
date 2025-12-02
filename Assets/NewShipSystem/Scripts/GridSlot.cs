@@ -45,15 +45,18 @@ public class GridSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
         if (Item.currentDraggedItem != null)
         {
-            Item.currentDraggedItem.SetHoveredSlot(this);
-
-            if (isOccupied)
-                image.color = invalidColor;
-            else
-                image.color = validColor;
+            GridManager.Instance.ShowPlacementPreview(row, col, Item.currentDraggedItem.data);
         }
 
-        GridManager.Instance.HighlightSlots();
+        if (Item.currentDraggedItem != null)
+        {
+            Item.currentDraggedItem.SetHoveredSlot(this);
+
+            //if (isOccupied)
+            //    image.color = invalidColor;
+            //else
+            //    image.color = validColor;
+        }
     }
 
     public void OnPointerExit(PointerEventData eventData)
@@ -62,16 +65,18 @@ public class GridSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         {
             Item.currentDraggedItem.SetHoveredSlot(null);
             image.color = defaultColor;
-        }
-    }
 
-    public void Highlight()
-    {
-        image.color = isOccupied ? invalidColor : validColor;
+            GridManager.Instance.ClearPlacementPreview();
+        }
     }
 
     public void ResetColor()
     {
         image.color = defaultColor;
+    }
+
+    public void Preview(bool isValid)
+    {
+        image.color = isValid ? validColor : invalidColor;
     }
 }

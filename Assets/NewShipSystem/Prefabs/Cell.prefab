@@ -93,7 +93,8 @@ MonoBehaviour:
   isOccupied: 0
   currentItem: {fileID: 0}
   showPositions: 1
-  position: {x: 0, y: 0}
+  row: 0
+  col: 0
 --- !u!1 &7313837384043589717
 GameObject:
   m_ObjectHideFlags: 0
