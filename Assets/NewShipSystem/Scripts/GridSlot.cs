@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -27,6 +28,10 @@ public class GridSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     public static Color validColor = new Color(0, 1, 0, 0.3f);
     public static Color invalidColor = new Color(1, 0, 0, 0.3f);
     public static Color defaultColor = new Color(0, 0, 0, 0.3f);
+    public static Color occupiedColor = new Color(1, 1, 0, 0.3f);
+
+    public static event Action<GridSlot> OnSlotEnter;
+    public static event Action<GridSlot> OnSlotExit;
 
     void Awake()
     {
@@ -45,6 +50,7 @@ public class GridSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
         if (Item.currentDraggedItem != null)
         {
+            OnSlotEnter?.Invoke(this);
             Item.currentDraggedItem.SetHoveredSlot(this);
             GridManager.Instance.ShowPlacementPreview(row, col, Item.currentDraggedItem.data);
         }
@@ -54,6 +60,8 @@ public class GridSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
         if (Item.currentDraggedItem != null)
         {
+            OnSlotExit?.Invoke(null);
+
             Item.currentDraggedItem.SetHoveredSlot(null);
             image.color = defaultColor;
 

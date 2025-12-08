@@ -113,6 +113,17 @@ public class GridManager : MonoBehaviour
         }
     }
 
+    public GridSlot GetSlot(int row, int col)
+    {
+        if (!IsInBounds(row, col))
+        {
+            Debug.LogError("GetSlot: invalid row/col!");
+            return null;
+        }
+
+        return gridSlots[row, col];
+    }
+
     public void ClearPlacementPreview()
     {
         if (previewedSlots == null || previewedSlots.Count == 0)

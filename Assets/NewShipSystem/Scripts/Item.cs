@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class Item : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
+public class Item : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerUpHandler
 {
     [HideInInspector]
     public static Item currentDraggedItem;
@@ -19,10 +19,17 @@ public class Item : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
     public ItemData data;
 
     [HideInInspector]
+    // The slot on the grid that previously held this item
+    public GridSlot previousSlot;
+    // The slot on the grid that this item is currently occupying
     public GridSlot currentSlot;
+    // The slot on the grid that this item is currently hovering over (only valid when item is being dragged)
     private GridSlot hoveredSlot;
 
     private Image icon;
+
+    public static event Action<Item> OnPickUpItem;
+    public static event Action<Item> OnDropItem;
 
     void Awake()
     {
@@ -45,35 +52,6 @@ public class Item : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
         }
     }
 
-    public void OnBeginDrag(PointerEventData eventData)
-    {
-        SetAllItemsBlockRaycasts(false);
-
-        isDragging = true;
-        Item.currentDraggedItem = this;
-
-        if (hoveredSlot != null)
-            hoveredSlot.isOccupied = false;
-    }
-
-    public void OnEndDrag(PointerEventData eventData)
-    {
-        SetAllItemsBlockRaycasts(true);
-
-        canvasGroup.blocksRaycasts = true;
-        isDragging = false;
-        Item.currentDraggedItem = null;
-
-        if (hoveredSlot != null && !hoveredSlot.isOccupied)
-        {
-            transform.position = hoveredSlot.transform.position;
-            hoveredSlot.image.color = GridSlot.defaultColor;
-            //hoveredSlot.isOccupied = true;
-        }
-
-        GridManager.Instance.ClearPlacementPreview();
-    }
-
     public void SetHoveredSlot(GridSlot slot)
     {
         hoveredSlot = slot;
@@ -92,7 +70,7 @@ public class Item : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
         }
     }
 
-    private void PlaceOnGrid(int row, int col)
+    private bool CanPlace(int row, int col)
     {
         for (int r = 0; r < 3; r++)
         {
@@ -102,11 +80,41 @@ public class Item : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
                     continue;
 
                 GridSlot slot = GridManager.Instance.gridSlots[(r + row) - 1, (c + col) - 1];
+
+                if (slot.isOccupied)
+                    return false;
+            }
+        }
+
+        return true;
+    }
+
+    private void PlaceOnGrid(int row, int col)
+    {
+        transform.position = GridManager.Instance.GetSlot(row, col).transform.position;
+
+        for (int r = 0; r < 3; r++)
+        {
+            for (int c = 0; c < 3; c++)
+            {
+                if (!data.IsCellFilled(r, c))
+                    continue;
+
+                int rowOffset = (r + row) - 1;
+                int colOffset = (c + col) - 1;
+
+                if (!GridManager.Instance.IsInBounds(rowOffset, colOffset))
+                    continue;
+
+                GridSlot slot = GridManager.Instance.gridSlots[rowOffset, colOffset];
+
                 slot.isOccupied = true;
                 slot.currentItem = this;
                 slot.image.color = GridSlot.defaultColor;
             }
         }
+
+        currentSlot = GridManager.Instance.gridSlots[row, col];
     }
 
     private void PickUpFromGrid(int row, int col)
@@ -115,11 +123,85 @@ public class Item : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
         {
             for (int c = 0; c < 3; c++)
             {
-                GridSlot slot = GridManager.Instance.gridSlots[(r + row) - 1, (c + col) - 1];
+                if (!data.IsCellFilled(r, c))
+                    continue;
+
+                int rowOffset = (r + row) - 1;
+                int colOffset = (c + col) - 1;
+
+                if (!GridManager.Instance.IsInBounds(rowOffset, colOffset))
+                    continue;
+
+                GridSlot slot = GridManager.Instance.gridSlots[rowOffset, colOffset];   // TODO: Out of bounds exception when picking up when near edge of grid
+
                 slot.isOccupied = false;
                 slot.currentItem = null;
                 slot.image.color = GridSlot.defaultColor;
             }
         }
+    }
+
+    private void ReturnToPreviousPosition()
+    {
+        if (previousSlot == null)
+        {
+            Debug.LogError("No previous slot! Returning to 0,0");
+            transform.position = Vector2.zero;
+            return;
+        }
+
+        PlaceOnGrid(previousSlot.row, previousSlot.col);
+    }
+
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        print("pick up!");
+        
+        SetAllItemsBlockRaycasts(false);
+        isDragging = true;
+        Item.currentDraggedItem = this;
+
+        previousSlot = currentSlot;
+        currentSlot = null;
+
+        if (previousSlot == null)
+        {
+            Debug.LogError("OnPointerDown: previous slot was null!");
+            return;
+        }
+
+        OnPickUpItem?.Invoke(this);
+        
+        PickUpFromGrid(previousSlot.row, previousSlot.col);
+    }
+
+    public void OnPointerUp(PointerEventData eventData)
+    {
+        print("place!");
+        OnDropItem?.Invoke(null);
+
+        SetAllItemsBlockRaycasts(true);
+        isDragging = false;
+        Item.currentDraggedItem = null;
+
+        GridManager.Instance.ClearPlacementPreview();
+
+        if (hoveredSlot == null)
+        {
+            Debug.LogWarning("hoveredSlot was null!");
+            ReturnToPreviousPosition();
+
+            return;
+        }
+
+        if (!CanPlace(hoveredSlot.row, hoveredSlot.col))
+        {
+            Debug.LogWarning("Can't place!");
+            ReturnToPreviousPosition();
+
+            return;
+        }
+
+        PlaceOnGrid(hoveredSlot.row, hoveredSlot.col);
     }
 }
