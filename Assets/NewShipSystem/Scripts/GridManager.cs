@@ -4,8 +4,6 @@ using UnityEngine.UI;
 
 public class GridManager : MonoBehaviour
 {
-    public static GridManager Instance { get; private set; }
-
     [SerializeField]
     private GameObject slotPrefab;
 
@@ -25,19 +23,11 @@ public class GridManager : MonoBehaviour
 
     void Awake()
     {
-        if (Instance != null && Instance != this)
-        {
-            Destroy(this);
-        }
-        else
-        {
-            Instance = this;
-        }
+        gridLayoutGroup = GetComponent<GridLayoutGroup>();
     }
 
     void Start()
     {
-        gridLayoutGroup = GetComponent<GridLayoutGroup>();
         gridLayoutGroup.constraint = GridLayoutGroup.Constraint.FixedRowCount;
 
         GenerateGrid();
@@ -141,7 +131,6 @@ public class GridManager : MonoBehaviour
     private void GenerateGrid()
     {
         gridSlots = new GridSlot[rows, columns];
-
         gridLayoutGroup.constraintCount = rows;
 
         for (int i = 0; i < rows; i++)
@@ -149,8 +138,10 @@ public class GridManager : MonoBehaviour
             for (int j = 0; j < columns; j++)
             {
                 GameObject slot = GameObject.Instantiate(slotPrefab, transform);
-                slot.GetComponent<GridSlot>().row = i;
-                slot.GetComponent<GridSlot>().col = j;
+                GridSlot gridSlot = slot.GetComponent<GridSlot>();
+                gridSlot.row = i;
+                gridSlot.col = j;
+                gridSlot.parentGrid = this;
                 gridSlots[i, j] = slot.GetComponent<GridSlot>();
             }
         }

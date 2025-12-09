@@ -22,6 +22,9 @@ public class GridSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     [HideInInspector]
     public int col;
 
+    [HideInInspector]
+    public GridManager parentGrid;
+
     private TMP_Text debugText;
 
     [Header("Visualization")]
@@ -42,8 +45,12 @@ public class GridSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     void Start()
     {
         defaultColor = image.color;
-        debugText.text = $"({row}, {col})";
-        debugText.gameObject.SetActive(showPositions);
+
+        if (debugText != null)
+        {
+            debugText.text = $"({row}, {col})";
+            debugText.gameObject.SetActive(showPositions);
+        }
     }
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -52,7 +59,7 @@ public class GridSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         {
             OnSlotEnter?.Invoke(this);
             Item.currentDraggedItem.SetHoveredSlot(this);
-            GridManager.Instance.ShowPlacementPreview(row, col, Item.currentDraggedItem.data);
+            parentGrid.ShowPlacementPreview(row, col, Item.currentDraggedItem.data);
         }
     }
 
@@ -65,7 +72,7 @@ public class GridSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
             Item.currentDraggedItem.SetHoveredSlot(null);
             image.color = defaultColor;
 
-            GridManager.Instance.ClearPlacementPreview();
+            parentGrid.ClearPlacementPreview();
         }
     }
 

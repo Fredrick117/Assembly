@@ -72,6 +72,11 @@ public class Item : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerUp
 
     private bool CanPlace(int row, int col)
     {
+        if (hoveredSlot == null || hoveredSlot.parentGrid == null)
+            return false;
+
+        GridManager targetGrid = hoveredSlot.parentGrid;
+
         for (int r = 0; r < 3; r++)
         {
             for (int c = 0; c < 3; c++)
@@ -79,7 +84,13 @@ public class Item : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerUp
                 if (!data.IsCellFilled(r, c))
                     continue;
 
-                GridSlot slot = GridManager.Instance.gridSlots[(r + row) - 1, (c + col) - 1];
+                int rowOffset = (r + row) - 1;
+                int colOffset = (c + col) - 1;
+
+                if (!targetGrid.IsInBounds(rowOffset, colOffset))
+                    return false;
+
+                GridSlot slot = targetGrid.gridSlots[rowOffset, colOffset];
 
                 if (slot.isOccupied)
                     return false;
@@ -89,9 +100,9 @@ public class Item : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerUp
         return true;
     }
 
-    private void PlaceOnGrid(int row, int col)
+    private void PlaceOnGrid(int row, int col, GridManager targetGrid)
     {
-        transform.position = GridManager.Instance.GetSlot(row, col).transform.position;
+        transform.position = targetGrid.GetSlot(row, col).transform.position;
 
         for (int r = 0; r < 3; r++)
         {
@@ -103,10 +114,10 @@ public class Item : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerUp
                 int rowOffset = (r + row) - 1;
                 int colOffset = (c + col) - 1;
 
-                if (!GridManager.Instance.IsInBounds(rowOffset, colOffset))
+                if (!targetGrid.IsInBounds(rowOffset, colOffset))
                     continue;
 
-                GridSlot slot = GridManager.Instance.gridSlots[rowOffset, colOffset];
+                GridSlot slot = targetGrid.gridSlots[rowOffset, colOffset];
 
                 slot.isOccupied = true;
                 slot.currentItem = this;
@@ -114,11 +125,19 @@ public class Item : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerUp
             }
         }
 
-        currentSlot = GridManager.Instance.gridSlots[row, col];
+        currentSlot = targetGrid.gridSlots[row, col];
     }
 
     private void PickUpFromGrid(int row, int col)
     {
+        if (previousSlot == null || previousSlot.parentGrid == null)
+        {
+            Debug.LogError("PickUpFromGrid: previousSlot or parentGrid was null!");
+            return;
+        }
+
+        GridManager targetGrid = previousSlot.parentGrid;
+
         for (int r = 0; r < 3; r++)
         {
             for (int c = 0; c < 3; c++)
@@ -129,10 +148,10 @@ public class Item : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerUp
                 int rowOffset = (r + row) - 1;
                 int colOffset = (c + col) - 1;
 
-                if (!GridManager.Instance.IsInBounds(rowOffset, colOffset))
+                if (!targetGrid.IsInBounds(rowOffset, colOffset))
                     continue;
 
-                GridSlot slot = GridManager.Instance.gridSlots[rowOffset, colOffset];   // TODO: Out of bounds exception when picking up when near edge of grid
+                GridSlot slot = targetGrid.gridSlots[rowOffset, colOffset];
 
                 slot.isOccupied = false;
                 slot.currentItem = null;
@@ -150,7 +169,7 @@ public class Item : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerUp
             return;
         }
 
-        PlaceOnGrid(previousSlot.row, previousSlot.col);
+        PlaceOnGrid(previousSlot.row, previousSlot.col, previousSlot.parentGrid);
     }
 
     public void OnPointerDown(PointerEventData eventData)
@@ -184,7 +203,11 @@ public class Item : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerUp
         isDragging = false;
         Item.currentDraggedItem = null;
 
-        GridManager.Instance.ClearPlacementPreview();
+        GridManager targetGrid = hoveredSlot.parentGrid;
+        if (targetGrid != null)
+        {
+            targetGrid.ClearPlacementPreview();
+        }
 
         if (hoveredSlot == null)
         {
@@ -202,6 +225,6 @@ public class Item : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerUp
             return;
         }
 
-        PlaceOnGrid(hoveredSlot.row, hoveredSlot.col);
+        PlaceOnGrid(hoveredSlot.row, hoveredSlot.col, hoveredSlot.parentGrid);
     }
 }
