@@ -29,12 +29,14 @@ public class ShipDetailsPanel : MonoBehaviour
 
     private void Start()
     {
-        ShipStats.Instance.onStatsChanged.AddListener(UpdateText);
+        if (ShipStats.Instance)
+            ShipStats.Instance.onStatsChanged.AddListener(UpdateText);
     }
 
     private void OnDisable()
     {
-        ShipStats.Instance.onStatsChanged.RemoveListener(UpdateText);
+        if (ShipStats.Instance)
+            ShipStats.Instance.onStatsChanged.RemoveListener(UpdateText);
     }
 
     public void UpdateText()

@@ -1,5 +1,6 @@
 using UnityEngine;
 using System;
+using System.Linq;
 
 [CreateAssetMenu(fileName = "NewItem", menuName = "Items/Item")]
 public class ItemData : ScriptableObject
@@ -7,8 +8,9 @@ public class ItemData : ScriptableObject
     [Header("Item Properties")]
     public string itemName;
     public Sprite itemSprite;
+    public Subsystem subsystemData;
 
-    [Header("Shape (3x3 Grid)")]
+    [Header("Shape")]
     [SerializeField]
     private bool[] shape = new bool[9];
 
@@ -20,6 +22,11 @@ public class ItemData : ScriptableObject
             result[i / 3, i % 3] = shape[i];
         }
         return result;
+    }
+
+    public void SetShape(bool[,] inShape)
+    {
+        shape = inShape.Cast<bool>().ToArray();
     }
 
     public bool IsCellFilled(int row, int col)

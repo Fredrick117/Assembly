@@ -28,6 +28,15 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private GameObject bankruptcyWarningText;
 
+    public GridManager inventoryGrid;
+
+    public GameObject itemPrefab;
+
+    private List<GameObject> testItems = new List<GameObject>();
+
+    [SerializeField]
+    private Canvas mainCanvas;
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -46,6 +55,11 @@ public class GameManager : MonoBehaviour
 
         if (headerPanel)
             headerPanel.UpdateHeaderText();
+
+        // for (int i = 0; i < 1; i++)
+        // {
+        //     testItems.Add(CreateItem(Resources.Load<ItemData>("ScriptableObjects/Items/ThrusterItem"), inventoryGrid).gameObject);
+        // }
     }
 
     private void Update()
@@ -54,16 +68,27 @@ public class GameManager : MonoBehaviour
         {
             pausePanel.gameObject.SetActive(true);
         }
+
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            GameObject item = Instantiate(itemPrefab, mainCanvas.transform);
+            if (item)
+            {
+                Debug_SpawnItemInInventory(item.GetComponent<Item>(), 1, 0, inventoryGrid);
+            }
+        }
     }
 
     private void OnEnable()
     {
         EventManager.onSubmit += CheckForBankruptcy;
+        //GridManager.OnGridGenerated += OnGridGenerated;
     }
 
     private void OnDisable()
     {
         EventManager.onSubmit -= CheckForBankruptcy;
+        //GridManager.OnGridGenerated -= OnGridGenerated;
     }
 
     public void ShowSubsystemMenu()
@@ -99,5 +124,31 @@ public class GameManager : MonoBehaviour
         {
             StartCoroutine(ShowGameOverScreen());
         }
+    }
+
+    private void OnGridGenerated(GridManager grid)
+    {
+        // if (grid.type == GridType.Inventory)
+        // {
+        //     for (int i = 0; i < 1; i++)
+        //     {
+        //         Debug_SpawnItemInInventory(testItems[i].GetComponent<Item>(), 1, i, grid);
+        //     }
+        // }
+    }
+
+    private void Debug_SpawnItemInInventory(Item itemToSpawn, int row, int col, GridManager grid)
+    {
+        if (itemToSpawn.CanPlace(row, col, grid))
+        {
+            itemToSpawn.PlaceOnGrid(row, col, grid);
+        }
+    }
+
+    private Item CreateItem(ItemData itemData, GridManager grid)
+    {
+        Item item = Instantiate(itemPrefab, mainCanvas.transform).GetComponent<Item>();
+        item.SetRuntimeData(itemData);
+        return item;
     }
 }

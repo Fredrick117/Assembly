@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: AI
   m_EditorClassIdentifier: 
   itemName: AI
-  itemSprite: {fileID: 21300000, guid: 3f03d76af03bbdf4f96bef4751b5675c, type: 3}
+  itemSprite: {fileID: 21300000, guid: a163ad118675d4840a092a79cce41453, type: 3}
+  subsystemData: {fileID: 11400000, guid: 484c67277b9da8740adaa5a5a8574cfb, type: 2}
   shape: 000100010101000100

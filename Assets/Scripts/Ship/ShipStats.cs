@@ -52,7 +52,7 @@ public class ShipStats : MonoBehaviour
             slot.icon.color = Color.clear;
             slot.slotText.text = "";
 
-            onStatsChanged?.Invoke();
+            //onStatsChanged?.Invoke();
         }
     }
 
@@ -72,7 +72,7 @@ public class ShipStats : MonoBehaviour
         slot.slotText.text = subsystemData.displayName;
 
         subsystemData.ApplyToShip(this);
-        onStatsChanged?.Invoke();
+        //onStatsChanged?.Invoke();
     }
 
     public void ClearShipStats()

@@ -17,6 +17,8 @@ public class Subsystem : ScriptableObject
         ship.currentMass += mass;
         ship.currentPowerDraw += powerDraw;
         ship.currentPrice += price;
+        
+        ship.onStatsChanged?.Invoke();
     }
 
     public virtual void RemoveFromShip(ShipStats ship)
@@ -24,5 +26,7 @@ public class Subsystem : ScriptableObject
         ship.currentMass -= mass;
         ship.currentPowerDraw -= powerDraw;
         ship.currentPrice -= price;
+        
+        ship.onStatsChanged?.Invoke();
     }
 }

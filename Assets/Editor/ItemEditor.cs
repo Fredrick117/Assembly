@@ -10,9 +10,10 @@ public class ItemEditor : Editor
 
         EditorGUILayout.PropertyField(serializedObject.FindProperty("itemName"));
         EditorGUILayout.PropertyField(serializedObject.FindProperty("itemSprite"));
+        EditorGUILayout.PropertyField(serializedObject.FindProperty("subsystemData"));
 
         EditorGUILayout.Space();
-        EditorGUILayout.LabelField("Shape (3x3 Grid)", EditorStyles.boldLabel);
+        EditorGUILayout.LabelField("Shape", EditorStyles.boldLabel);
 
         SerializedProperty shapeProp = serializedObject.FindProperty("shape");
 

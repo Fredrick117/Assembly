@@ -12,7 +12,7 @@ public class DebugPanel : MonoBehaviour
 
     private void SetCurrentDraggedItemText(Item item)
     {
-        currentDraggedItemText.text = $"Current dragged item: {(item != null ? item.data.name : "null")}";
+        currentDraggedItemText.text = $"Current dragged item: {(item != null ? item.GetRuntimeData().name : "null")}";
     }
 
     private void SetCurrentItemLastLocText(Item item)

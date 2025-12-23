@@ -1,7 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -16,7 +13,9 @@ public class Item : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerUp
     private Canvas canvas;
     private CanvasGroup canvasGroup;
 
-    public ItemData data;
+    [SerializeField]
+    private ItemData data;
+    private ItemData runtimeData;
 
     [HideInInspector]
     // The slot on the grid that previously held this item
@@ -28,6 +27,9 @@ public class Item : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerUp
 
     private Image icon;
 
+    // The item's current rotation; can be 0, 90, 180, or 270
+    private int currentRotation = 0;
+
     public static event Action<Item> OnPickUpItem;
     public static event Action<Item> OnDropItem;
 
@@ -37,11 +39,44 @@ public class Item : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerUp
         canvas = GetComponentInParent<Canvas>();
         canvasGroup = GetComponent<CanvasGroup>();
         icon = GetComponentInChildren<Image>();
+        
+        // Data is null in Start()...?
+        if (data == null || icon == null)
+        {
+            Debug.LogError("Start: data or icon were invalid!");
+            return;
+        }
+
+        runtimeData = Instantiate(data);
+        icon.sprite = data.itemSprite;
     }
 
     void Start()
     {
-        icon.sprite = data.itemSprite;
+        icon.alphaHitTestMinimumThreshold = 0.1f;
+    }
+
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space) && isDragging)
+        {
+            Rotate();
+        }
+    }
+
+    void OnValidate()
+    {
+        GetComponentInChildren<Image>().sprite = data.itemSprite;
+    }
+
+    public ItemData GetRuntimeData()
+    {
+        return this.runtimeData;
+    }
+
+    public void SetRuntimeData(ItemData inData)
+    {
+        this.runtimeData = inData;
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -57,6 +92,31 @@ public class Item : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerUp
         hoveredSlot = slot;
     }
 
+    public void Rotate()
+    {
+        RectTransform rect = GetComponentInChildren<RectTransform>();
+        rect.Rotate(new Vector3(0, 0, 90f));
+        currentRotation = (currentRotation + 90) % 360;
+
+        bool[,] rotatedMatrix = new bool[3, 3];
+
+        var source = runtimeData.GetShape();
+        for (int i = 0; i < 3; i++)
+        {
+            for (int j = 0; j < 3; j++)
+            {
+                rotatedMatrix[i, j] = source[j, (2 - i)];
+            }
+        }
+
+        runtimeData.SetShape(rotatedMatrix);
+
+        if (hoveredSlot != null)
+        {
+            hoveredSlot.parentGrid.ShowPlacementPreview(hoveredSlot.row, hoveredSlot.col, runtimeData);
+        }
+    }
+
     private static void SetAllItemsBlockRaycasts(bool blocks)
     {
         foreach (var item in FindObjectsOfType<Item>())
@@ -70,27 +130,22 @@ public class Item : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerUp
         }
     }
 
-    private bool CanPlace(int row, int col)
+    public bool CanPlace(int row, int col, GridManager grid)
     {
-        if (hoveredSlot == null || hoveredSlot.parentGrid == null)
-            return false;
-
-        GridManager targetGrid = hoveredSlot.parentGrid;
-
         for (int r = 0; r < 3; r++)
         {
             for (int c = 0; c < 3; c++)
             {
-                if (!data.IsCellFilled(r, c))
+                if (!this.runtimeData.IsCellFilled(r, c))
                     continue;
 
                 int rowOffset = (r + row) - 1;
                 int colOffset = (c + col) - 1;
 
-                if (!targetGrid.IsInBounds(rowOffset, colOffset))
+                if (!grid.IsInBounds(rowOffset, colOffset))
                     return false;
 
-                GridSlot slot = targetGrid.gridSlots[rowOffset, colOffset];
+                GridSlot slot = grid.GridSlots[rowOffset, colOffset];
 
                 if (slot.isOccupied)
                     return false;
@@ -100,15 +155,16 @@ public class Item : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerUp
         return true;
     }
 
-    private void PlaceOnGrid(int row, int col, GridManager targetGrid)
+    public void PlaceOnGrid(int row, int col, GridManager targetGrid)
     {
-        transform.position = targetGrid.GetSlot(row, col).transform.position;
+        transform.position = targetGrid.GetSlot(row, col).GetComponent<RectTransform>().position;
+        print($"Placed item at X: {transform.position.x}, Y: {transform.position.y}");
 
         for (int r = 0; r < 3; r++)
         {
             for (int c = 0; c < 3; c++)
             {
-                if (!data.IsCellFilled(r, c))
+                if (!runtimeData.IsCellFilled(r, c))
                     continue;
 
                 int rowOffset = (r + row) - 1;
@@ -117,15 +173,22 @@ public class Item : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerUp
                 if (!targetGrid.IsInBounds(rowOffset, colOffset))
                     continue;
 
-                GridSlot slot = targetGrid.gridSlots[rowOffset, colOffset];
+                GridSlot neighbor = targetGrid.GridSlots[rowOffset, colOffset];
 
-                slot.isOccupied = true;
-                slot.currentItem = this;
-                slot.image.color = GridSlot.defaultColor;
+                neighbor.isOccupied = true;
+                neighbor.currentItem = this;
+                neighbor.image.color = GridSlot.defaultColor;
             }
         }
 
-        currentSlot = targetGrid.gridSlots[row, col];
+        if (targetGrid.type == GridType.Ship)
+        {
+            print("Placed on ship!");
+            data.subsystemData.ApplyToShip(ShipStats.Instance);
+        }
+
+        currentSlot = targetGrid.GridSlots[row, col];
+        previousSlot = currentSlot;
     }
 
     private void PickUpFromGrid(int row, int col)
@@ -137,12 +200,14 @@ public class Item : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerUp
         }
 
         GridManager targetGrid = previousSlot.parentGrid;
+        
+        transform.SetParent(canvas.transform);
 
         for (int r = 0; r < 3; r++)
         {
             for (int c = 0; c < 3; c++)
             {
-                if (!data.IsCellFilled(r, c))
+                if (!runtimeData.IsCellFilled(r, c))
                     continue;
 
                 int rowOffset = (r + row) - 1;
@@ -151,12 +216,18 @@ public class Item : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerUp
                 if (!targetGrid.IsInBounds(rowOffset, colOffset))
                     continue;
 
-                GridSlot slot = targetGrid.gridSlots[rowOffset, colOffset];
+                GridSlot neighbor = targetGrid.GridSlots[rowOffset, colOffset];
 
-                slot.isOccupied = false;
-                slot.currentItem = null;
-                slot.image.color = GridSlot.defaultColor;
+                neighbor.isOccupied = false;
+                neighbor.currentItem = null;
+                neighbor.image.color = GridSlot.defaultColor;
             }
+        }
+        
+        if (targetGrid.type == GridType.Ship)
+        {
+            print("Picked up from ship!");
+            data.subsystemData.RemoveFromShip(ShipStats.Instance);
         }
     }
 
@@ -196,32 +267,29 @@ public class Item : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerUp
 
     public void OnPointerUp(PointerEventData eventData)
     {
-        print("place!");
         OnDropItem?.Invoke(null);
 
         SetAllItemsBlockRaycasts(true);
         isDragging = false;
         Item.currentDraggedItem = null;
-
+    
+        if (hoveredSlot == null)
+        {
+            Debug.LogWarning("hoveredSlot was null!");
+            ReturnToPreviousPosition();
+            return;
+        }
+        
         GridManager targetGrid = hoveredSlot.parentGrid;
         if (targetGrid != null)
         {
             targetGrid.ClearPlacementPreview();
         }
 
-        if (hoveredSlot == null)
-        {
-            Debug.LogWarning("hoveredSlot was null!");
-            ReturnToPreviousPosition();
-
-            return;
-        }
-
-        if (!CanPlace(hoveredSlot.row, hoveredSlot.col))
+        if (!CanPlace(hoveredSlot.row, hoveredSlot.col, hoveredSlot.parentGrid))
         {
             Debug.LogWarning("Can't place!");
             ReturnToPreviousPosition();
-
             return;
         }
 

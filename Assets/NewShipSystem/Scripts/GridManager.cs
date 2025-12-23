@@ -2,14 +2,24 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+public enum GridType
+{
+    Inventory,
+    Ship
+}
+
 public class GridManager : MonoBehaviour
 {
-    [SerializeField]
-    private GameObject slotPrefab;
+    [SerializeField] private GameObject slotPrefab;
+    
+    [Header("Debugging")]
+    [SerializeField] private GameObject debugCirclePrefab;
+    [SerializeField] private Canvas canvas;
 
     [Header("Grid Settings")]
     public int rows;
     public int columns;
+    public GridType type;
 
     [Header("Item Mask Settings")]
     public int maskWidth;
@@ -17,9 +27,11 @@ public class GridManager : MonoBehaviour
 
     private GridLayoutGroup gridLayoutGroup;
 
-    public GridSlot[,] gridSlots { get; private set; }
+    public GridSlot[,] GridSlots { get; set; }
 
     private List<GridSlot> previewedSlots = new List<GridSlot>();
+
+    //public static event Action<GridManager> OnGridGenerated;
 
     void Awake()
     {
@@ -29,7 +41,6 @@ public class GridManager : MonoBehaviour
     void Start()
     {
         gridLayoutGroup.constraint = GridLayoutGroup.Constraint.FixedRowCount;
-
         GenerateGrid();
     }
 
@@ -67,7 +78,7 @@ public class GridManager : MonoBehaviour
     {
         ClearPlacementPreview();
 
-        if (data == null)
+        if (!data)
             return;
 
         bool outOfBounds = false;
@@ -88,7 +99,7 @@ public class GridManager : MonoBehaviour
                     continue;
                 }
 
-                GridSlot slot = gridSlots[r, c];
+                GridSlot slot = GridSlots[r, c];
                 slot.Preview(!slot.isOccupied);
                 previewedSlots.Add(slot);
             }
@@ -111,7 +122,7 @@ public class GridManager : MonoBehaviour
             return null;
         }
 
-        return gridSlots[row, col];
+        return GridSlots[row, col];
     }
 
     public void ClearPlacementPreview()
@@ -130,7 +141,7 @@ public class GridManager : MonoBehaviour
 
     private void GenerateGrid()
     {
-        gridSlots = new GridSlot[rows, columns];
+        GridSlots = new GridSlot[rows, columns];
         gridLayoutGroup.constraintCount = rows;
 
         for (int i = 0; i < rows; i++)
@@ -142,9 +153,14 @@ public class GridManager : MonoBehaviour
                 gridSlot.row = i;
                 gridSlot.col = j;
                 gridSlot.parentGrid = this;
-                gridSlots[i, j] = slot.GetComponent<GridSlot>();
+                GridSlots[i, j] = gridSlot;
             }
         }
+
+        Canvas.ForceUpdateCanvases();
+        LayoutRebuilder.ForceRebuildLayoutImmediate(GetComponent<RectTransform>());
+
+        //OnGridGenerated?.Invoke(this);
     }
 
     private void ClearGrid()

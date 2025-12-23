@@ -5,6 +5,14 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
+public enum SlotType
+{
+    Any,
+    Thruster,
+    Weapon,
+    Invalid,
+}
+
 public class GridSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     [HideInInspector]
@@ -33,6 +41,8 @@ public class GridSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     public static Color defaultColor = new Color(0, 0, 0, 0.3f);
     public static Color occupiedColor = new Color(1, 1, 0, 0.3f);
 
+    [HideInInspector] public SlotType type = SlotType.Any;
+    
     public static event Action<GridSlot> OnSlotEnter;
     public static event Action<GridSlot> OnSlotExit;
 
@@ -55,25 +65,29 @@ public class GridSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if (Item.currentDraggedItem != null)
+        if (Item.currentDraggedItem == null)
         {
-            OnSlotEnter?.Invoke(this);
-            Item.currentDraggedItem.SetHoveredSlot(this);
-            parentGrid.ShowPlacementPreview(row, col, Item.currentDraggedItem.data);
+            return;
         }
+        
+        OnSlotEnter?.Invoke(this);
+        Item.currentDraggedItem.SetHoveredSlot(this);
+        parentGrid.ShowPlacementPreview(row, col, Item.currentDraggedItem.GetRuntimeData());
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        if (Item.currentDraggedItem != null)
+        if (Item.currentDraggedItem == null)
         {
-            OnSlotExit?.Invoke(null);
-
-            Item.currentDraggedItem.SetHoveredSlot(null);
-            image.color = defaultColor;
-
-            parentGrid.ClearPlacementPreview();
+            return;
         }
+        
+        OnSlotExit?.Invoke(null);
+
+        Item.currentDraggedItem.SetHoveredSlot(null);
+        image.color = defaultColor;
+
+        parentGrid.ClearPlacementPreview();
     }
 
     public void ResetColor()
