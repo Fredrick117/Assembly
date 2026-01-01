@@ -17,7 +17,7 @@ public class SubsystemSelectionMenu : MonoBehaviour
     private void Start()
     {
         List<Subsystem> allSubsystems = Resources.LoadAll<Subsystem>("ScriptableObjects/Subsystems").ToList();
-
+        
         foreach (Subsystem s in allSubsystems)
         {
             GameObject button = GameObject.Instantiate(subsystemButtonPrefab, contentContainer);
@@ -37,7 +37,7 @@ public class SubsystemSelectionMenu : MonoBehaviour
 
     public void Close()
     {
-        gameObject.SetActive(false);
+        transform.parent.gameObject.SetActive(false);
         selectedSlot = -1;
     }
 }

@@ -26,36 +26,42 @@ public class SubsystemButton : MonoBehaviour, IPointerClickHandler, IPointerEnte
     {
         background = GetComponent<Image>();
 
-        menuRef = transform.parent.transform.parent.GetComponent<SubsystemSelectionMenu>();
+        menuRef = transform.parent.parent.parent.GetComponent<SubsystemSelectionMenu>();
 
         descriptorText = transform.GetChild(1).transform.GetChild(0).GetComponent<TMP_Text>();
         descriptionText = transform.GetChild(1).transform.GetChild(1).GetComponent<TMP_Text>();
         statsText = transform.GetChild(1).transform.GetChild(2).GetComponent<TMP_Text>();
 
         descriptorText.text = subsystemData.displayName;
-
-        if (subsystemData.description.Length > 0)
-            descriptionText.text = subsystemData.description;
-        else
-            descriptionText.text = "No description available.";
+        descriptionText.text = subsystemData.description.Length > 0 ? subsystemData.description : "No description available.";
 
         statsText.text = $"Mass: +{subsystemData.mass}\tPower draw: {subsystemData.powerDraw}\t";
         statsText.text += $"Price: ${subsystemData.price}\t";
 
-        if (subsystemData is Reactor reactorData)
-            statsText.text += $"Power output: +{reactorData.powerOutput} MW\tPower type: {reactorData.reactorType}";
-        if (subsystemData is Shielding shieldData)
-            statsText.text += $"Shield strength: +{shieldData.shieldStrength}\t";
-        if (subsystemData is FTLDrive ftl)
-            statsText.text += $"Grade: {ftl.tier}";
-        if (subsystemData is Thrusters thrusters)
-            statsText.text += $"Speed: +{thrusters.speed} m/s\t";
-        if (subsystemData is HangarBay hangarBay)
-            statsText.text += $"Maximum spacecraft capacity: +{hangarBay.maxCraft}";
-        if (subsystemData is Armor armor)
-            statsText.text += $"Armor rating: {Utilities.ArmorRatingToString(armor.armorRating)}\t Atmosphere capable: {armor.canEnterAtmosphere}";
-        if (subsystemData is Weapon weapon)
-            statsText.text += $"Damage type: {weapon.weaponType}";
+        switch (subsystemData)
+        {
+            case Reactor reactorData:
+                statsText.text += $"Power output: +{reactorData.powerOutput} MW\tPower type: {reactorData.reactorType}";
+                break;
+            case Shielding shieldData:
+                statsText.text += $"Shield strength: +{shieldData.shieldStrength}\t";
+                break;
+            case FTLDrive ftl:
+                statsText.text += $"Grade: {ftl.tier}";
+                break;
+            case Thrusters thrusters:
+                statsText.text += $"Speed: +{thrusters.speed} m/s\t";
+                break;
+            case HangarBay hangarBay:
+                statsText.text += $"Maximum spacecraft capacity: +{hangarBay.maxCraft}";
+                break;
+            case Armor armor:
+                statsText.text += $"Armor rating: {Utilities.ArmorRatingToString(armor.armorRating)}\t Atmosphere capable: {armor.canEnterAtmosphere}";
+                break;
+            case Weapon weapon:
+                statsText.text += $"Damage type: {weapon.weaponType}";
+                break;
+        }
 
         icon = transform.GetChild(0).GetComponent<Image>();
         icon.sprite = subsystemData.icon;
@@ -63,8 +69,8 @@ public class SubsystemButton : MonoBehaviour, IPointerClickHandler, IPointerEnte
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        ShipStats.Instance.AddSubsystem(menuRef.GetSelectedSlot(), subsystemData);
-        menuRef.gameObject.SetActive(false);
+        CurrentShipStats.Instance.AddSubsystem(menuRef.GetSelectedSlot(), subsystemData);
+        menuRef.Close();
     }
 
     public void OnPointerEnter(PointerEventData eventData)

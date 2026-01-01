@@ -38,22 +38,22 @@ public class ShipManager : MonoBehaviour
 
     public void ClearShip()
     {
-        currentShip.GetComponent<ShipStats>().baseStats = null;
+        currentShip.GetComponent<CurrentShipStats>().baseStats = null;
         currentShip.GetComponent<SpriteRenderer>().sprite = null;
 
-        ShipStats.Instance.ClearShipStats();
-        ShipStats.Instance.ClearSubsystems();
-        ShipStats.Instance.onStatsChanged?.Invoke();
+        CurrentShipStats.Instance.ClearCurrentShipStats();
+        CurrentShipStats.Instance.ClearSubsystems();
+        CurrentShipStats.Instance.onStatsChanged?.Invoke();
     }
 
     public void SetNewShipClass(ShipBaseStats stats)
     {
-        ShipStats ship = currentShip.GetComponent<ShipStats>();
+        CurrentShipStats ship = currentShip.GetComponent<CurrentShipStats>();
 
-        ship.ClearShipStats();
+        ship.ClearCurrentShipStats();
         ship.ClearSubsystems();
         ship.SetBaseStats(stats);
-        currentShip.GetComponent<SpriteRenderer>().sprite = currentShip.GetComponent<ShipStats>().baseStats.baseSprite;
+        currentShip.GetComponent<SpriteRenderer>().sprite = currentShip.GetComponent<CurrentShipStats>().baseStats.baseSprite;
 
         ship.onStatsChanged?.Invoke();
     }

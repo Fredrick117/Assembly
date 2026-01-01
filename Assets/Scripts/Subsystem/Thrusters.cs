@@ -19,13 +19,13 @@ public class Thrusters : Subsystem
     //public bool atmosphericEntryCapable;
     //public ThrusterType thrusterType;
 
-    public override void ApplyToShip(ShipStats ship)
+    public override void ApplyToShip(CurrentShipStats ship)
     {
         ship.currentSpeed += speed;
         base.ApplyToShip(ship);
     }
 
-    public override void RemoveFromShip(ShipStats ship)
+    public override void RemoveFromShip(CurrentShipStats ship)
     {
         ship.currentSpeed -= speed;
         base.RemoveFromShip(ship);

@@ -16,13 +16,13 @@ public class LifeSupport : Subsystem
     public AtmosphereType atmosphereType;
     public int crew;
 
-    public override void ApplyToShip(ShipStats ship)
+    public override void ApplyToShip(CurrentShipStats ship)
     {
         ship.currentCrew += crew;
         base.ApplyToShip(ship);
     }
 
-    public override void RemoveFromShip(ShipStats ship)
+    public override void RemoveFromShip(CurrentShipStats ship)
     {
         ship.currentCrew -= crew;
         base.RemoveFromShip(ship);

@@ -28,7 +28,7 @@ public class EventManager : MonoBehaviour
 
     public void OnSubmitClicked()
     {
-        if (ShipStats.Instance.currentClass == ShipClassification.None)
+        if (CurrentShipStats.Instance.currentClass == ShipClassification.None)
         {
             if (errorTextCoroutine != null)
             {

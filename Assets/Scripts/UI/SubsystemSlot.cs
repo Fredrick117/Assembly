@@ -37,7 +37,7 @@ public class SubsystemSlot : MonoBehaviour,
             Debug.LogWarning("No subsystem data to remove!");
         }
 
-        ShipStats.Instance.RemoveSubsystem(slotIndex);
+        CurrentShipStats.Instance.RemoveSubsystem(slotIndex);
 
         if (subsystemData != null)
         {
@@ -58,7 +58,7 @@ public class SubsystemSlot : MonoBehaviour,
         }
 
         GameManager.Instance.ShowSubsystemMenu();
-        GameManager.Instance.subsystemSelectionMenu.GetComponent<SubsystemSelectionMenu>().SetSelectedSlot(slotIndex);
+        GameManager.Instance.subsystemSelectionMenu.GetComponentInChildren<SubsystemSelectionMenu>().SetSelectedSlot(slotIndex);
     }
 
     public void OnPointerEnter(PointerEventData eventData)

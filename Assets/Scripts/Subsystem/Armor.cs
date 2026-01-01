@@ -20,7 +20,7 @@ public class Armor : Subsystem
     public float massMultiplier;
     public bool canEnterAtmosphere;
 
-    public override void ApplyToShip(ShipStats ship)
+    public override void ApplyToShip(CurrentShipStats ship)
     {
         base.ApplyToShip(ship);
 
@@ -31,7 +31,7 @@ public class Armor : Subsystem
         ship.currentMass += Mathf.RoundToInt(ship.baseStats.baseMass * massMultiplier);
     }
 
-    public override void RemoveFromShip(ShipStats ship)
+    public override void RemoveFromShip(CurrentShipStats ship)
     {
         base.RemoveFromShip(ship);
 

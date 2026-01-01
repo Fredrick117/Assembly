@@ -15,7 +15,7 @@ public class ShipDetailsPanel : MonoBehaviour
     [SerializeField]
     private TMP_Text shipShieldText;
     [SerializeField]
-    private TMP_Text shipHullText;
+    private TMP_Text shipSublightSpeedText;
     [SerializeField]
     private TMP_Text shipPowerText;
     [SerializeField]
@@ -29,35 +29,36 @@ public class ShipDetailsPanel : MonoBehaviour
 
     private void Start()
     {
-        ShipStats.Instance.onStatsChanged.AddListener(UpdateText);
+        CurrentShipStats.Instance.onStatsChanged.AddListener(UpdateText);
     }
 
     private void OnDisable()
     {
-        ShipStats.Instance.onStatsChanged.RemoveListener(UpdateText);
+        CurrentShipStats.Instance.onStatsChanged.RemoveListener(UpdateText);
     }
 
     public void UpdateText()
     {
-        shipClassText.text = ShipStats.Instance.baseStats != null ? 
-            ShipStats.Instance.baseStats.shipClass.ToString() : "None";
+        shipClassText.text = CurrentShipStats.Instance.baseStats != null ? 
+            CurrentShipStats.Instance.baseStats.shipClass.ToString() : "None";
 
-        shipArmorText.text = Utilities.ArmorRatingToString(ShipStats.Instance.currentArmorRating);
+        shipArmorText.text = Utilities.ArmorRatingToString(CurrentShipStats.Instance.currentArmorRating);
 
-        bool hasAdequatePower = ShipStats.Instance.currentPowerDraw > ShipStats.Instance.currentMaxPower;
-        string powerString = $"{ShipStats.Instance.currentPowerDraw}/{ShipStats.Instance.currentMaxPower} MW";
+        bool hasAdequatePower = CurrentShipStats.Instance.currentPowerDraw > CurrentShipStats.Instance.currentMaxPower;
+        string powerString = $"{CurrentShipStats.Instance.currentPowerDraw}/{CurrentShipStats.Instance.currentMaxPower} MW";
 
         if (hasAdequatePower)
             shipPowerText.text = $"<color=red>{powerString}</color>";
         else
             shipPowerText.text = powerString;
 
-        shipMaxSpeedText.text = ShipStats.Instance.currentSpeed.ToString();
-        shipMassText.text = ShipStats.Instance.currentMass.ToString();
-        shipShieldText.text = ShipStats.Instance.currentShielding.ToString();
-        shipCraftText.text = ShipStats.Instance.currentMaxCraft.ToString();
-        shipCrewText.text = ShipStats.Instance.currentCrew.ToString();
-        string formattedPrice = ShipStats.Instance.currentPrice.ToString("N0");
+        shipMaxSpeedText.text = CurrentShipStats.Instance.currentSpeed.ToString();
+        shipMassText.text = CurrentShipStats.Instance.currentMass.ToString();
+        shipShieldText.text = CurrentShipStats.Instance.currentShielding.ToString();
+        shipCraftText.text = CurrentShipStats.Instance.currentMaxCraft.ToString();
+        shipCrewText.text = CurrentShipStats.Instance.currentCrew.ToString();
+        shipSublightSpeedText.text = CurrentShipStats.Instance.currentSublightSpeed.ToString();
+        string formattedPrice = CurrentShipStats.Instance.currentPrice.ToString("N0");
         shipPriceText.text = $"₡{formattedPrice}";
     }
 }

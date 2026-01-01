@@ -37,7 +37,7 @@ public class ShipRequestManager : MonoBehaviour
     private static List<Thrusters> thrusterSubsystems = new();
     private static List<Armor> armorSubsystems = new();
 
-    Dictionary<string, List<string>> orgNames = new()
+    private readonly Dictionary<string, List<string>> orgNames = new()
     {
         { "United Nations of Earth", new List<string> { "Nathan", "Jonathan", "Terrance", "Alexander", "Bryson", "Malcolm", "Reagan", "Nancy", "Margaret", "Alison", "Amanda", "Rex", "Samantha", "Katrina", "Carlos", "John", "Fred", "Rick", "Richard"} },
         { "Human Empire", new List<string> 
@@ -90,7 +90,7 @@ public class ShipRequestManager : MonoBehaviour
         }
     };
 
-    Dictionary<ShipClassification, Tuple<int, int>> shipSpeedRanges = new()
+    private readonly Dictionary<ShipClassification, Tuple<int, int>> shipSpeedRanges = new()
     {
         { ShipClassification.Corvette, new Tuple<int, int>(300, 500) },
         { ShipClassification.Destroyer, new Tuple<int, int>(200, 400) },
@@ -98,7 +98,7 @@ public class ShipRequestManager : MonoBehaviour
         { ShipClassification.Carrier, new Tuple<int, int>(100, 300) },
     };
 
-    Dictionary<ShipClassification, List<ShipRole>> shipRoles = new()
+    private readonly Dictionary<ShipClassification, List<ShipRole>> shipRoles = new()
     {
         { ShipClassification.Corvette, new List<ShipRole> { ShipRole.Ship_To_Ship, ShipRole.Recon, ShipRole.Escort, ShipRole.Patrol, ShipRole.Enforcement } },
         { ShipClassification.Destroyer, new List<ShipRole> { ShipRole.Ship_To_Ship, ShipRole.Recon, ShipRole.Escort, ShipRole.Enforcement } },
@@ -106,7 +106,7 @@ public class ShipRequestManager : MonoBehaviour
         { ShipClassification.Carrier, new List<ShipRole> { ShipRole.Carrier, ShipRole.Transport } }
     };
 
-    Dictionary<ShipClassification, Tuple<int, int>> shipCrewRanges = new()
+    private readonly Dictionary<ShipClassification, Tuple<int, int>> shipCrewRanges = new()
     {
         { ShipClassification.Corvette, new Tuple<int, int>(50, 250) },
         { ShipClassification.Destroyer, new Tuple<int, int>(50, 350) },
@@ -133,14 +133,10 @@ public class ShipRequestManager : MonoBehaviour
 
     private void Start()
     {
-        thrusterSubsystems = Resources.LoadAll<Thrusters>("ScriptableObjects/Subsystems").ToList();
-        armorSubsystems = Resources.LoadAll<Armor>("ScriptableObjects/Subsystems").ToList();
-        shipBaseStatsList = Resources.LoadAll<ShipBaseStats>("ScriptableObjects/Ships").ToList();
+        LoadScriptableObjects();
 
         noShipSelectedText = mainCanvas.GetComponentInChildren<NoShipSelectedText>();
         
-        LoadScriptableObjects();
-
         activeShipRequest = GenerateNewRequest();
         SetRequestText();
     }
@@ -198,38 +194,6 @@ public class ShipRequestManager : MonoBehaviour
         return request;
     }
 
-    //private RequestData GetRequestDataFromShip(Ship ship)
-    //{
-    //    RequestData request = new();
-
-    //    Armor armor = (Armor)ship.subsystems.FirstOrDefault(a => a is Armor);
-    //    if (armor != null)
-    //    {
-    //        request.isAtmosphereCapable = armor.canEnterAtmosphere;
-    //    }
-    //    else
-    //    {
-    //        Debug.LogError("ShipRequestManager: no thrusters :(");
-    //    }
-
-    //    request.minSpeed = thrusterSubsystems[UnityEngine.Random.Range(0, thrusterSubsystems.Count())].speed;
-    //    request.isFtlCapable = ship.isFTL;
-    //    request.isAutonomous = ship.isAutonomous;
-    //    request.isAtmosphereCapable = ship.isAtmospheric;
-    //    request.shipClass = ship.classification;
-    //    request.minArmorRating = ship.armorRating;
-
-    //    Shielding shields = (Shielding)ship.subsystems.FirstOrDefault(s => s is Shielding);
-    //    if (shields != null)
-    //    {
-    //        request.minShieldStrength = shields.shieldStrength;
-    //    }
-
-    //    request.reward = GetRewardAmount(request.shipClass);
-
-    //    return request;
-    //}
-
     private int GetRewardAmount(ShipClassification classification)
     {
         int baseStatsPrice = shipBaseStatsList.First(baseStat => baseStat.shipClass == classification).basePrice;
@@ -239,7 +203,9 @@ public class ShipRequestManager : MonoBehaviour
 
     private void LoadScriptableObjects()
     {
-        shipBaseStatsList = Resources.LoadAll<ShipBaseStats>("ScriptableObjects/Ships").ToList();
+        thrusterSubsystems = Resources.LoadAll<Thrusters>("ScriptableObjects/Subsystems").ToList();
+        armorSubsystems = Resources.LoadAll<Armor>("ScriptableObjects/Subsystems").ToList();
+        shipBaseStatsList = Resources.LoadAll<ShipBaseStats>("ScriptableObjects/BaseShipStats").ToList();
         subsystemsList = Resources.LoadAll<Subsystem>("ScriptableObjects/Subsystems").ToList();
     }
 
@@ -247,7 +213,7 @@ public class ShipRequestManager : MonoBehaviour
     {
         bool submissionWasSuccessful = false;
 
-        if (ShipManager.Instance.currentShip.GetComponent<ShipStats>().baseStats == null)
+        if (ShipManager.Instance.currentShip.GetComponent<CurrentShipStats>().baseStats == null)
         {
             Debug.LogError("No design submitted!");
             return;
@@ -266,7 +232,7 @@ public class ShipRequestManager : MonoBehaviour
         }
 
         int totalReward = 0;
-        totalReward -= ShipStats.Instance.currentPrice;
+        totalReward -= CurrentShipStats.Instance.currentPrice;
         
         if (submissionWasSuccessful)
         {
@@ -283,8 +249,12 @@ public class ShipRequestManager : MonoBehaviour
 
     private bool FulfillsRequirements()
     {
-        ShipStats ship = ShipManager.Instance.currentShip.GetComponent<ShipStats>();
+        CurrentShipStats ship = ShipManager.Instance.currentShip.GetComponent<CurrentShipStats>();
 
+        bool metSublightSpeedReq = ship.currentSublightSpeed >= activeShipRequest.minSublightSpeed;
+        if (!metSublightSpeedReq && activeShipRequest.minSublightSpeed > 0)
+            feedbackPanel.AddSublightSpeedDiscrepancy(ship, activeShipRequest);
+        
         bool metSpeedReq = ship.currentSpeed >= activeShipRequest.minSpeed;
         if (!metSpeedReq)
             feedbackPanel.AddSpeedDiscrepancy(ship, activeShipRequest);

@@ -7,13 +7,13 @@ public class HangarBay : Subsystem
 {
     public int maxCraft;
 
-    public override void ApplyToShip(ShipStats ship)
+    public override void ApplyToShip(CurrentShipStats ship)
     {
         ship.currentMaxCraft += maxCraft;
         base.ApplyToShip(ship);
     }
 
-    public override void RemoveFromShip(ShipStats ship)
+    public override void RemoveFromShip(CurrentShipStats ship)
     {
         ship.currentMaxCraft -= maxCraft;
         base.RemoveFromShip(ship);

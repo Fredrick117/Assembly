@@ -19,13 +19,13 @@ public class Reactor : Subsystem
     public float powerOutput;
     public ReactorType reactorType;
 
-    public override void ApplyToShip(ShipStats ship)
+    public override void ApplyToShip(CurrentShipStats ship)
     {
         ship.currentMaxPower += powerOutput;
         base.ApplyToShip(ship);
     }
 
-    public override void RemoveFromShip(ShipStats ship)
+    public override void RemoveFromShip(CurrentShipStats ship)
     {
         ship.currentMaxPower -= powerOutput;
         base.RemoveFromShip(ship);

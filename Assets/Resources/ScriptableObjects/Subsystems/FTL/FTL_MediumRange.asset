@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d05e12cd9d9ddef40aedc11d445ac50c, type: 3}
+  m_Name: FTL_MediumRange
+  m_EditorClassIdentifier: 
+  displayName: Medium-Range FTL Drive
+  description: An FTL drive that can transport a ship to a nearby star system quickly
+    and safely.
+  powerDraw: 35
+  mass: 125
+  price: 1500
+  icon: {fileID: 21300000, guid: 2d54aeabc2f58bc41b2d80fc242efeae, type: 3}
+  tier: 0
+  sublightSpeed: 5000

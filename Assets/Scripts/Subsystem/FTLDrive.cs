@@ -13,4 +13,17 @@ public enum FTLTier
 public class FTLDrive : Subsystem
 {
     public FTLTier tier;
+    public float sublightSpeed;
+
+    public override void ApplyToShip(CurrentShipStats ship)
+    {
+        ship.currentSublightSpeed += sublightSpeed;
+        base.ApplyToShip(ship);
+    }
+
+    public override void RemoveFromShip(CurrentShipStats ship)
+    {
+        ship.currentSublightSpeed -= sublightSpeed;
+        base.RemoveFromShip(ship);
+    }
 }

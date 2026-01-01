@@ -22,7 +22,16 @@ public class FeedbackPanel : MonoBehaviour
         gameObject.SetActive(true);
     }
 
-    public void AddSpeedDiscrepancy(ShipStats submission, RequestData request)
+    public void AddSublightSpeedDiscrepancy(CurrentShipStats submission, RequestData request)
+    {
+        GameObject customer = GameObject.Instantiate(listItemPrefab, customerRequestColumn);
+        GameObject player = GameObject.Instantiate(listItemPrefab, playerSubmissionColumn);
+
+        customer.GetComponent<TMP_Text>().text = $"Sublight speed: {request.minSublightSpeed} m/s";
+        player.GetComponent<TMP_Text>().text = $"{submission.currentSpeed} m/s";
+    }
+
+    public void AddSpeedDiscrepancy(CurrentShipStats submission, RequestData request)
     {
         GameObject customer = GameObject.Instantiate(listItemPrefab, customerRequestColumn);
         GameObject player = GameObject.Instantiate(listItemPrefab, playerSubmissionColumn);
@@ -31,7 +40,7 @@ public class FeedbackPanel : MonoBehaviour
         player.GetComponent<TMP_Text>().text = $"{submission.currentSpeed} m/s";
     }
 
-    public void AddShipClassDiscrapancy(ShipStats submission, RequestData request)
+    public void AddShipClassDiscrapancy(CurrentShipStats submission, RequestData request)
     {
         GameObject customer = GameObject.Instantiate(listItemPrefab, customerRequestColumn);
         GameObject player = GameObject.Instantiate(listItemPrefab, playerSubmissionColumn);
@@ -40,16 +49,16 @@ public class FeedbackPanel : MonoBehaviour
         player.GetComponent<TMP_Text>().text = submission.currentClass.ToString();
     }
 
-    public void AddArmorDiscrepancy(ShipStats submission, RequestData request)
+    public void AddArmorDiscrepancy(CurrentShipStats submission, RequestData request)
     {
         GameObject customer = GameObject.Instantiate(listItemPrefab, customerRequestColumn);
         GameObject player = GameObject.Instantiate(listItemPrefab, playerSubmissionColumn);
 
-        customer.GetComponent<TMP_Text>().text = Utilities.ArmorRatingToString(request.minArmorRating);
-        player.GetComponent<TMP_Text>().text = Utilities.ArmorRatingToString(submission.currentArmorRating);
+        customer.GetComponent<TMP_Text>().text = $"{Utilities.ArmorRatingToString(request.minArmorRating)} armor rating";
+        player.GetComponent<TMP_Text>().text = $"{Utilities.ArmorRatingToString(submission.currentArmorRating)} armor rating";
     }
 
-    //public void AddArmedDiscrepancy(ShipStats submission, RequestData request)
+    //public void AddArmedDiscrepancy(CurrentShipStats submission, RequestData request)
     //{
     //    GameObject customer = GameObject.Instantiate(listItemPrefab, customerRequestColumn);
     //    GameObject player = GameObject.Instantiate(listItemPrefab, playerSubmissionColumn);
@@ -62,7 +71,7 @@ public class FeedbackPanel : MonoBehaviour
     //        player.GetComponent<TMP_Text>().text = "Unarmed";
     //}
 
-    public void AddFtlDiscrepancy(ShipStats submission, RequestData request)
+    public void AddFtlDiscrepancy(CurrentShipStats submission, RequestData request)
     {
         GameObject customer = GameObject.Instantiate(listItemPrefab, customerRequestColumn);
         GameObject player = GameObject.Instantiate(listItemPrefab, playerSubmissionColumn);
@@ -75,7 +84,7 @@ public class FeedbackPanel : MonoBehaviour
             player.GetComponent<TMP_Text>().text = "Has no FTL drive";
     }
 
-    public void AddAtmosphereDiscrepancy(ShipStats submission, RequestData request)
+    public void AddAtmosphereDiscrepancy(CurrentShipStats submission, RequestData request)
     {
         GameObject customer = GameObject.Instantiate(listItemPrefab, customerRequestColumn);
         GameObject player = GameObject.Instantiate(listItemPrefab, playerSubmissionColumn);
@@ -91,7 +100,7 @@ public class FeedbackPanel : MonoBehaviour
             player.GetComponent<TMP_Text>().text = "No thrusters added";
     }
 
-    public void AddAiDiscrepancy(ShipStats submission, RequestData request)
+    public void AddAiDiscrepancy(CurrentShipStats submission, RequestData request)
     {
         GameObject customer = GameObject.Instantiate(listItemPrefab, customerRequestColumn);
         GameObject player = GameObject.Instantiate(listItemPrefab, playerSubmissionColumn);
@@ -103,7 +112,7 @@ public class FeedbackPanel : MonoBehaviour
                 "Autonomous" : "Not autonomous";
     }
 
-    public void AddPowerDiscrepancy(ShipStats submission)
+    public void AddPowerDiscrepancy(CurrentShipStats submission)
     {
         GameObject customer = GameObject.Instantiate(listItemPrefab, customerRequestColumn);
         GameObject player = GameObject.Instantiate(listItemPrefab, playerSubmissionColumn);
@@ -113,7 +122,7 @@ public class FeedbackPanel : MonoBehaviour
         player.GetComponent<TMP_Text>().text = $"Power draw is {submission.currentPowerDraw} MW while power output is {submission.currentMaxPower} MW";
     }
 
-    public void AddCrewDiscrepancy(ShipStats submission, RequestData request)
+    public void AddCrewDiscrepancy(CurrentShipStats submission, RequestData request)
     {
         GameObject customer = GameObject.Instantiate(listItemPrefab, customerRequestColumn);
         GameObject player = GameObject.Instantiate(listItemPrefab, playerSubmissionColumn);
@@ -122,7 +131,7 @@ public class FeedbackPanel : MonoBehaviour
         player.GetComponent<TMP_Text>().text = $"{submission.currentCrew}";
     }
 
-    public void AddShieldDiscrepancy(ShipStats submission, RequestData request)
+    public void AddShieldDiscrepancy(CurrentShipStats submission, RequestData request)
     {
         GameObject customer = GameObject.Instantiate(listItemPrefab, customerRequestColumn);
         GameObject player = GameObject.Instantiate(listItemPrefab, playerSubmissionColumn);

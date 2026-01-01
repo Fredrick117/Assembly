@@ -16,9 +16,9 @@ public class ShipClassSelectionMenu : MonoBehaviour
         noShipText = mainCanvas.GetComponentInChildren<NoShipSelectedText>();
     }
 
-    public void OnSelectShipClass(ShipBaseStats shipStats)
+    public void OnSelectShipClass(ShipBaseStats CurrentShipStats)
     {
-        ShipManager.Instance.SetNewShipClass(shipStats);
+        ShipManager.Instance.SetNewShipClass(CurrentShipStats);
         
         subsystemListPanel.UpdateSubsystemSlots();
         

@@ -20,6 +20,7 @@ public enum ShipClassification
     Destroyer,
     Cruiser,
     Carrier,
+    Escort,
     //Moonbreaker,
 }
 
@@ -53,6 +54,8 @@ public struct RequestData
     public int maxCrew;
 
     public List<DamageType> preferredDamageTypes;
+
+    public float minSublightSpeed;
 }
 
 public enum DamageType
@@ -73,17 +76,4 @@ public enum ShipRole
     Patrol,
     Carrier,
     Enforcement
-}
-
-// Used for when ship designs are stored after submission
-public class StarshipData
-{
-    public int hull;
-    public int speed;
-    public int powerDraw;
-    public int maxPower;
-    public int mass;
-    public int shielding;
-    public int armor;
-    public ShipClassification shipClass;
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,14 +13,14 @@ public class Subsystem : ScriptableObject
     public int price;
     public Sprite icon;
 
-    public virtual void ApplyToShip(ShipStats ship)
+    public virtual void ApplyToShip(CurrentShipStats ship)
     {
         ship.currentMass += mass;
         ship.currentPowerDraw += powerDraw;
         ship.currentPrice += price;
     }
 
-    public virtual void RemoveFromShip(ShipStats ship)
+    public virtual void RemoveFromShip(CurrentShipStats ship)
     {
         ship.currentMass -= mass;
         ship.currentPowerDraw -= powerDraw;

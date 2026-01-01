@@ -11,7 +11,7 @@ public class SubsystemListPanel : MonoBehaviour
 
     public void UpdateSubsystemSlots()
     {
-        if (ShipManager.Instance.currentShip.GetComponent<ShipStats>().baseStats == null)
+        if (ShipManager.Instance.currentShip.GetComponent<CurrentShipStats>().baseStats == null)
         {
             print("UpdateSubsystemSlots: base stats is null!");
             ClearSlots();
@@ -20,7 +20,7 @@ public class SubsystemListPanel : MonoBehaviour
 
         ClearSlots();
 
-        int numSlots = ShipManager.Instance.currentShip.GetComponent<ShipStats>().baseStats.utilitySlots;
+        int numSlots = ShipManager.Instance.currentShip.GetComponent<CurrentShipStats>().baseStats.utilitySlots;
 
         for (int i = 0; i < numSlots; i++)
         {
@@ -40,6 +40,6 @@ public class SubsystemListPanel : MonoBehaviour
 
         slots.Clear();
 
-        ShipStats.Instance.subsystems.Clear();
+        CurrentShipStats.Instance.subsystems.Clear();
     }
 }
