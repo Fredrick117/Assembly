@@ -7,13 +7,12 @@ public class SubsystemListPanel : MonoBehaviour
 {
     public GameObject slotPrefab;
 
-    public List<GameObject> slots = new List<GameObject>();
+    public List<GameObject> slots = new();
 
     public void UpdateSubsystemSlots()
     {
         if (ShipManager.Instance.currentShip.GetComponent<CurrentShipStats>().baseStats == null)
         {
-            print("UpdateSubsystemSlots: base stats is null!");
             ClearSlots();
             return;
         }
@@ -24,7 +23,7 @@ public class SubsystemListPanel : MonoBehaviour
 
         for (int i = 0; i < numSlots; i++)
         {
-            GameObject slot = GameObject.Instantiate(slotPrefab, transform);
+            GameObject slot = Instantiate(slotPrefab, transform);
             slot.GetComponent<SubsystemSlot>().slotIndex = i;
 
             slots.Add(slot);
@@ -35,7 +34,7 @@ public class SubsystemListPanel : MonoBehaviour
     {
         for (int i = 0; i < transform.childCount; i++) 
         {
-            GameObject.Destroy(transform.GetChild(i).gameObject);
+            Destroy(transform.GetChild(i).gameObject);
         }
 
         slots.Clear();

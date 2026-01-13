@@ -18,6 +18,7 @@ MonoBehaviour:
   mass: 1
   price: 10
   icon: {fileID: 21300000, guid: fa90a00d60ad6b04f8d3a9bc27b2080a, type: 3}
+  itemData: {fileID: 11400000, guid: e7e7f912ad3e5ee46914edda7a9b8ba6, type: 2}
   armorRating: 1
   massMultiplier: 1
   canEnterAtmosphere: 0

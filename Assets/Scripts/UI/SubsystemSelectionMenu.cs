@@ -35,7 +35,12 @@ public class SubsystemSelectionMenu : MonoBehaviour
         selectedSlot = index;
     }
 
-    public void Close()
+    public void Show()
+    {
+        transform.parent.gameObject.SetActive(true);
+    }
+
+    public void Hide()
     {
         transform.parent.gameObject.SetActive(false);
         selectedSlot = -1;

@@ -9,14 +9,4 @@ public class PauseMenu : MonoBehaviour
     {
         this.gameObject.SetActive(false);
     }
-
-    public void QuitToMain()
-    {
-        SceneManager.LoadScene("MainMenu");
-    }
-
-    public void QuitToDesktop()
-    {
-        Application.Quit();
-    }
 }

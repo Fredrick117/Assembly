@@ -10,8 +10,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8a310753ea56ef44b84cd25e95f29599, type: 3}
-  m_Name: AI
+  m_Name: Shape_Reactor
   m_EditorClassIdentifier: 
-  itemName: AI
-  itemSprite: {fileID: 21300000, guid: 3f03d76af03bbdf4f96bef4751b5675c, type: 3}
-  shape: 000100010101000100
+  shape: 010101000100010101

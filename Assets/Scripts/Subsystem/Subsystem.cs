@@ -12,6 +12,7 @@ public class Subsystem : ScriptableObject
     public int mass;
     public int price;
     public Sprite icon;
+    public ItemData itemData;   // TODO: combine ItemData and Subsystem
 
     public virtual void ApplyToShip(CurrentShipStats ship)
     {

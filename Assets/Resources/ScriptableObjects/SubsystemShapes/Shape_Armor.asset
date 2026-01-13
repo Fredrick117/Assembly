@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8a310753ea56ef44b84cd25e95f29599, type: 3}
-  m_Name: ThrusterItem
+  m_Name: Shape_Armor
   m_EditorClassIdentifier: 
-  itemName: Thruster
-  itemSprite: {fileID: 21300000, guid: 9e461dd9ba78c864eb7caeb1c06bc320, type: 3}
-  shape: 000100000100000100
+  itemName: some shit
+  itemSprite: {fileID: 21300000, guid: fa90a00d60ad6b04f8d3a9bc27b2080a, type: 3}
+  shape: 000000000100000000

@@ -17,5 +17,6 @@ MonoBehaviour:
   powerDraw: 25
   mass: 85
   price: 250
-  icon: {fileID: 21300000, guid: d9483a991b7574649a50a92fa662ab10, type: 3}
+  icon: {fileID: 21300000, guid: 9e461dd9ba78c864eb7caeb1c06bc320, type: 3}
+  itemData: {fileID: 11400000, guid: ad1b1dd4cf22db24bbb4813e25bd11c2, type: 2}
   speed: 200

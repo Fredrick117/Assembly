@@ -6,6 +6,14 @@ using UnityEngine.SceneManagement;
 
 public class ButtonManager : MonoBehaviour
 {
+    [SerializeField]
+    private GameObject howToPlayPanel;
+    
+    public void ToggleHowToPlayPanel(bool isEnabled)
+    {
+        howToPlayPanel.SetActive(isEnabled);
+    }
+    
     public void OnCloseClicked(GameObject uiElement)
     {
         uiElement.SetActive(false);
@@ -15,8 +23,13 @@ public class ButtonManager : MonoBehaviour
     {
         SceneManager.LoadScene("ShipDesignScene");
     }
+    
+    public void QuitToMain()
+    {
+        SceneManager.LoadScene("MainMenu");
+    }
 
-    public void OnQuitClicked()
+    public void QuitToDesktop()
     {
         Application.Quit();
     }

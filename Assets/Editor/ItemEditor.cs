@@ -7,12 +7,11 @@ public class ItemEditor : Editor
     public override void OnInspectorGUI()
     {
         ItemData item = (ItemData)target;
-
-        EditorGUILayout.PropertyField(serializedObject.FindProperty("itemName"));
-        EditorGUILayout.PropertyField(serializedObject.FindProperty("itemSprite"));
+        
+        //EditorGUILayout.PropertyField(serializedObject.FindProperty("itemSprite"));
 
         EditorGUILayout.Space();
-        EditorGUILayout.LabelField("Shape (3x3 Grid)", EditorStyles.boldLabel);
+        EditorGUILayout.LabelField("Grid Shape", EditorStyles.boldLabel);
 
         SerializedProperty shapeProp = serializedObject.FindProperty("shape");
 

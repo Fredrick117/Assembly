@@ -17,5 +17,6 @@ MonoBehaviour:
   powerDraw: 15
   mass: 40
   price: 500
-  icon: {fileID: 21300000, guid: 7da59ef238dbcf54fb841179b8f7bd6d, type: 3}
+  icon: {fileID: 21300000, guid: cf2924bdb9a9400489c0819e2a082a22, type: 3}
+  itemData: {fileID: 11400000, guid: 828c16acb7564b44ea0b944eebd44ed4, type: 2}
   shieldStrength: 15

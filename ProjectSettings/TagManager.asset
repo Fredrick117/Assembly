@@ -52,3 +52,18 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Background
+    uniqueID: 2682250065
+    locked: 0
+  - name: Ship
+    uniqueID: 2607415949
+    locked: 0
+  - name: GridSlot
+    uniqueID: 8911587
+    locked: 0
+  - name: Subsystem
+    uniqueID: 1951256879
+    locked: 0
+  - name: UI
+    uniqueID: 493385201
+    locked: 0

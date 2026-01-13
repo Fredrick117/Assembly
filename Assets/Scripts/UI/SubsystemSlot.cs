@@ -37,7 +37,7 @@ public class SubsystemSlot : MonoBehaviour,
             Debug.LogWarning("No subsystem data to remove!");
         }
 
-        CurrentShipStats.Instance.RemoveSubsystem(slotIndex);
+        CurrentShipStats.Instance.RemoveSubsystem(subsystemData);
 
         if (subsystemData != null)
         {

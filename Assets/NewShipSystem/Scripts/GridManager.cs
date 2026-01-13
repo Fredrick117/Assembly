@@ -7,60 +7,39 @@ public class GridManager : MonoBehaviour
     [SerializeField]
     private GameObject slotPrefab;
 
-    [Header("Grid Settings")]
-    public int rows;
-    public int columns;
-
-    [Header("Item Mask Settings")]
-    public int maskWidth;
-    public int maskHeight;
+    private int gridRows = 0;
+    private int gridColumns = 0;
 
     private GridLayoutGroup gridLayoutGroup;
 
     public GridSlot[,] gridSlots { get; private set; }
 
     private List<GridSlot> previewedSlots = new List<GridSlot>();
+    
+    public static GridManager Instance { get; private set; }
 
     void Awake()
     {
+        if (Instance != this && Instance != null)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            Instance = this;
+        }
+        
         gridLayoutGroup = GetComponent<GridLayoutGroup>();
     }
 
     void Start()
     {
         gridLayoutGroup.constraint = GridLayoutGroup.Constraint.FixedRowCount;
-
-        GenerateGrid();
-    }
-
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            ClearGrid();
-            rows = 5;
-            columns = 18;
-            GenerateGrid();
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            ClearGrid();
-            rows = 7;
-            columns = 22;
-            GenerateGrid();
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            ClearGrid();
-            rows = 10;
-            columns = 26;
-            GenerateGrid();
-        }
     }
 
     public bool IsInBounds(int row, int column)
     {
-        return (row >= 0 && row < rows && column >= 0 && column < columns);
+        return (row >= 0 && row < gridRows && column >= 0 && column < gridColumns);
     }
 
     public void ShowPlacementPreview(int startRow, int startCol, ItemData data)
@@ -128,8 +107,13 @@ public class GridManager : MonoBehaviour
         previewedSlots.Clear();
     }
 
-    private void GenerateGrid()
+    public void GenerateGrid(int rows, int columns)
     {
+        ClearGrid();
+        
+        gridRows = rows;
+        gridColumns = columns;
+        
         gridSlots = new GridSlot[rows, columns];
         gridLayoutGroup.constraintCount = rows;
 
@@ -147,9 +131,12 @@ public class GridManager : MonoBehaviour
         }
     }
 
-    private void ClearGrid()
+    public void ClearGrid()
     {
-        for (int i = 0; i < columns * rows; i++)
+        if (transform.childCount == 0)
+            return;
+        
+        for (int i = 0; i < gridColumns * gridRows; i++)
         {
             GameObject.Destroy(transform.GetChild(i).gameObject);
         }

@@ -20,12 +20,12 @@ public enum ShipClassification
     Destroyer,
     Cruiser,
     Carrier,
-    Escort,
+    Escort
     //Moonbreaker,
 }
 
 [System.Serializable]
-public struct RequestData
+public struct RequestData	// TODO: rename?
 {
     public ShipClassification shipClass;
 
@@ -69,11 +69,24 @@ public enum DamageType
 
 public enum ShipRole
 {
-    Ship_To_Ship,
-    Recon,
-    Transport,
     Escort,
-    Patrol,
-    Carrier,
-    Enforcement
+    Piracy,
+    ShipToShip
+}
+
+[System.Serializable]
+public class ShipData
+{
+    public ShipClassification classification;
+    public float sublightSpeed;
+    public float speed;
+    public float powerDraw;
+    public float maxPower;
+    public float mass;
+    public int shieldRating;
+    public int armorRating;
+    public int maxSpacecraft;
+    public int maxCrew;
+    public int weaponMounts;
+    public int priceToBuild;
 }

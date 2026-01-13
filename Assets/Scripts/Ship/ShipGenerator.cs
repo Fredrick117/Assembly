@@ -45,7 +45,7 @@ public class ShipGenerator : MonoBehaviour
 
     private void Start()
     {
-        shipStatsList = Resources.LoadAll<ShipBaseStats>("ScriptableObjects/Ships").ToList();
+        shipStatsList = Resources.LoadAll<ShipBaseStats>("ScriptableObjects/BaseShipStats").ToList();
         aiSubsystems = Resources.LoadAll<ArtificialIntelligence>("ScriptableObjects/Subsystems").ToList();
         armorSubsystems = Resources.LoadAll<Armor>("ScriptableObjects/Subsystems").ToList();
         lifeSupportSubsystems = Resources.LoadAll<LifeSupport>("ScriptableObjects/Subsystems").ToList();

@@ -6,17 +6,15 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class Item : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerUpHandler
+public class Item : MonoBehaviour, IPointerClickHandler
 {
-    [HideInInspector]
     public static Item currentDraggedItem;
-
+    
     private bool isDragging = false;
-    private RectTransform rectTransform;
-    private Canvas canvas;
     private CanvasGroup canvasGroup;
 
     public ItemData data;
+    public Subsystem subsystem;
 
     [HideInInspector]
     // The slot on the grid that previously held this item
@@ -28,46 +26,44 @@ public class Item : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerUp
 
     private Image icon;
 
-    public static event Action<Item> OnPickUpItem;
-    public static event Action<Item> OnDropItem;
-
     void Awake()
     {
-        rectTransform = GetComponent<RectTransform>();
-        canvas = GetComponentInParent<Canvas>();
         canvasGroup = GetComponent<CanvasGroup>();
         icon = GetComponentInChildren<Image>();
     }
 
-    void Start()
-    {
-        icon.sprite = data.itemSprite;
-    }
-
-    public void OnDrag(PointerEventData eventData)
+    private void Update()
     {
         if (isDragging)
         {
-            transform.position = eventData.position;
+            transform.position = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            
+            if (Input.GetMouseButtonDown(0))
+            {
+                Place();
+            }
         }
+    }
+
+    public void SetSprite(Sprite sprite)
+    {
+        float spriteWidthScale = sprite.rect.width / 32f;
+        float spriteHeightScale = sprite.rect.height / 32f;
+
+        GetComponent<RectTransform>().sizeDelta = new Vector2(50f * spriteWidthScale, 50f * spriteHeightScale);
+        
+        icon.sprite = sprite;
+    }
+
+    public void SetSubsystemData(Subsystem subsystemData)
+    {
+        subsystem = subsystemData;
+        SetSprite(subsystemData.icon);
     }
 
     public void SetHoveredSlot(GridSlot slot)
     {
         hoveredSlot = slot;
-    }
-
-    private static void SetAllItemsBlockRaycasts(bool blocks)
-    {
-        foreach (var item in FindObjectsOfType<Item>())
-        {
-            if (item == null || item.canvasGroup == null)
-            {
-                continue;
-            }
-
-            item.canvasGroup.blocksRaycasts = blocks;
-        }
     }
 
     private bool CanPlace(int row, int col)
@@ -100,9 +96,10 @@ public class Item : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerUp
         return true;
     }
 
-    private void PlaceOnGrid(int row, int col, GridManager targetGrid)
+    private void PlaceOnGrid(int row, int col)
     {
-        transform.position = targetGrid.GetSlot(row, col).transform.position;
+		GridManager grid = GridManager.Instance;
+        transform.position = grid.GetSlot(row, col).transform.position;
 
         for (int r = 0; r < 3; r++)
         {
@@ -114,10 +111,10 @@ public class Item : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerUp
                 int rowOffset = (r + row) - 1;
                 int colOffset = (c + col) - 1;
 
-                if (!targetGrid.IsInBounds(rowOffset, colOffset))
+                if (!grid.IsInBounds(rowOffset, colOffset))
                     continue;
 
-                GridSlot slot = targetGrid.gridSlots[rowOffset, colOffset];
+                GridSlot slot = GridManager.Instance.gridSlots[rowOffset, colOffset];
 
                 slot.isOccupied = true;
                 slot.currentItem = this;
@@ -125,10 +122,10 @@ public class Item : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerUp
             }
         }
 
-        currentSlot = targetGrid.gridSlots[row, col];
+        currentSlot = grid.gridSlots[row, col];
     }
 
-    private void PickUpFromGrid(int row, int col)
+    private void RemoveFromGrid(int row, int col)
     {
         if (previousSlot == null || previousSlot.parentGrid == null)
         {
@@ -169,62 +166,86 @@ public class Item : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerUp
             return;
         }
 
-        PlaceOnGrid(previousSlot.row, previousSlot.col, previousSlot.parentGrid);
+        PlaceOnGrid(previousSlot.row, previousSlot.col);
     }
-
-    public void OnPointerDown(PointerEventData eventData)
+    
+    public void PickUp()
     {
-        print("pick up!");
-        
         SetAllItemsBlockRaycasts(false);
         isDragging = true;
-        Item.currentDraggedItem = this;
-
+        currentDraggedItem = this;
+        
         previousSlot = currentSlot;
         currentSlot = null;
 
         if (previousSlot == null)
-        {
-            Debug.LogError("OnPointerDown: previous slot was null!");
             return;
-        }
-
-        OnPickUpItem?.Invoke(this);
         
-        PickUpFromGrid(previousSlot.row, previousSlot.col);
+        RemoveFromGrid(previousSlot.row, previousSlot.col);
+        
+        CurrentShipStats.Instance.RemoveSubsystem(subsystem);
     }
 
-    public void OnPointerUp(PointerEventData eventData)
+    public void Place()
     {
-        print("place!");
-        OnDropItem?.Invoke(null);
-
         SetAllItemsBlockRaycasts(true);
         isDragging = false;
-        Item.currentDraggedItem = null;
-
-        GridManager targetGrid = hoveredSlot.parentGrid;
-        if (targetGrid != null)
-        {
-            targetGrid.ClearPlacementPreview();
-        }
+        currentDraggedItem = null;
+        
+        GridManager.Instance.ClearPlacementPreview();
 
         if (hoveredSlot == null)
         {
-            Debug.LogWarning("hoveredSlot was null!");
-            ReturnToPreviousPosition();
-
+            Destroy(gameObject);
             return;
         }
-
+        
         if (!CanPlace(hoveredSlot.row, hoveredSlot.col))
         {
-            Debug.LogWarning("Can't place!");
+            if (previousSlot == null)
+            {
+                Destroy(gameObject);
+                return;
+            }
+            
+            Debug.LogWarning("HoveredSlot was null, cannot place item");
             ReturnToPreviousPosition();
-
             return;
         }
+        
+        PlaceOnGrid(hoveredSlot.row, hoveredSlot.col);
+        CurrentShipStats.Instance.AddSubsystem(subsystem);
+    }
 
-        PlaceOnGrid(hoveredSlot.row, hoveredSlot.col, hoveredSlot.parentGrid);
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if (eventData.button == PointerEventData.InputButton.Right)
+        {
+            RemoveFromGrid(currentSlot.row, currentSlot.col);
+            Destroy(gameObject);
+            return;
+        }
+        
+        if (isDragging)
+        {
+            Place();
+        }
+        else
+        {
+            PickUp();
+        }
+    }
+    
+    private static void SetAllItemsBlockRaycasts(bool blocks)
+    {
+        foreach (var item in FindObjectsOfType<Item>())
+        {
+            if (item == null || item.canvasGroup == null)
+            {
+                continue;
+            }
+
+            item.canvasGroup.blocksRaycasts = blocks;
+        }
     }
 }

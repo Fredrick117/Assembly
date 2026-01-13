@@ -15,7 +15,7 @@ public class CurrentShipStats : MonoBehaviour
 
     public UnityEvent onStatsChanged;
 
-    public Dictionary<int, Subsystem> subsystems = new();
+    public List<Subsystem> subsystems = new();
 
     public SubsystemListPanel subsystemListPanel;
 
@@ -40,39 +40,32 @@ public class CurrentShipStats : MonoBehaviour
         Instance = this;
     }
 
-    public void RemoveSubsystem(int index)
+    public void RemoveSubsystem(Subsystem subsystem)
     {
-        if (subsystems.TryGetValue(index, out var subsystem))
+        if (subsystems.Remove(subsystem))
         {
-            subsystems.Remove(index);
             subsystem.RemoveFromShip(this);
-
-            SubsystemSlot slot = subsystemListPanel.slots[index].GetComponent<SubsystemSlot>();
-            slot.icon.sprite = null;
-            slot.icon.color = Color.clear;
-            slot.slotText.text = "";
-
             onStatsChanged?.Invoke();
         }
     }
 
-    public void AddSubsystem(int index, Subsystem subsystemData)
+    public void AddSubsystem(Subsystem subsystem)
     {
-        if (subsystems.ContainsKey(index))
+        if (subsystems.Contains(subsystem))
         {
-            subsystems[index].RemoveFromShip(this);
-            subsystems.Remove(index);
+            return;
         }
 
-        subsystems[index] = subsystemData;
-
-        SubsystemSlot slot = subsystemListPanel.slots[index].GetComponent<SubsystemSlot>();
-        slot.icon.sprite = subsystemData.icon;
-        slot.icon.color = Color.white;
-        slot.slotText.text = subsystemData.displayName;
-
-        subsystemData.ApplyToShip(this);
+        subsystems.Add(subsystem);
+        subsystem.ApplyToShip(this);
         onStatsChanged?.Invoke();
+
+        // print("----- Subsystems -----");
+        // foreach (Subsystem s in subsystems)
+        // {
+        //     print(s.name);
+        // }
+        // print("------------");
     }
 
     public void ClearCurrentShipStats()
@@ -104,22 +97,26 @@ public class CurrentShipStats : MonoBehaviour
     public void ClearSubsystems()
     {
         subsystems.Clear();
-        subsystemListPanel.UpdateSubsystemSlots();
     }
 
     public int GetHighestArmorRating()
     {
-        var allArmor = subsystems.Where(s => s.Value is Armor).ToList();
+        var allArmor = subsystems.Where(s => s is Armor).ToList();
 
         int highestArmorRating = 0;
 
-        foreach (KeyValuePair<int, Subsystem> kvp in allArmor)
+        foreach (Subsystem subsystem in allArmor)
         {
-            Armor armor = (Armor)kvp.Value;
+            Armor armor = (Armor)subsystem;
             if (armor.armorRating > highestArmorRating)
                 highestArmorRating = armor.armorRating;
         }
 
         return highestArmorRating;
+    }
+
+    public bool HasThrusters()
+    {
+        return subsystems.OfType<Thrusters>().Any();
     }
 }

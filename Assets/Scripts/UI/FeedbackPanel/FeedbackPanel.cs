@@ -78,7 +78,7 @@ public class FeedbackPanel : MonoBehaviour
 
         customer.GetComponent<TMP_Text>().text = request.isFtlCapable ? "Has FTL drive" : "No FTL drive";
 
-        if (submission.subsystems.Values.Any(subsystem => subsystem is FTLDrive))
+        if (submission.subsystems.Any(subsystem => subsystem is FTLDrive))
             player.GetComponent<TMP_Text>().text = "Has FTL drive";
         else
             player.GetComponent<TMP_Text>().text = "Has no FTL drive";
@@ -91,9 +91,9 @@ public class FeedbackPanel : MonoBehaviour
 
         customer.GetComponent<TMP_Text>().text = request.isAtmosphereCapable ? "Atmospheric entry possible" : "Atmospheric entry not possible";
 
-        if (submission.subsystems.Values.Any(subsystem => subsystem is Thrusters))
+        if (submission.subsystems.Any(subsystem => subsystem is Thrusters))
         {
-            Armor armor = (Armor)submission.subsystems.Values.First(subsystem => subsystem is Armor);
+            Armor armor = (Armor)submission.subsystems.First(subsystem => subsystem is Armor);
             player.GetComponent<TMP_Text>().text = armor.canEnterAtmosphere? "Possible" : "Not possible";
         }
         else
@@ -108,7 +108,7 @@ public class FeedbackPanel : MonoBehaviour
         customer.GetComponent<TMP_Text>().text = request.isAutonomous ? "Autonomous" : "Not autonomous";
 
         player.GetComponent<TMP_Text>().text =
-                submission.subsystems.Values.Any(subsystem => subsystem is ArtificialIntelligence) ?
+                submission.subsystems.Any(subsystem => subsystem is ArtificialIntelligence) ?
                 "Autonomous" : "Not autonomous";
     }
 

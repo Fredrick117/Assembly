@@ -13,9 +13,11 @@ MonoBehaviour:
   m_Name: CarrierBaseStats
   m_EditorClassIdentifier: 
   baseSprite: {fileID: 21300000, guid: c447fd83b1d8ffb4ebdcc5862b1dcd8b, type: 3}
-  shipClass: 3
+  shipClass: 4
   baseMass: 25000
   basePrice: 50000
   weaponSlots: 12
   utilitySlots: 10
   reactorSlots: 8
+  rows: 5
+  columns: 16

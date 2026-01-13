@@ -27,6 +27,7 @@ public class ShipRequestManager : MonoBehaviour
     public Canvas mainCanvas;
 
     public FeedbackPanel feedbackPanel;
+    public AfterActionReportPanel afterActionReportPanel;
 
     private NoShipSelectedText noShipSelectedText;
 
@@ -66,44 +67,38 @@ public class ShipRequestManager : MonoBehaviour
         },
         { "The Dominion", new List<string> 
             {
-                "Varrash",
+                "Var'rash",
                 "Torkal'Neth",
                 "Zhur'ka",
                 "Maath",
                 "Khaal'tek",
                 "Ornak",
                 "Shra'ven",
-                "Kaarn",
+                "Ka'arn",
                 "Drek'ra",
                 "Vorr'uun",
-                "Thresh",
+                "Thre'esh",
                 "Graal'Tekh",
                 "Nur'vak",
-                "Shuun",
-                "Vorrek",
+                "Shu'un",
+                "Vor'rek",
                 "Xel'nor",
                 "Korr'vek",
                 "Tar'vus",
                 "Baal'drun",
-                "Kaath'ra"
+                "Kaath'ra",
+                "Tor'bex"
             }
         }
     };
 
     private readonly Dictionary<ShipClassification, Tuple<int, int>> shipSpeedRanges = new()
     {
-        { ShipClassification.Corvette, new Tuple<int, int>(300, 500) },
-        { ShipClassification.Destroyer, new Tuple<int, int>(200, 400) },
-        { ShipClassification.Cruiser, new Tuple<int, int>(100, 300) },
-        { ShipClassification.Carrier, new Tuple<int, int>(100, 300) },
-    };
-
-    private readonly Dictionary<ShipClassification, List<ShipRole>> shipRoles = new()
-    {
-        { ShipClassification.Corvette, new List<ShipRole> { ShipRole.Ship_To_Ship, ShipRole.Recon, ShipRole.Escort, ShipRole.Patrol, ShipRole.Enforcement } },
-        { ShipClassification.Destroyer, new List<ShipRole> { ShipRole.Ship_To_Ship, ShipRole.Recon, ShipRole.Escort, ShipRole.Enforcement } },
-        { ShipClassification.Cruiser, new List<ShipRole> { ShipRole.Ship_To_Ship, ShipRole.Enforcement, ShipRole.Escort } },
-        { ShipClassification.Carrier, new List<ShipRole> { ShipRole.Carrier, ShipRole.Transport } }
+        { ShipClassification.Corvette, new Tuple<int, int>(1000, 1500) },
+        { ShipClassification.Destroyer, new Tuple<int, int>(500, 700) },
+        { ShipClassification.Cruiser, new Tuple<int, int>(300, 500) },
+        { ShipClassification.Carrier, new Tuple<int, int>(300, 400) },
+        { ShipClassification.Escort, new Tuple<int, int>(1000, 1200)}
     };
 
     private readonly Dictionary<ShipClassification, Tuple<int, int>> shipCrewRanges = new()
@@ -112,6 +107,7 @@ public class ShipRequestManager : MonoBehaviour
         { ShipClassification.Destroyer, new Tuple<int, int>(50, 350) },
         { ShipClassification.Cruiser, new Tuple<int, int>(100, 450) },
         { ShipClassification.Carrier, new Tuple<int, int>(200, 1000) },
+        { ShipClassification.Escort, new Tuple<int, int>(50, 100) },
     };
 
     [SerializeField]
@@ -151,7 +147,47 @@ public class ShipRequestManager : MonoBehaviour
         EventManager.onSubmit -= OnSubmission;
     }
 
-    public RequestData GenerateNewRequest()
+    private bool IsShipFunctional(CurrentShipStats currentStats)
+    {
+        // Does it have thrusters?
+        if (!currentStats.subsystems.OfType<Thrusters>().Any())
+        {
+            Debug.LogError("This ship does not contain any thrusters!");
+            return false;
+        }
+        
+        // Does it have life support?
+        if (!currentStats.subsystems.OfType<LifeSupport>().Any())
+        {
+            Debug.LogError("This ship does not contain life support!");
+            return false;
+        }
+        
+        // Does it have a reactor (or multiple reactors) that supply enough power to the rest of the ship?
+        List<Reactor> reactors = currentStats.subsystems.OfType<Reactor>().ToList();
+        float totalReactorOutput = 0f;
+        foreach (var reactor in reactors)
+        {
+            totalReactorOutput += reactor.powerOutput;
+        }
+
+        float totalPowerDraw = 0f;
+        foreach (var subsystem in currentStats.subsystems)
+        {
+            totalPowerDraw += subsystem.powerDraw;
+        }
+
+        if (totalPowerDraw > totalReactorOutput)
+        {
+            Debug.LogError("The reactors cannot supply enough power to the rest of the ship!");
+            return false;
+        }
+
+        Debug.Log("This ship is functional!");
+        return true;
+    }
+
+    private RequestData GenerateNewRequest()
     {
         RequestData request = new();
 
@@ -165,14 +201,14 @@ public class ShipRequestManager : MonoBehaviour
         if (atmosphereCapable)
         {
             request.reward += 50000 + UnityEngine.Random.Range(0, 11) * 1000;
-            request.isAtmosphereCapable = atmosphereCapable;
+            request.isAtmosphereCapable = true;
         }
 
         bool ftlCapable = Utilities.FlipCoin();
         if (ftlCapable)
         {
             request.reward += 100000;
-            request.isFtlCapable = ftlCapable;
+            request.isFtlCapable = true;
         }
 
         request.minArmorRating = (int)Utilities.GetRandomEnumValue<ArmorRating>(true);
@@ -182,7 +218,7 @@ public class ShipRequestManager : MonoBehaviour
         if (aiRequired)
         {
             request.reward += 500000;
-            request.isAutonomous = aiRequired;
+            request.isAutonomous = true;
         }
 
         if (!request.isAutonomous)
@@ -197,7 +233,6 @@ public class ShipRequestManager : MonoBehaviour
     private int GetRewardAmount(ShipClassification classification)
     {
         int baseStatsPrice = shipBaseStatsList.First(baseStat => baseStat.shipClass == classification).basePrice;
-
         return Mathf.RoundToInt(baseStatsPrice * 1.6f);
     }
 
@@ -211,40 +246,39 @@ public class ShipRequestManager : MonoBehaviour
 
     private void OnSubmission()
     {
-        bool submissionWasSuccessful = false;
+        int totalReward = 0;
 
-        if (ShipManager.Instance.currentShip.GetComponent<CurrentShipStats>().baseStats == null)
+        CurrentShipStats currentShipStats = ShipManager.Instance.currentShip.GetComponent<CurrentShipStats>();
+
+        if (currentShipStats.baseStats == null)
         {
             Debug.LogError("No design submitted!");
             return;
         }
 
-        requestNumber++;
-
-        if (!FulfillsRequirements())
+        if (!FulfillsRequirements() || !IsShipFunctional(currentShipStats))
         {
             feedbackPanel.Show();
+            totalReward -= CurrentShipStats.Instance.currentPrice;
         }
         else
         {
-            submissionWasSuccessful = true;
             numSuccesses++;
-        }
-
-        int totalReward = 0;
-        totalReward -= CurrentShipStats.Instance.currentPrice;
-        
-        if (submissionWasSuccessful)
-        {
             totalReward += activeShipRequest.reward;
         }
+
+        afterActionReportPanel.Show();
 
         GameManager.Instance.ModifyCredits(totalReward);
 
         noShipSelectedText.ShowText();
+        
         activeShipRequest = GenerateNewRequest();
         SetRequestText();
+        
         ShipManager.Instance.ClearShip();
+        
+        requestNumber++;
     }
 
     private bool FulfillsRequirements()
@@ -264,7 +298,7 @@ public class ShipRequestManager : MonoBehaviour
             feedbackPanel.AddShipClassDiscrapancy(ship, activeShipRequest);
         
         bool metFtlReq = true;
-        if (activeShipRequest.isFtlCapable && !ship.subsystems.Values.Any(subsystem => subsystem is FTLDrive))
+        if (activeShipRequest.isFtlCapable && !ship.subsystems.Any(subsystem => subsystem is FTLDrive))
         {
             feedbackPanel.AddFtlDiscrepancy(ship, activeShipRequest);
             metFtlReq = false;
@@ -278,7 +312,7 @@ public class ShipRequestManager : MonoBehaviour
         }
 
         bool metAutonomousReq = true;
-        if (activeShipRequest.isAutonomous && !ship.subsystems.Values.Any(subsystem => subsystem is ArtificialIntelligence))
+        if (activeShipRequest.isAutonomous && !ship.subsystems.Any(subsystem => subsystem is ArtificialIntelligence))
         {
             feedbackPanel.AddAiDiscrepancy(ship, activeShipRequest);
             metAutonomousReq = false;
@@ -305,7 +339,7 @@ public class ShipRequestManager : MonoBehaviour
 
     private void SetRequestText()
     {
-        headerText.text = $"Request #{requestNumber.ToString("D2")}";
+        headerText.text = $"Request #{requestNumber:D2}";
 
         requestText.text = BuildRequestString();
     }
@@ -348,8 +382,8 @@ public class ShipRequestManager : MonoBehaviour
             requirementsString = string.Join(", ", requirements.Take(requirements.Count - 1)) + ", and " + requirements.Last();
 
         string classString = activeShipRequest.shipClass.ToString().ToLower();
-        string body = $"{customerName} wants a {classString}-class ship that has {requirementsString}.\n\n" +
-            $"The reward for this contract is <b>₡{activeShipRequest.reward.ToString("N0")}</b>.\n\n";
+        string body = $"{customerName} wants a {classString} that has {requirementsString}.\n\n" +
+            $"The reward for this contract is <b>₡{activeShipRequest.reward:N0}</b>.\n\n";
 
         if (activeShipRequest.budget == 0)
             body += "There is <b>no budget</b> for this contract.";

@@ -5,122 +5,98 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e258dd97-4df8-4845-a26c-cda7ff4045c6" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/NewShipSystem/Scenes/SampleScene.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/NewShipSystem/Scenes/SampleScene/LightingData.asset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/NewShipSystem/Scenes/SampleScene/LightingData.asset.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/AI.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/Armor.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/FTL.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/Hangar.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/LifeSupport.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/Reactor.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/Shielding.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/Thrusters.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Fonts/DejaVuSans-ExtraLight SDF.asset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Fonts/DejaVuSans-ExtraLight SDF.asset.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Fonts/DejaVuSans-ExtraLight.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Fonts/DejaVuSans-ExtraLight.ttf.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Prefabs/UI/SubsystemSlotsPanel.prefab" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Prefabs/UI/SubsystemSlotsPanel.prefab.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Requests.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Requests/Escort_Request.asset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Requests/Escort_Request.asset.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/ShipRequestData.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/UI/AfterActionReportPanel.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/UI/AfterActionReportPanel.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Assembly/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Assembly/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Editor/ItemEditor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Editor/ItemEditor.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Fonts/DejaVuSansMono SDF.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Fonts/DejaVuSansMono SDF.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Ships.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Ships/CarrierStats.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Ships/CarrierStats.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Ships/CorvetteStats.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Ships/CorvetteStats.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Ships/CruiserStats.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Ships/CruiserStats.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Ships/DestroyerStats.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Ships/DestroyerStats.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/AI_Advanced.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/AI/AI_Advanced.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/AI_Advanced.asset.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/AI/AI_Advanced.asset.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/AI_Basic.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/AI/AI_Basic.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/AI_Basic.asset.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/AI/AI_Basic.asset.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/AI_Sentient.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/AI/AI_Sentient.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/AI_Sentient.asset.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/AI/AI_Sentient.asset.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/Armor_Cardboard.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/Armor/Armor_Cardboard.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/Armor_Cardboard.asset.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/Armor/Armor_Cardboard.asset.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/Armor_Diamond.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/Armor/Armor_Diamond.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/Armor_Diamond.asset.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/Armor/Armor_Diamond.asset.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/Armor_S.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/Armor/Armor_S.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/Armor_S.asset.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/Armor/Armor_S.asset.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/Armor_Steel.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/Armor/Armor_Steel.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/Armor_Steel.asset.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/Armor/Armor_Steel.asset.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/FTL_LongRange.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/FTL/FTL_LongRange.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/FTL_LongRange.asset.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/FTL/FTL_LongRange.asset.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/FTL_MediumRange.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/FTL/FTL_MediumRange.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/FTL_MediumRange.asset.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/FTL/FTL_MediumRange.asset.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/FTL_ShortRange.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/FTL/FTL_ShortRange.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/FTL_ShortRange.asset.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/FTL/FTL_ShortRange.asset.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/Hangar_Huge.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/Hangar/Hangar_Huge.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/Hangar_Huge.asset.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/Hangar/Hangar_Huge.asset.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/Hangar_Large.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/Hangar/Hangar_Large.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/Hangar_Large.asset.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/Hangar/Hangar_Large.asset.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/Hangar_Small.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/Hangar/Hangar_Small.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/Hangar_Small.asset.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/Hangar/Hangar_Small.asset.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/LifeSupport_Basic.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/LifeSupport/LifeSupport_Basic.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/LifeSupport_Basic.asset.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/LifeSupport/LifeSupport_Basic.asset.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/LifeSupport_Premium.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/LifeSupport/LifeSupport_Premium.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/LifeSupport_Premium.asset.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/LifeSupport/LifeSupport_Premium.asset.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/LifeSupport_Standard.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/LifeSupport/LifeSupport_Standard.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/LifeSupport_Standard.asset.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/LifeSupport/LifeSupport_Standard.asset.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/Reactor_Advanced.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/Reactor/Reactor_Advanced.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/Reactor_Advanced.asset.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/Reactor/Reactor_Advanced.asset.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/Reactor_Basic.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/Reactor/Reactor_Basic.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/Reactor_Basic.asset.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/Reactor/Reactor_Basic.asset.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/Reactor_Super.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/Reactor/Reactor_Super.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/Reactor_Super.asset.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/Reactor/Reactor_Super.asset.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/Reactor_SuperDuper.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/Reactor/Reactor_SuperDuper.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/Reactor_SuperDuper.asset.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/Reactor/Reactor_SuperDuper.asset.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/Shielding_Heavy.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/Shielding/Shielding_Heavy.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/Shielding_Heavy.asset.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/Shielding/Shielding_Heavy.asset.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/Shielding_Light.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/Shielding/Shielding_Light.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/Shielding_Light.asset.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/Shielding/Shielding_Light.asset.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/Shielding_Medium.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/Shielding/Shielding_Medium.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/Shielding_Medium.asset.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/Shielding/Shielding_Medium.asset.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/Thrusters_Fast.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/Thrusters/Thrusters_Fast.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/Thrusters_Fast.asset.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/Thrusters/Thrusters_Fast.asset.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/Thrusters_Slow.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/Thrusters/Thrusters_Slow.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/Thrusters_Slow.asset.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/Thrusters/Thrusters_Slow.asset.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/Thrusters_Standard.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/Thrusters/Thrusters_Standard.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/Thrusters_Standard.asset.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/Thrusters/Thrusters_Standard.asset.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Weapons.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Weapons/MissileLauncher1.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Weapons/MissileLauncher1.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Weapons/Nuke1.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Weapons/Nuke1.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Weapons/PointDefense1.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Weapons/PointDefense1.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Weapons/Railgun.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Weapons/Railgun.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Weapons/StrikeCraft.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Weapons/StrikeCraft.asset.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/NewShipSystem/Prefabs/Cell.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/NewShipSystem/Prefabs/Cell.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/NewShipSystem/Prefabs/Item.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/NewShipSystem/Prefabs/Item.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/NewShipSystem/Scenes/SampleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/GridTest.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/NewShipSystem/Scenes/SampleScene.unity.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/GridTest.unity.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/NewShipSystem/Scripts/DebugPanel.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/NewShipSystem/Scripts/DebugPanel.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ShipRequestData.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/NewShipSystem/Scripts/GridManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/NewShipSystem/Scripts/GridManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/NewShipSystem/Scripts/GridSlot.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/NewShipSystem/Scripts/GridSlot.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/NewShipSystem/Scripts/Item.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/NewShipSystem/Scripts/Item.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/NewShipSystem/Scripts/ItemData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/NewShipSystem/Scripts/ItemData.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/BaseShipStats/CarrierBaseStats.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/BaseShipStats/CarrierBaseStats.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/BaseShipStats/CorvetteBaseStats.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/BaseShipStats/CorvetteBaseStats.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/BaseShipStats/CruiserBaseStats.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/BaseShipStats/CruiserBaseStats.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/BaseShipStats/DestroyerBaseStats.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/BaseShipStats/DestroyerBaseStats.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/BaseShipStats/EscortBaseStats.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/BaseShipStats/EscortBaseStats.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Items.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Items/AI.asset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Items/AI.asset.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Items/TestItem 2.asset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Items/TestItem 2.asset.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Items/TestItem 3.asset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Items/TestItem 3.asset.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Items/ThrusterItem.asset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Items/ThrusterItem.asset.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/AI/AI_Advanced.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/AI/AI_Advanced.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/AI/AI_Basic.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/AI/AI_Basic.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/AI/AI_Sentient.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/AI/AI_Sentient.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/Armor/Armor_Cardboard.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/Armor/Armor_Cardboard.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/Armor/Armor_Diamond.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/Armor/Armor_Diamond.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/Armor/Armor_S.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/Armor/Armor_S.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/Armor/Armor_Steel.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/Armor/Armor_Steel.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/FTL/FTL_LongRange.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/FTL/FTL_LongRange.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/FTL/FTL_MediumRange.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/FTL/FTL_MediumRange.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/FTL/FTL_ShortRange.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/FTL/FTL_ShortRange.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/LifeSupport/LifeSupport_Basic.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/LifeSupport/LifeSupport_Basic.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/LifeSupport/LifeSupport_Premium.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/LifeSupport/LifeSupport_Premium.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/LifeSupport/LifeSupport_Standard.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/LifeSupport/LifeSupport_Standard.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/Reactor/Reactor_Advanced.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/Reactor/Reactor_Advanced.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/Reactor/Reactor_Basic.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/Reactor/Reactor_Basic.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/Reactor/Reactor_Super.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/Reactor/Reactor_Super.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/Reactor/Reactor_SuperDuper.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/Reactor/Reactor_SuperDuper.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/Shielding/Shielding_Heavy.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/Shielding/Shielding_Heavy.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/Shielding/Shielding_Light.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/Shielding/Shielding_Light.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/Shielding/Shielding_Medium.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/Shielding/Shielding_Medium.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/Thrusters/Thrusters_Fast.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/Thrusters/Thrusters_Fast.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/Thrusters/Thrusters_Slow.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/Thrusters/Thrusters_Slow.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/Thrusters/Thrusters_Standard.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/Thrusters/Thrusters_Standard.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/Weapons/MissileLauncher1.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/Weapons/MissileLauncher1.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/Weapons/Nuke1.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/Weapons/Nuke1.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/Weapons/PointDefense1.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/Weapons/PointDefense1.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/Weapons/Railgun.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/Weapons/Railgun.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/Weapons/StrikeCraft.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/Weapons/StrikeCraft.asset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/ShipDesignScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/ShipDesignScene.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/DataTypes.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/DataTypes.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Managers/EventManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Managers/EventManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Managers/ShipManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Managers/ShipManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Managers/ButtonManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Managers/ButtonManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Managers/GameManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Managers/GameManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Managers/ShipRequestManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Managers/ShipRequestManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Ship/CurrentShipStats.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Ship/CurrentShipStats.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Ship/ShipBaseStats.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Ship/ShipBaseStats.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Ship/ShipStats.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Ship/ShipStats.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Subsystem/Armor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Subsystem/Armor.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Subsystem/FTLDrive.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Subsystem/FTLDrive.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Subsystem/HangarBay.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Subsystem/HangarBay.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Subsystem/LifeSupport.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Subsystem/LifeSupport.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Subsystem/Reactor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Subsystem/Reactor.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Subsystem/Shielding.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Subsystem/Shielding.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Ship/ShipGenerator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Ship/ShipGenerator.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Subsystem/Subsystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Subsystem/Subsystem.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Subsystem/Thrusters.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Subsystem/Thrusters.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/Buttons/SubsystemButton.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UI/Buttons/SubsystemButton.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/FeedbackPanel/FeedbackPanel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UI/FeedbackPanel/FeedbackPanel.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/PauseMenu.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UI/PauseMenu.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/ShipClassSelectionMenu.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UI/ShipClassSelectionMenu.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/ShipDetailsPanel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UI/ShipDetailsPanel.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/SubsystemListPanel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UI/SubsystemListPanel.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/SubsystemSelectionMenu.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UI/SubsystemSelectionMenu.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/SubsystemSlot.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UI/SubsystemSlot.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Corvette.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Corvette.png.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Cruiser.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Cruiser.png.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Destroyer.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Destroyer.png.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Dreadnought.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Dreadnought.png.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Space_Background.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Space_Background.png.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Packages/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/manifest.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Packages/packages-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/packages-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserSettings/EditorUserSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/EditorUserSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Reactor_mk2.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Reactor_mk2.png.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Subsystems/Shield-Gen-Type-A.png" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Subsystems/Shield-Gen-Type-A.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Subsystems/Shield-Gen-Type-B.png" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Subsystems/Shield-Gen-Type-B.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Subsystems/Shield-Gen-Type-C.png" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Subsystems/Shield-Gen-Type-C.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Subsystems/Shield-Gen-Type-D.png" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Subsystems/Shield-Gen-Type-D.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Subsystems/Thruster_new.png" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Subsystems/Thruster_new.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF - Fallback.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF - Fallback.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -136,9 +112,13 @@
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/Assets/NewShipSystem/Scripts/ItemData.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Managers/GameManager.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Ship/ShipStats.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/ShipRequestData.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Subsystem/Subsystem.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/UI/AfterActionReportPanel.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/UI/ShipDetailsPanel.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Runtime/UI/Core/Layout/GridLayoutGroup.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/98b2aface95e4962a9052e7f1344672010fc00/31/27f70449/Enumerable.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/ea489521390f48908a7ce45cb17a684810fc00/51/c3e2c3ac/Enumerable.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
@@ -149,27 +129,27 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Attach to Unity Editor.Attach to Unity Editor.executor": "Debug",
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "XThreadsFramesViewSplitterKey": "0.20272572",
-    "git-widget-placeholder": "main",
-    "ignore.virus.scanning.warn.message": "true",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Attach to Unity Editor.Attach to Unity Editor.executor&quot;: &quot;Debug&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;XThreadsFramesViewSplitterKey&quot;: &quot;0.20272572&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.IDE.editor.colors&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
     <configuration name="Standalone Player" type="RunUnityExe" factoryName="Unity Executable">
-      <option name="EXE_PATH" value="$PROJECT_DIR$/../../Builds/Assembly/Assembly\Assembly.exe" />
+      <option name="EXE_PATH" value="$PROJECT_DIR$/../../Builds/Assembly/v0.06\Assembly.exe" />
       <option name="PROGRAM_PARAMETERS" value="" />
       <option name="WORKING_DIRECTORY" value="C:\Gamedev\Builds\Assembly\Assembly" />
       <option name="PASS_PARENT_ENVS" value="1" />
@@ -215,10 +195,10 @@
       <option name="useMixedMode" value="false" />
       <method v="2" />
     </configuration>
-    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="24164">
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="29708">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
-      <option name="pid" value="24164" />
+      <option name="pid" value="29708" />
       <option name="projectPathOnTarget" />
       <option name="runtimes">
         <list>
@@ -245,6 +225,22 @@
       <workItem from="1767190450161" duration="2835000" />
       <workItem from="1767226262374" duration="2109000" />
       <workItem from="1767289668659" duration="1000000" />
+      <workItem from="1767290879664" duration="2831000" />
+      <workItem from="1767314743741" duration="689000" />
+      <workItem from="1767405722364" duration="607000" />
+      <workItem from="1767477291782" duration="4677000" />
+      <workItem from="1767497058180" duration="1291000" />
+      <workItem from="1767537780397" duration="5387000" />
+      <workItem from="1767657507723" duration="4789000" />
+      <workItem from="1767746393615" duration="3371000" />
+      <workItem from="1767832266457" duration="4901000" />
+      <workItem from="1767917347129" duration="4171000" />
+      <workItem from="1768000574137" duration="1119000" />
+      <workItem from="1768057717960" duration="137000" />
+      <workItem from="1768057865393" duration="2472000" />
+      <workItem from="1768095620764" duration="1846000" />
+      <workItem from="1768140926948" duration="5382000" />
+      <workItem from="1768268495257" duration="1679000" />
     </task>
     <servers />
   </component>

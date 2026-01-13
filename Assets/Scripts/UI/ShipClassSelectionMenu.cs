@@ -7,6 +7,8 @@ public class ShipClassSelectionMenu : MonoBehaviour
     [SerializeField]
     private SubsystemListPanel subsystemListPanel;
 
+    [SerializeField] private GameObject subsystemGrid;
+
     public Canvas mainCanvas;
 
     private NoShipSelectedText noShipText;
@@ -16,11 +18,13 @@ public class ShipClassSelectionMenu : MonoBehaviour
         noShipText = mainCanvas.GetComponentInChildren<NoShipSelectedText>();
     }
 
-    public void OnSelectShipClass(ShipBaseStats CurrentShipStats)
+    public void OnSelectShipClass(ShipBaseStats shipBaseStats)
     {
-        ShipManager.Instance.SetNewShipClass(CurrentShipStats);
+        subsystemGrid.SetActive(true);
+        GridManager gridManager = subsystemGrid.GetComponent<GridManager>();
+        gridManager.GenerateGrid(shipBaseStats.rows, shipBaseStats.columns);
         
-        subsystemListPanel.UpdateSubsystemSlots();
+        ShipManager.Instance.SetNewShipClass(shipBaseStats);
         
         gameObject.SetActive(false);
 

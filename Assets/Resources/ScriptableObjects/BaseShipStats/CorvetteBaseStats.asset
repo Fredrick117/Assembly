@@ -19,3 +19,5 @@ MonoBehaviour:
   weaponSlots: 4
   utilitySlots: 6
   reactorSlots: 1
+  rows: 3
+  columns: 7

@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class GridSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class GridSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {
     [HideInInspector]
     public Image image;
@@ -84,5 +84,13 @@ public class GridSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     public void Preview(bool isValid)
     {
         image.color = isValid ? validColor : invalidColor;
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if (Item.currentDraggedItem != null)
+        {
+            Item.currentDraggedItem.Place();
+        }
     }
 }

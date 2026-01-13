@@ -23,10 +23,14 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private Header headerPanel;
 
-    private bool isLastChance = false;
+    private bool isLastChance;
 
     [SerializeField]
     private GameObject bankruptcyWarningText;
+
+    public Canvas subsystemCanvas;
+    
+    public GameObject itemPrefab;
 
     private void Awake()
     {
@@ -64,6 +68,17 @@ public class GameManager : MonoBehaviour
     private void OnDisable()
     {
         EventManager.onSubmit -= CheckForBankruptcy;
+    }
+
+    public void SpawnItemInHands(ItemData itemData, Subsystem subsystem)
+    {
+        GameObject itemObject = Instantiate(itemPrefab, subsystemCanvas.transform);
+        itemObject.transform.SetAsLastSibling();
+
+        Item item = itemObject.GetComponent<Item>();
+        item.data = itemData;
+        item.SetSubsystemData(subsystem);
+        item.PickUp();
     }
 
     public void ShowSubsystemMenu()

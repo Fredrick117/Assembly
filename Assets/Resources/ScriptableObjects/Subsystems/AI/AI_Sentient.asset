@@ -18,4 +18,5 @@ MonoBehaviour:
   mass: 15
   price: 1200
   icon: {fileID: 21300000, guid: 3f03d76af03bbdf4f96bef4751b5675c, type: 3}
+  itemData: {fileID: 11400000, guid: 4c47cb6158c248946bf354bb450d3a35, type: 2}
   rank: 83

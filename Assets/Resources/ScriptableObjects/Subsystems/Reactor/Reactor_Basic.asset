@@ -19,5 +19,6 @@ MonoBehaviour:
   mass: 50
   price: 1000
   icon: {fileID: 21300000, guid: 4dd0c2cd1c8854a42a46453111f51daa, type: 3}
+  itemData: {fileID: 11400000, guid: 4fb5e407528801544a9b70d3dc254bc5, type: 2}
   powerOutput: 100
   reactorType: 1

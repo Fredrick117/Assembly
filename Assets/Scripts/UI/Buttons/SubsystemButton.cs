@@ -37,7 +37,8 @@ public class SubsystemButton : MonoBehaviour, IPointerClickHandler, IPointerEnte
 
         statsText.text = $"Mass: +{subsystemData.mass}\tPower draw: {subsystemData.powerDraw}\t";
         statsText.text += $"Price: ${subsystemData.price}\t";
-
+        
+        // TODO: move this to the scriptable object data
         switch (subsystemData)
         {
             case Reactor reactorData:
@@ -69,8 +70,9 @@ public class SubsystemButton : MonoBehaviour, IPointerClickHandler, IPointerEnte
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        CurrentShipStats.Instance.AddSubsystem(menuRef.GetSelectedSlot(), subsystemData);
-        menuRef.Close();
+        //CurrentShipStats.Instance.AddSubsystem(menuRef.GetSelectedSlot(), subsystemData);
+        GameManager.Instance.SpawnItemInHands(subsystemData.itemData, subsystemData);
+        menuRef.Hide();
     }
 
     public void OnPointerEnter(PointerEventData eventData)

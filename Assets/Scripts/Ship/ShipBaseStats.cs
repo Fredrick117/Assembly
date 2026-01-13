@@ -12,4 +12,8 @@ public class ShipBaseStats : ScriptableObject
     public int weaponSlots;
     public int utilitySlots;
     public int reactorSlots;
+
+    [Header("Subsystem Grid Data")]
+    public int rows;
+    public int columns;
 }

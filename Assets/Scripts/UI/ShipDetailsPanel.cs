@@ -39,26 +39,28 @@ public class ShipDetailsPanel : MonoBehaviour
 
     public void UpdateText()
     {
-        shipClassText.text = CurrentShipStats.Instance.baseStats != null ? 
-            CurrentShipStats.Instance.baseStats.shipClass.ToString() : "None";
+        string formattingText = "<line-height=0>\n<align=right>";
+        
+        shipClassText.text = "Class:" + formattingText + (CurrentShipStats.Instance.baseStats != null ? 
+            CurrentShipStats.Instance.baseStats.shipClass.ToString() : "None"); // ew, fix this
 
-        shipArmorText.text = Utilities.ArmorRatingToString(CurrentShipStats.Instance.currentArmorRating);
+        shipArmorText.text = "Armor rating:" + formattingText + Utilities.ArmorRatingToString(CurrentShipStats.Instance.currentArmorRating);
 
         bool hasAdequatePower = CurrentShipStats.Instance.currentPowerDraw > CurrentShipStats.Instance.currentMaxPower;
-        string powerString = $"{CurrentShipStats.Instance.currentPowerDraw}/{CurrentShipStats.Instance.currentMaxPower} MW";
+        string powerString = $"Power:{formattingText}{CurrentShipStats.Instance.currentPowerDraw}/{CurrentShipStats.Instance.currentMaxPower} MW";
 
         if (hasAdequatePower)
             shipPowerText.text = $"<color=red>{powerString}</color>";
         else
             shipPowerText.text = powerString;
 
-        shipMaxSpeedText.text = CurrentShipStats.Instance.currentSpeed.ToString();
-        shipMassText.text = CurrentShipStats.Instance.currentMass.ToString();
-        shipShieldText.text = CurrentShipStats.Instance.currentShielding.ToString();
-        shipCraftText.text = CurrentShipStats.Instance.currentMaxCraft.ToString();
-        shipCrewText.text = CurrentShipStats.Instance.currentCrew.ToString();
-        shipSublightSpeedText.text = CurrentShipStats.Instance.currentSublightSpeed.ToString();
+        shipMaxSpeedText.text = $"Speed:{formattingText}{CurrentShipStats.Instance.currentSpeed}";
+        shipMassText.text = $"Mass:{formattingText}{CurrentShipStats.Instance.currentMass}";
+        shipShieldText.text = $"Shield rating{formattingText}{CurrentShipStats.Instance.currentShielding}";
+        shipCraftText.text = $"Max ship storage:{formattingText}{CurrentShipStats.Instance.currentMaxCraft}";
+        shipCrewText.text = $"Max crew:{formattingText}{CurrentShipStats.Instance.currentCrew}";
+        shipSublightSpeedText.text = $"Sublight speed:{formattingText}{CurrentShipStats.Instance.currentSublightSpeed}";
         string formattedPrice = CurrentShipStats.Instance.currentPrice.ToString("N0");
-        shipPriceText.text = $"₡{formattedPrice}";
+        shipPriceText.text = $"Price:{formattingText}₡{formattedPrice}";
     }
 }
