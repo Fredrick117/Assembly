@@ -76,7 +76,7 @@ public class GameManager : MonoBehaviour
         itemObject.transform.SetAsLastSibling();
 
         Item item = itemObject.GetComponent<Item>();
-        item.data = itemData;
+        item.wrapper = new ItemWrapper(itemData);
         item.SetSubsystemData(subsystem);
         item.PickUp();
     }

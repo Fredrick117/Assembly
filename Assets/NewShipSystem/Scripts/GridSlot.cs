@@ -59,7 +59,7 @@ public class GridSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         {
             OnSlotEnter?.Invoke(this);
             Item.currentDraggedItem.SetHoveredSlot(this);
-            parentGrid.ShowPlacementPreview(row, col, Item.currentDraggedItem.data);
+            parentGrid.ShowPlacementPreview(row, col, Item.currentDraggedItem.wrapper);
         }
     }
 

@@ -42,7 +42,7 @@ public class GridManager : MonoBehaviour
         return (row >= 0 && row < gridRows && column >= 0 && column < gridColumns);
     }
 
-    public void ShowPlacementPreview(int startRow, int startCol, ItemData data)
+    public void ShowPlacementPreview(int startRow, int startCol, ItemWrapper data)
     {
         ClearPlacementPreview();
 
@@ -55,7 +55,7 @@ public class GridManager : MonoBehaviour
         {
             for (int colOffset = 0; colOffset < 3; colOffset++)
             {
-                if (!data.IsCellFilled(rowOffset, colOffset))
+                if (!data.GetShape()[rowOffset, colOffset])
                     continue;
 
                 int r = (startRow + rowOffset) - 1;
@@ -121,7 +121,7 @@ public class GridManager : MonoBehaviour
         {
             for (int j = 0; j < columns; j++)
             {
-                GameObject slot = GameObject.Instantiate(slotPrefab, transform);
+                GameObject slot = Instantiate(slotPrefab, transform);
                 GridSlot gridSlot = slot.GetComponent<GridSlot>();
                 gridSlot.row = i;
                 gridSlot.col = j;
@@ -138,7 +138,7 @@ public class GridManager : MonoBehaviour
         
         for (int i = 0; i < gridColumns * gridRows; i++)
         {
-            GameObject.Destroy(transform.GetChild(i).gameObject);
+            Destroy(transform.GetChild(i).gameObject);
         }
     }
 }

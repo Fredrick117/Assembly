@@ -36,7 +36,7 @@ RectTransform:
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0, y: 1}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5773559340610530488
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -89,7 +89,7 @@ GameObject:
   - component: {fileID: 1864101686747131732}
   m_Layer: 5
   m_Name: Item
-  m_TagString: Untagged
+  m_TagString: Subsystem
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -134,7 +134,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c28bd0611d0db94a9159b927b766590, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  data: {fileID: 11400000, guid: 0dca236d9717b7a48a56a08ca23ee0eb, type: 2}
+  wrapper:
+    data: {fileID: 0}
+    isRotated: 0
   subsystem: {fileID: 0}
   previousSlot: {fileID: 0}
   currentSlot: {fileID: 0}

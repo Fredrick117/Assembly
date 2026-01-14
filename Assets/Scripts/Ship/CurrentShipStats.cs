@@ -97,6 +97,11 @@ public class CurrentShipStats : MonoBehaviour
     public void ClearSubsystems()
     {
         subsystems.Clear();
+
+        foreach (GameObject subsystem in GameObject.FindGameObjectsWithTag("Subsystem"))
+        {
+            Destroy(subsystem);
+        }
     }
 
     public int GetHighestArmorRating()

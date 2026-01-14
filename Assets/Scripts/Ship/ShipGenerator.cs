@@ -59,16 +59,16 @@ public class ShipGenerator : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            Ship ship = GenerateShip();
-            print("Ship design generated!");
-            print($"Classification: {ship.classification}, utility slots: {ship.utilitySlots}, weapon slots: {ship.weaponSlots}, reactor slots: {ship.reactorSlots}, mass: {ship.mass}");
-            foreach (Subsystem s in ship.subsystems)
-            {
-                print($"Subsystem: {s.displayName}");
-            }
-        }
+        // if (Input.GetKeyDown(KeyCode.Space))
+        // {
+        //     Ship ship = GenerateShip();
+        //     print("Ship design generated!");
+        //     print($"Classification: {ship.classification}, utility slots: {ship.utilitySlots}, weapon slots: {ship.weaponSlots}, reactor slots: {ship.reactorSlots}, mass: {ship.mass}");
+        //     foreach (Subsystem s in ship.subsystems)
+        //     {
+        //         print($"Subsystem: {s.displayName}");
+        //     }
+        // }
     }
 
     private void SetBaseStats(Ship ship)

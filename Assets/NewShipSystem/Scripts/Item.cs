@@ -4,7 +4,43 @@ using System.IO;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.UI;
+using UnityEngine.UIElements;
+using Image = UnityEngine.UI.Image;
+
+[Serializable]
+public class ItemWrapper
+{
+    public ItemData data;
+    public bool isRotated;
+    
+    public ItemWrapper(ItemData baseData)
+    {
+        data = baseData;
+        isRotated = false;
+    }
+    
+    public bool[,] GetShape()
+    {
+        bool[,] original = data.GetBaseShape();
+
+        if (!isRotated)
+        {
+            return original;
+        }
+        
+        bool[,] rotated = new bool[3, 3]; 
+
+        for (int x = 0; x < 3; x++)
+        {
+            for (int y = 0; y < 3; y++)
+            {
+                rotated[y, 2 - x] = original[x, y];
+            }
+        }
+
+        return rotated;
+    }
+}
 
 public class Item : MonoBehaviour, IPointerClickHandler
 {
@@ -13,7 +49,8 @@ public class Item : MonoBehaviour, IPointerClickHandler
     private bool isDragging = false;
     private CanvasGroup canvasGroup;
 
-    public ItemData data;
+    //public ItemData data;
+    public ItemWrapper wrapper;
     public Subsystem subsystem;
 
     [HideInInspector]
@@ -26,6 +63,8 @@ public class Item : MonoBehaviour, IPointerClickHandler
 
     private Image icon;
 
+    private bool rotationBeforePickup;
+
     void Awake()
     {
         canvasGroup = GetComponent<CanvasGroup>();
@@ -37,12 +76,28 @@ public class Item : MonoBehaviour, IPointerClickHandler
         if (isDragging)
         {
             transform.position = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                Rotate();
+            }
             
             if (Input.GetMouseButtonDown(0))
             {
                 Place();
             }
         }
+    }
+
+    private void Rotate()
+    {
+        wrapper.isRotated = !wrapper.isRotated;
+        
+        if (hoveredSlot != null)
+            GridManager.Instance.ShowPlacementPreview(hoveredSlot.row, hoveredSlot.col, wrapper);
+
+        RectTransform rect = icon.GetComponent<RectTransform>();
+        rect.rotation = wrapper.isRotated ? Quaternion.Euler(0f, 0f, 90f) : Quaternion.identity;
     }
 
     public void SetSprite(Sprite sprite)
@@ -66,9 +121,9 @@ public class Item : MonoBehaviour, IPointerClickHandler
         hoveredSlot = slot;
     }
 
-    private bool CanPlace(int row, int col)
+    private bool CanPlace(GridSlot slot)
     {
-        if (hoveredSlot == null || hoveredSlot.parentGrid == null)
+        if (hoveredSlot == null || hoveredSlot.parentGrid == null || slot == null)
             return false;
 
         GridManager targetGrid = hoveredSlot.parentGrid;
@@ -77,16 +132,16 @@ public class Item : MonoBehaviour, IPointerClickHandler
         {
             for (int c = 0; c < 3; c++)
             {
-                if (!data.IsCellFilled(r, c))
+                if (!wrapper.GetShape()[r, c])
                     continue;
 
-                int rowOffset = (r + row) - 1;
-                int colOffset = (c + col) - 1;
+                int rowOffset = (r + slot.row) - 1;
+                int colOffset = (c + slot.col) - 1;
 
                 if (!targetGrid.IsInBounds(rowOffset, colOffset))
                     return false;
 
-                GridSlot slot = targetGrid.gridSlots[rowOffset, colOffset];
+                //GridSlot slot = targetGrid.gridSlots[rowOffset, colOffset];
 
                 if (slot.isOccupied)
                     return false;
@@ -100,12 +155,13 @@ public class Item : MonoBehaviour, IPointerClickHandler
     {
 		GridManager grid = GridManager.Instance;
         transform.position = grid.GetSlot(row, col).transform.position;
+        icon.transform.rotation = wrapper.isRotated ? Quaternion.Euler(0f, 0f, 90f) : Quaternion.identity;
 
         for (int r = 0; r < 3; r++)
         {
             for (int c = 0; c < 3; c++)
             {
-                if (!data.IsCellFilled(r, c))
+                if (!wrapper.GetShape()[r, c])
                     continue;
 
                 int rowOffset = (r + row) - 1;
@@ -139,7 +195,7 @@ public class Item : MonoBehaviour, IPointerClickHandler
         {
             for (int c = 0; c < 3; c++)
             {
-                if (!data.IsCellFilled(r, c))
+                if (!wrapper.GetShape()[r, c])
                     continue;
 
                 int rowOffset = (r + row) - 1;
@@ -159,10 +215,12 @@ public class Item : MonoBehaviour, IPointerClickHandler
 
     private void ReturnToPreviousPosition()
     {
+        wrapper.isRotated = rotationBeforePickup;
+        
         if (previousSlot == null)
         {
-            Debug.LogError("No previous slot! Returning to 0,0");
-            transform.position = Vector2.zero;
+            Debug.LogError("No previous slot! Destroying item");
+            Destroy(gameObject);
             return;
         }
 
@@ -180,7 +238,8 @@ public class Item : MonoBehaviour, IPointerClickHandler
 
         if (previousSlot == null)
             return;
-        
+
+        rotationBeforePickup = wrapper.isRotated;
         RemoveFromGrid(previousSlot.row, previousSlot.col);
         
         CurrentShipStats.Instance.RemoveSubsystem(subsystem);
@@ -194,21 +253,16 @@ public class Item : MonoBehaviour, IPointerClickHandler
         
         GridManager.Instance.ClearPlacementPreview();
 
-        if (hoveredSlot == null)
+        bool canPlace = CanPlace(hoveredSlot);
+        if (previousSlot == null && !canPlace)
         {
             Destroy(gameObject);
             return;
         }
         
-        if (!CanPlace(hoveredSlot.row, hoveredSlot.col))
+        if (!canPlace)
         {
-            if (previousSlot == null)
-            {
-                Destroy(gameObject);
-                return;
-            }
-            
-            Debug.LogWarning("HoveredSlot was null, cannot place item");
+            Debug.LogWarning("Cannot place!");
             ReturnToPreviousPosition();
             return;
         }
