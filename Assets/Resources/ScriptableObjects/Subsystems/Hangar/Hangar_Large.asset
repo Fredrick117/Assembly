@@ -15,7 +15,8 @@ MonoBehaviour:
   displayName: Large Hangar
   description: 
   powerDraw: 0
-  mass: 18000
+  mass: 400
   price: 500
-  icon: {fileID: 21300000, guid: 4deaec8e4c8ef85479bdfda4e0d7ecba, type: 3}
+  icon: {fileID: 21300000, guid: 8b2daa8c25ceb4e4abcb9b85f1362595, type: 3}
+  itemData: {fileID: 11400000, guid: cec039c24435db14f95d6a30e402c67a, type: 2}
   maxCraft: 8

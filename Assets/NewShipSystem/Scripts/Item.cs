@@ -121,9 +121,9 @@ public class Item : MonoBehaviour, IPointerClickHandler
         hoveredSlot = slot;
     }
 
-    private bool CanPlace(GridSlot slot)
+    private bool CanPlace(GridSlot homeSlot)
     {
-        if (hoveredSlot == null || hoveredSlot.parentGrid == null || slot == null)
+        if (hoveredSlot == null || hoveredSlot.parentGrid == null || homeSlot == null)
             return false;
 
         GridManager targetGrid = hoveredSlot.parentGrid;
@@ -135,13 +135,13 @@ public class Item : MonoBehaviour, IPointerClickHandler
                 if (!wrapper.GetShape()[r, c])
                     continue;
 
-                int rowOffset = (r + slot.row) - 1;
-                int colOffset = (c + slot.col) - 1;
+                int rowOffset = (r + homeSlot.row) - 1;
+                int colOffset = (c + homeSlot.col) - 1;
 
                 if (!targetGrid.IsInBounds(rowOffset, colOffset))
                     return false;
 
-                //GridSlot slot = targetGrid.gridSlots[rowOffset, colOffset];
+                GridSlot slot = targetGrid.gridSlots[rowOffset, colOffset];
 
                 if (slot.isOccupied)
                     return false;
@@ -183,13 +183,7 @@ public class Item : MonoBehaviour, IPointerClickHandler
 
     private void RemoveFromGrid(int row, int col)
     {
-        if (previousSlot == null || previousSlot.parentGrid == null)
-        {
-            Debug.LogError("PickUpFromGrid: previousSlot or parentGrid was null!");
-            return;
-        }
-
-        GridManager targetGrid = previousSlot.parentGrid;
+        GridManager targetGrid = GridManager.Instance;
 
         for (int r = 0; r < 3; r++)
         {
@@ -276,6 +270,7 @@ public class Item : MonoBehaviour, IPointerClickHandler
         if (eventData.button == PointerEventData.InputButton.Right)
         {
             RemoveFromGrid(currentSlot.row, currentSlot.col);
+            CurrentShipStats.Instance.RemoveSubsystem(subsystem);
             Destroy(gameObject);
             return;
         }

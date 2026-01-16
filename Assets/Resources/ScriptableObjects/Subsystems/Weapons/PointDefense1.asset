@@ -17,6 +17,6 @@ MonoBehaviour:
   powerDraw: 100
   mass: 10
   price: 25
-  icon: {fileID: 21300000, guid: 2d54aeabc2f58bc41b2d80fc242efeae, type: 3}
+  icon: {fileID: 21300000, guid: 20ffc8817d29f9d4980e0cd93088e644, type: 3}
   itemData: {fileID: 11400000, guid: 96fb1a27f91c0e346af79d7213b81e94, type: 2}
   weaponType: 1

@@ -7,15 +7,12 @@
     <list default="true" id="e258dd97-4df8-4845-a26c-cda7ff4045c6" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Assembly/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Assembly/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/NewShipSystem/Prefabs/Item.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/NewShipSystem/Prefabs/Item.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/NewShipSystem/Scripts/GridManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/NewShipSystem/Scripts/GridManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/NewShipSystem/Scripts/GridSlot.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/NewShipSystem/Scripts/GridSlot.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/NewShipSystem/Scripts/Item.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/NewShipSystem/Scripts/Item.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/NewShipSystem/Scripts/ItemData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/NewShipSystem/Scripts/ItemData.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/SubsystemShapes/Shape_AI.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/SubsystemShapes/Shape_AI.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/SubsystemShapes/Shape_Weapon.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/SubsystemShapes/Shape_Weapon.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Managers/GameManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Managers/GameManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Ship/CurrentShipStats.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Ship/CurrentShipStats.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Ship/ShipGenerator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Ship/ShipGenerator.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/AI/AI_Advanced.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/AI/AI_Advanced.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/AI/AI_Basic.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/AI/AI_Basic.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/AI/AI_Sentient.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/AI/AI_Sentient.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Subsystems/Shield-Gen-Type-A.png" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Subsystems/Shield-Gen-Type-A.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Subsystems/Shield-Gen-Type-B.png" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Subsystems/Shield-Gen-Type-B.png" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -160,6 +157,7 @@
       <workItem from="1768140926948" duration="5382000" />
       <workItem from="1768268495257" duration="6295000" />
       <workItem from="1768346283498" duration="5321000" />
+      <workItem from="1768482677106" duration="2099000" />
     </task>
     <servers />
   </component>

@@ -17,5 +17,6 @@ MonoBehaviour:
   powerDraw: 0
   mass: 600
   price: 1000
-  icon: {fileID: 21300000, guid: 4deaec8e4c8ef85479bdfda4e0d7ecba, type: 3}
+  icon: {fileID: 21300000, guid: 37a00986dda3bcf48b5086963c723043, type: 3}
+  itemData: {fileID: 11400000, guid: cec039c24435db14f95d6a30e402c67a, type: 2}
   maxCraft: 16
