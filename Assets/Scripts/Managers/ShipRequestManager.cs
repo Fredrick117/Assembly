@@ -27,7 +27,6 @@ public class ShipRequestManager : MonoBehaviour
     public Canvas mainCanvas;
 
     public FeedbackPanel feedbackPanel;
-    public AfterActionReportPanel afterActionReportPanel;
 
     private NoShipSelectedText noShipSelectedText;
 
@@ -149,21 +148,18 @@ public class ShipRequestManager : MonoBehaviour
 
     private bool IsShipFunctional(CurrentShipStats currentStats)
     {
-        // Does it have thrusters?
         if (!currentStats.subsystems.OfType<Thrusters>().Any())
         {
             Debug.LogError("This ship does not contain any thrusters!");
             return false;
         }
         
-        // Does it have life support?
-        if (!currentStats.subsystems.OfType<LifeSupport>().Any())
-        {
-            Debug.LogError("This ship does not contain life support!");
-            return false;
-        }
+        //if (!currentStats.subsystems.OfType<LifeSupport>().Any())
+        //{
+        //    Debug.LogError("This ship does not contain life support!");
+        //    return false;
+        //}
         
-        // Does it have a reactor (or multiple reactors) that supply enough power to the rest of the ship?
         List<Reactor> reactors = currentStats.subsystems.OfType<Reactor>().ToList();
         float totalReactorOutput = 0f;
         foreach (var reactor in reactors)
@@ -192,7 +188,7 @@ public class ShipRequestManager : MonoBehaviour
         RequestData request = new();
 
         request.shipClass = Utilities.GetRandomEnumValue<ShipClassification>(true);
-        request.reward += shipBaseStatsList.First(ship => ship.shipClass == request.shipClass).basePrice;
+        request.reward = Mathf.RoundToInt(shipBaseStatsList.First(ship => ship.shipClass == request.shipClass).basePrice * 1.75f);
 
         Tuple<int, int> speedRange = shipSpeedRanges[request.shipClass];
         request.minSpeed = Mathf.RoundToInt(UnityEngine.Random.Range(speedRange.Item1 / 100, speedRange.Item2 / 100)) * 100;
@@ -200,24 +196,37 @@ public class ShipRequestManager : MonoBehaviour
         bool atmosphereCapable = Utilities.FlipCoin();
         if (atmosphereCapable)
         {
-            request.reward += 50000 + UnityEngine.Random.Range(0, 11) * 1000;
+            //request.reward += 50000 + UnityEngine.Random.Range(0, 11) * 1000;
             request.isAtmosphereCapable = true;
         }
 
         bool ftlCapable = Utilities.FlipCoin();
         if (ftlCapable)
         {
-            request.reward += 100000;
+            List<FTLDrive> ftlDrives = new();
+            foreach (var ftl in subsystemsList.OfType<FTLDrive>())
+            {
+                ftlDrives.Add(ftl);
+            }
+
+            if (ftlDrives.Count == 0)
+            {
+                Debug.LogError("GenerateNewRequest: no FTL drives found");
+            }
+
+            request.minSublightSpeed = ftlDrives[UnityEngine.Random.Range(0, ftlDrives.Count)].sublightSpeed;
+
+            //request.reward += 100000;
             request.isFtlCapable = true;
         }
 
         request.minArmorRating = (int)Utilities.GetRandomEnumValue<ArmorRating>(true);
-        request.reward += 1000000;
+        //request.reward += 1000000;
 
         bool aiRequired = Utilities.FlipCoin();
         if (aiRequired)
         {
-            request.reward += 500000;
+            //request.reward += 500000;
             request.isAutonomous = true;
         }
 
@@ -267,8 +276,6 @@ public class ShipRequestManager : MonoBehaviour
             totalReward += activeShipRequest.reward;
         }
 
-        afterActionReportPanel.Show();
-
         GameManager.Instance.ModifyCredits(totalReward);
 
         noShipSelectedText.ShowText();
@@ -277,6 +284,7 @@ public class ShipRequestManager : MonoBehaviour
         SetRequestText();
         
         ShipManager.Instance.ClearShip();
+        GridManager.Instance.ClearGrid();
         
         requestNumber++;
     }
@@ -359,7 +367,7 @@ public class ShipRequestManager : MonoBehaviour
             requirements.Add("the ability to enter and exit a planet's atmosphere");
 
         if (activeShipRequest.isFtlCapable)
-            requirements.Add("a faster-than-light drive");
+            requirements.Add($"a faster-than-light drive with a minimum sublight speed of {activeShipRequest.minSublightSpeed}");
 
         if (activeShipRequest.isAutonomous)
             requirements.Add("onboard artificial intelligence");

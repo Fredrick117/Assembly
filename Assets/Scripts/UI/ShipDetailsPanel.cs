@@ -54,12 +54,12 @@ public class ShipDetailsPanel : MonoBehaviour
         else
             shipPowerText.text = powerString;
 
-        shipMaxSpeedText.text = $"Speed:{formattingText}{CurrentShipStats.Instance.currentSpeed}";
-        shipMassText.text = $"Mass:{formattingText}{CurrentShipStats.Instance.currentMass}";
+        shipMaxSpeedText.text = $"Speed:{formattingText}{CurrentShipStats.Instance.currentSpeed} m/s";
+        shipMassText.text = $"Mass:{formattingText}{CurrentShipStats.Instance.currentMass} t";
         shipShieldText.text = $"Shield rating{formattingText}{CurrentShipStats.Instance.currentShielding}";
         shipCraftText.text = $"Max ship storage:{formattingText}{CurrentShipStats.Instance.currentMaxCraft}";
         shipCrewText.text = $"Max crew:{formattingText}{CurrentShipStats.Instance.currentCrew}";
-        shipSublightSpeedText.text = $"Sublight speed:{formattingText}{CurrentShipStats.Instance.currentSublightSpeed}";
+        shipSublightSpeedText.text = $"Sublight speed:{formattingText}{CurrentShipStats.Instance.currentSublightSpeed} m/s";
         string formattedPrice = CurrentShipStats.Instance.currentPrice.ToString("N0");
         shipPriceText.text = $"Price:{formattingText}₡{formattedPrice}";
     }

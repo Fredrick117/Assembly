@@ -48,7 +48,7 @@ public class SubsystemButton : MonoBehaviour, IPointerClickHandler, IPointerEnte
                 statsText.text += $"Shield strength: +{shieldData.shieldStrength}\t";
                 break;
             case FTLDrive ftl:
-                statsText.text += $"Grade: {ftl.tier}";
+                statsText.text += $"Grade: {ftl.tier}\t Sublight speed: {ftl.sublightSpeed}";
                 break;
             case Thrusters thrusters:
                 statsText.text += $"Speed: +{thrusters.speed} m/s\t";
@@ -61,6 +61,9 @@ public class SubsystemButton : MonoBehaviour, IPointerClickHandler, IPointerEnte
                 break;
             case Weapon weapon:
                 statsText.text += $"Damage type: {weapon.weaponType}";
+                break;
+            case LifeSupport life:
+                statsText.text += $"Max crew: +{life.crew}";
                 break;
         }
 

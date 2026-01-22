@@ -51,21 +51,9 @@ public class CurrentShipStats : MonoBehaviour
 
     public void AddSubsystem(Subsystem subsystem)
     {
-        if (subsystems.Contains(subsystem))
-        {
-            return;
-        }
-
         subsystems.Add(subsystem);
         subsystem.ApplyToShip(this);
         onStatsChanged?.Invoke();
-
-        // print("----- Subsystems -----");
-        // foreach (Subsystem s in subsystems)
-        // {
-        //     print(s.name);
-        // }
-        // print("------------");
     }
 
     public void ClearCurrentShipStats()

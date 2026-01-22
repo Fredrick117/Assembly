@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
 
-    public int startingCredits = 2500000;
+    public int startingCredits = 25000;
 
     [HideInInspector]
     public int currentCredits;

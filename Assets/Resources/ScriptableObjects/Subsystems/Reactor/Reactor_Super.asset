@@ -18,7 +18,7 @@ MonoBehaviour:
   powerDraw: 0
   mass: 250
   price: 2500
-  icon: {fileID: 21300000, guid: e1b52fc97b633404189575f6b003f7d0, type: 3}
+  icon: {fileID: 21300000, guid: c58fba7cd76b0e6429fc2f3cabc6321e, type: 3}
   itemData: {fileID: 11400000, guid: 4fb5e407528801544a9b70d3dc254bc5, type: 2}
   powerOutput: 350
   reactorType: 2

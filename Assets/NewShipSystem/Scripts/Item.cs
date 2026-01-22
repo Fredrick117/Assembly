@@ -71,11 +71,17 @@ public class Item : MonoBehaviour, IPointerClickHandler
         icon = GetComponentInChildren<Image>();
     }
 
+    void Start()
+    {
+        icon.alphaHitTestMinimumThreshold = 0.1f;
+    }
+
     private void Update()
     {
         if (isDragging)
         {
-            transform.position = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            //transform.position = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            transform.position = Input.mousePosition;
 
             if (Input.GetKeyDown(KeyCode.Space))
             {
@@ -97,7 +103,7 @@ public class Item : MonoBehaviour, IPointerClickHandler
             GridManager.Instance.ShowPlacementPreview(hoveredSlot.row, hoveredSlot.col, wrapper);
 
         RectTransform rect = icon.GetComponent<RectTransform>();
-        rect.rotation = wrapper.isRotated ? Quaternion.Euler(0f, 0f, 90f) : Quaternion.identity;
+        rect.rotation = wrapper.isRotated ? Quaternion.Euler(0f, 0f, -90f) : Quaternion.identity;
     }
 
     public void SetSprite(Sprite sprite)
@@ -155,7 +161,7 @@ public class Item : MonoBehaviour, IPointerClickHandler
     {
 		GridManager grid = GridManager.Instance;
         transform.position = grid.GetSlot(row, col).transform.position;
-        icon.transform.rotation = wrapper.isRotated ? Quaternion.Euler(0f, 0f, 90f) : Quaternion.identity;
+        //icon.transform.rotation = wrapper.isRotated ? Quaternion.Euler(0f, 0f, 90f) : Quaternion.identity;
 
         for (int r = 0; r < 3; r++)
         {
@@ -245,6 +251,12 @@ public class Item : MonoBehaviour, IPointerClickHandler
         isDragging = false;
         currentDraggedItem = null;
         
+        if (!GridManager.Instance)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
         GridManager.Instance.ClearPlacementPreview();
 
         bool canPlace = CanPlace(hoveredSlot);

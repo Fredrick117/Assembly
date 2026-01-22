@@ -18,7 +18,7 @@ MonoBehaviour:
   powerDraw: 35
   mass: 125
   price: 1500
-  icon: {fileID: 21300000, guid: 5ac3628094858f14faa66965f45f9171, type: 3}
+  icon: {fileID: 21300000, guid: 46bbe0d29bdb1d945a6ea0680206d051, type: 3}
   itemData: {fileID: 11400000, guid: 0dca236d9717b7a48a56a08ca23ee0eb, type: 2}
-  tier: 0
-  sublightSpeed: 5000
+  tier: 1
+  sublightSpeed: 2500

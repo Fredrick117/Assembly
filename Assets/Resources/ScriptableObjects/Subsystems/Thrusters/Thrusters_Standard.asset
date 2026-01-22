@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 079e7393baebfb848b6337e45812de75, type: 3}
   m_Name: Thrusters_Standard
   m_EditorClassIdentifier: 
-  displayName: High-powered thrusters
+  displayName: Thrusters - Standard
   description: Powerful thrusters that are capable of breaching most planets' atmospheres.
   powerDraw: 55
   mass: 80

@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 079e7393baebfb848b6337e45812de75, type: 3}
   m_Name: Thrusters_Slow
   m_EditorClassIdentifier: 
-  displayName: Basic thrusters
+  displayName: Thrusters - Slow
   description: Nothing special.
   powerDraw: 25
   mass: 85
   price: 250
   icon: {fileID: 21300000, guid: 9e461dd9ba78c864eb7caeb1c06bc320, type: 3}
   itemData: {fileID: 11400000, guid: ad1b1dd4cf22db24bbb4813e25bd11c2, type: 2}
-  speed: 200
+  speed: 300
