@@ -1,5 +1,4 @@
 # Assembly
-# About
 Assembly is a game about designing starships for a variety of clientele. Whip up a design for Whitebeard and his crew so that they can hold up merchant ships, or help Admiral Hood introduce a new line of corvettes for his fleet.
 
 # Download
