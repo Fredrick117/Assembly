@@ -6,17 +6,21 @@ Assembly is a game about designing starships for a variety of clientele. Whip up
 See the [releases page](https://github.com/Fredrick117/Assembly/releases) or the [itch.io page](https://cfredrick.itch.io/assembly).
 
 # Gameplay
-## Customer request
+## Customer requests
 Before you start making your own starship, it's important to take a quick look at what the customer is requesting from you. They're paying you, after all!
 
-Requests have two parts: a hidden check to see if the design you've submitted is actually space-worthy (has enough power to ensure all subsystems are able to function, has thrusters, and a reactor), and the request itself. The latter requires the ship's design to have specific stats, such as a minimum/maximum speed, mininmum/maximum armor rating, the ability to be flown autonomously, etc.
+Requests have two parts:
+1. An unspoken assumption that the design you send to them is space-worthy. If it doesn't have a reactor to power the ship and thrusters to move it, they don't want it!
+2. The request itself. This can include specifics like minimum/maximum speed, mininmum/maximum armor rating, the ability to be flown autonomously, armor rating, etc.
 
 <img width="666" height="475" alt="Request" src="https://github.com/user-attachments/assets/fdfd63b1-ff5b-43b7-ad8c-979129fcc862" />
 
 *A sample request, showing that John from Earth wants a destroyer and is willing to pay 43,750 credits for it.*
 
+The customer won't pay you for your hard work if you mess it up, so make sure you do it right!
+
 ## Ship classifications
-Designing a ship first involves selecting its classification. This classification decides how large the starship is and how many subsystems it can hold. Currently, there are 5 classes of ships you can design:
+Designing a ship involves selecting its classification. This classification decides how large the starship is and how many subsystems it can hold. Currently, there are 5 classes of ships you can design:
 - Escort
 - Corvette
 - Destroyer
