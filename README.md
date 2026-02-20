@@ -1,6 +1,8 @@
 # Assembly
-# About
-Assembly is a game about designing starships for a variety of clientele. Whip up a design for Whitebeard and his crew so that they can hold up merchant ships, or help Admiral Hood introduce a new line of corvettes for his fleet.
+
+![Shipbuilding](Media/build.gif)
+
+Assembly is a game about designing starships for a variety of customers. Whip up a design for Whitebeard and his crew so they can hold up merchant ships, or help Admiral Hood introduce a new line of corvettes for his fleet!
 
 # Download
 See the [releases page](https://github.com/Fredrick117/Assembly/releases) or the [itch.io page](https://cfredrick.itch.io/assembly).
@@ -13,7 +15,7 @@ Requests have two parts:
 1. An unspoken assumption that the design you send to them is space-worthy. If it doesn't have a reactor to power the ship and thrusters to move it, they don't want it!
 2. The request itself. This can include specifics like minimum/maximum speed, mininmum/maximum armor rating, the ability to be flown autonomously, armor rating, etc.
 
-<img width="666" height="475" alt="Request" src="https://github.com/user-attachments/assets/fdfd63b1-ff5b-43b7-ad8c-979129fcc862" />
+<img width="300" alt="Request" src="https://github.com/user-attachments/assets/fdfd63b1-ff5b-43b7-ad8c-979129fcc862" />
 
 *A sample request, showing that John from Earth wants a destroyer and is willing to pay 43,750 credits for it.*
 
