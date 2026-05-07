@@ -6,13 +6,18 @@
   <component name="ChangeListManager">
     <list default="true" id="e258dd97-4df8-4845-a26c-cda7ff4045c6" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Assembly/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Assembly/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/NewShipSystem/Prefabs/Item.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/NewShipSystem/Prefabs/Item.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/NewShipSystem/Scripts/Item.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/NewShipSystem/Scripts/Item.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/AI/AI_Advanced.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/AI/AI_Advanced.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/AI/AI_Basic.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/AI/AI_Basic.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/AI/AI_Sentient.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/Subsystems/AI/AI_Sentient.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Subsystems/Shield-Gen-Type-A.png" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Subsystems/Shield-Gen-Type-A.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Subsystems/Shield-Gen-Type-B.png" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Subsystems/Shield-Gen-Type-B.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Connector.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Connector.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Connector.prefab.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Connector.prefab.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/RootIndicator.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/RootIndicator.prefab.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/ShipModules/NewModules/1x1 Module.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/ShipModules/NewModules/1x1 Module.prefab.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/SomethingNew.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/SomethingNew.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Ship/DraggableModule.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Ship/DraggableModule.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Ship/ModuleConnection.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Ship/ModuleConnection.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/SpawnButton.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UI/SpawnButton.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Packages/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/manifest.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Packages/packages-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/packages-lock.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,27 +51,27 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Attach to Unity Editor.Attach to Unity Editor.executor&quot;: &quot;Debug&quot;,
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;XThreadsFramesViewSplitterKey&quot;: &quot;0.20272572&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.IDE.editor.colors&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Attach to Unity Editor.Attach to Unity Editor.executor": "Debug",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "XThreadsFramesViewSplitterKey": "0.20272572",
+    "git-widget-placeholder": "feature/module-snapping",
+    "ignore.virus.scanning.warn.message": "true",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "reference.settingsdialog.IDE.editor.colors",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
     <configuration name="Standalone Player" type="RunUnityExe" factoryName="Unity Executable">
-      <option name="EXE_PATH" value="$PROJECT_DIR$/../../Builds/Assembly/v0.06\Assembly.exe" />
+      <option name="EXE_PATH" value="C:/Gamedev/Builds/Assembly/v0.2\Assembly.exe" />
       <option name="PROGRAM_PARAMETERS" value="" />
       <option name="WORKING_DIRECTORY" value="C:\Gamedev\Builds\Assembly\Assembly" />
       <option name="PASS_PARENT_ENVS" value="1" />
@@ -158,6 +163,7 @@
       <workItem from="1768268495257" duration="6295000" />
       <workItem from="1768346283498" duration="5321000" />
       <workItem from="1768482677106" duration="2099000" />
+      <workItem from="1777940057426" duration="1078000" />
     </task>
     <servers />
   </component>

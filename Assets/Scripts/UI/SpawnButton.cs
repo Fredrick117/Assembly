@@ -22,7 +22,7 @@ public class SpawnButton : MonoBehaviour
 
         if (shipModule)
         {
-            shipModule.IsDragging = true;
+            shipModule.isDragging = true;
         }
     }
 }

@@ -1,18 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
 public class DraggableModule : MonoBehaviour
 {
-    public bool IsDragging = false;
-    private Vector3 Offset;
+    public bool isDragging = false;
+    private Vector3 offset;
 
-    private Transform[] ConnectorsArray;
+    private ModuleConnection[] connectors;
 
-    private Vector3 InitialPickupPosition;
+    private Vector3 initialPickupPosition;
 
     private bool isOver;
 
@@ -23,14 +24,16 @@ public class DraggableModule : MonoBehaviour
 
     private void Start()
     {
-        ConnectorsArray = gameObject.transform.GetComponentsInChildren<Transform>();
-        ConnectorsArray = ConnectorsArray.Where(child => child.tag == "Connector").ToArray();
+        connectors = gameObject.transform.GetComponentsInChildren<ModuleConnection>();
+        connectors = connectors.Where(child => child.CompareTag("Connector")).ToArray();
+        
+        initialPickupPosition = transform.position;
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        if (IsDragging)
+        if (isDragging)
         {
             transform.position = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition);
         }
@@ -44,60 +47,82 @@ public class DraggableModule : MonoBehaviour
 
     private void OnMouseDown()
     {
-        Offset = transform.position - Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        IsDragging = true;
-        InitialPickupPosition = transform.position;
+        isDragging = true;
+        offset = transform.position - Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        initialPickupPosition = transform.position;
 
-        for (int i = 0; i < ConnectorsArray.Length; i++)
+        // Clear all linked connectors
+        foreach (ModuleConnection connector in connectors)
         {
-            ModuleConnection Connection = ConnectorsArray[i].gameObject.GetComponent<ModuleConnection>();
-            if (Connection.LinkedConnector != null)
+            if (connector.LinkedConnector != null)
             {
-                Connection.IsOccupied = false;
-                Connection.LinkedConnector.GetComponent<ModuleConnection>().IsOccupied = false;
-                Connection.LinkedConnector.GetComponent<ModuleConnection>().LinkedConnector = null;
-                Connection.LinkedConnector = null;
+                connector.IsOccupied = false;
+                connector.LinkedConnector.GetComponent<ModuleConnection>().IsOccupied = false;
+                connector.LinkedConnector.GetComponent<ModuleConnection>().LinkedConnector = null;
+                connector.LinkedConnector = null;
             }
         }
     }
 
     private void OnMouseUp()
     {
-        IsDragging = false;
-        float ClosestConnectorDistance = 99999.0f;
-        GameObject ClosestOtherConnector = null;
-        GameObject ClosestChildConnector = null;
+        isDragging = false;
+        bool foundValidConnector = false;
 
-        // Check if any of this object's connectors are close to another object's connector
-        for (int i = 0; i < ConnectorsArray.Length; i++)
+        foreach (ModuleConnection connector in connectors)
         {
-            Collider2D[] HitColliders = Physics2D.OverlapCircleAll(transform.position, 1.0f);
+            GameObject nearestConnector = connector.GetNearestConnector();
 
-            if (HitColliders.Length == 0)
-                continue;
-
-            foreach (var Hit in HitColliders)
+            if (nearestConnector == null/* || nearestConnector.GetComponent<ModuleConnection>().IsOccupied*/)
             {
-                float Distance = Vector2.Distance(ConnectorsArray[i].transform.position, Hit.gameObject.transform.position);
+                continue;
+            }
+            
+            if (!nearestConnector.GetComponent<ModuleConnection>().IsOccupied)
+            {
+                transform.position = nearestConnector.transform.position - connector.transform.localPosition;
+                nearestConnector.GetComponent<ModuleConnection>().IsOccupied = true;
+                connector.IsOccupied = true;
+                connector.LinkedConnector = nearestConnector;
+                nearestConnector.GetComponent<ModuleConnection>().LinkedConnector = nearestConnector;
 
-                if (Hit.gameObject.tag == "Connector"
-                && Distance < ClosestConnectorDistance
-                && Hit.gameObject.transform.parent != gameObject.transform)
-                {
-                    ClosestConnectorDistance = Distance;
-                    ClosestOtherConnector = Hit.gameObject;
-                    ClosestChildConnector = ConnectorsArray[i].gameObject;
-                }
+                foundValidConnector = true;
             }
         }
 
-        if (ClosestChildConnector != null && ClosestOtherConnector != null && !ClosestOtherConnector.GetComponent<ModuleConnection>().IsOccupied)
-        {
-            transform.position = ClosestOtherConnector.transform.position - ClosestChildConnector.transform.localPosition;
-            ClosestOtherConnector.GetComponent<ModuleConnection>().IsOccupied = true;
-            ClosestChildConnector.GetComponent<ModuleConnection>().IsOccupied = true;
-            ClosestChildConnector.GetComponent<ModuleConnection>().LinkedConnector = ClosestOtherConnector;
-            ClosestOtherConnector.GetComponent<ModuleConnection>().LinkedConnector = ClosestChildConnector;
-        }
+        
+
+
+        // Check if any of this object's connectors are close to another object's connector
+        //for (int i = 0; i < connectors.Length; i++)
+        //{
+        //    Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, 1.0f);
+
+        //    if (hitColliders.Length == 0)
+        //        continue;
+
+        //    foreach (var hit in hitColliders)
+        //    {
+        //        float distance = Vector2.Distance(connectors[i].transform.position, hit.gameObject.transform.position);
+
+        //        if (hit.gameObject.tag == "Connector"
+        //        && distance < closestConnectorDistance
+        //        && hit.gameObject.transform.parent != gameObject.transform)
+        //        {
+        //            closestConnectorDistance = distance;
+        //            closestOtherConnector = hit.gameObject;
+        //            closestChildConnector = connectors[i].gameObject;
+        //        }
+        //    }
+        //}
+
+        //if (closestChildConnector != null && closestOtherConnector != null && !closestOtherConnector.GetComponent<ModuleConnection>().IsOccupied)
+        //{
+        //    transform.position = closestOtherConnector.transform.position - closestChildConnector.transform.localPosition;
+        //    closestOtherConnector.GetComponent<ModuleConnection>().IsOccupied = true;
+        //    closestChildConnector.GetComponent<ModuleConnection>().IsOccupied = true;
+        //    closestChildConnector.GetComponent<ModuleConnection>().LinkedConnector = closestOtherConnector;
+        //    closestOtherConnector.GetComponent<ModuleConnection>().LinkedConnector = closestChildConnector;
+        //}
     }
 }

@@ -4,9 +4,8 @@ using UnityEngine;
 
 public enum ConnectorType
 {
-    ENGINE,
-    ROOM,
-    WEAPON
+    Engine,
+    Weapon,
 }
 
 public class ModuleConnection : MonoBehaviour
@@ -15,9 +14,44 @@ public class ModuleConnection : MonoBehaviour
     public ConnectorType Type;
     public Sprite ConnectorSprite;
     public GameObject LinkedConnector = null;
+    public GameObject ClosestConnector = null;
 
     private void Awake()
     {
         gameObject.tag = "Connector";
+    }
+
+    public GameObject GetNearestConnector()
+    {
+        GameObject nearestConnector = null;
+        float nearestConnectorDistance = float.MaxValue;
+
+        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, 0.5f);
+
+        foreach (Collider2D hit in hitColliders)
+        {
+            if (hit.transform.parent == this.transform.parent || hit.gameObject.tag != "Connector")
+            {
+                continue;
+            }
+
+            float distance = Vector2.Distance(transform.position, hit.transform.position);
+
+            if (distance < nearestConnectorDistance)
+            {
+                nearestConnector = hit.gameObject;
+            }
+        }
+
+        return nearestConnector;
+    }
+
+    void OnDrawGizmos()
+    {
+        if (GetNearestConnector() != null)
+        {
+            Gizmos.color = Color.green;
+            Gizmos.DrawWireSphere(transform.position, 0.5f);
+        }
     }
 }
