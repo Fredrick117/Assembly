@@ -51,6 +51,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDragging: 0
+  spriteRenderer: {fileID: 1016120178132919781}
   mouseUnsnapDistance: 0.7
 --- !u!61 &5249010513527904416
 BoxCollider2D:
@@ -400,6 +401,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 367bc50b749f26842ab1baa33854e1d2, type: 3}
+--- !u!212 &1016120178132919781 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 2419851552340552631, guid: 367bc50b749f26842ab1baa33854e1d2, type: 3}
+  m_PrefabInstance: {fileID: 3426379229377826386}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6443974280715121393 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8566244197027331235, guid: 367bc50b749f26842ab1baa33854e1d2, type: 3}

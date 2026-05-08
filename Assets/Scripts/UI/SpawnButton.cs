@@ -15,9 +15,12 @@ public class SpawnButton : MonoBehaviour
         buttonText.text = prefabToSpawn.name;
     }
 
-    public void SpawnObject()
+    public void OnButtonClicked()
     {
+        Destroy(ModuleManager.Instance.ghostModule);
+
         GameObject spawnedObject = GameObject.Instantiate(prefabToSpawn);
+        ModuleManager.Instance.SetGhostModule(spawnedObject);
         DraggableModule shipModule = spawnedObject.GetComponent<DraggableModule>();
 
         if (shipModule)

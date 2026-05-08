@@ -1,11 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
-using UnityEditor.MemoryProfiler;
 using UnityEngine;
-using UnityEngine.Events;
-using UnityEngine.EventSystems;
 
 public class DraggableModule : MonoBehaviour
 {
@@ -16,6 +12,8 @@ public class DraggableModule : MonoBehaviour
     private ModuleConnection[] connectors;
     private Vector3 initialPickupPosition;
     private bool isSnapped = false;
+
+    public SpriteRenderer spriteRenderer;
 
     [SerializeField]
     private float mouseUnsnapDistance = 0.7f;
@@ -44,13 +42,11 @@ public class DraggableModule : MonoBehaviour
         {
             Vector2 mousePosition = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition);
             float distance = Vector2.Distance(transform.position, mousePosition);
-            //print(distance);
 
             if (distance > mouseUnsnapDistance)
             {
                 isSnapped = false;
                 ClearConnectors();
-                print("unsnap!");
             }
 
             return;
@@ -58,7 +54,7 @@ public class DraggableModule : MonoBehaviour
         
         transform.position = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-        // Check if any of this object's connectors are close to another object's connector
+        // Check if any of this object's connectors are close to another connector
         foreach (ModuleConnection connector in connectors)
         {
             GameObject nearestConnector = connector.GetNearestConnector();
@@ -68,31 +64,37 @@ public class DraggableModule : MonoBehaviour
                 continue;
             }
 
-            if (!nearestConnector.GetComponent<ModuleConnection>().IsOccupied)
+            if (!nearestConnector.GetComponent<ModuleConnection>().IsOccupied && !OverlapsOtherModules())
             {
-                // Snap to the nearest connector
-                print("snap!");
                 SnapToConnector(connector, nearestConnector.GetComponent<ModuleConnection>());
-                break; // Exit the loop after snapping to one connector
+                break;
             }
         }
-
-        // If there is a valid connector, snap to it
-
-        // If there is not a valid connector, move to mouse position
     }
 
     private void OnMouseDown()
     {
         if (isDragging)
         {
-            RemoveFromMouse();
-            ClearConnectors();
+            PlaceModule();
+            UnGhostify();
         }
         else
         {
-            AttachToMouse();
+            PickUpModule();
+            Ghostify();
         }
+    }
+
+    public void Ghostify()
+    {
+        Color originalColor = spriteRenderer.color;
+        spriteRenderer.color = new Color(originalColor.r, originalColor.g, originalColor.b, 0.5f);
+    }
+
+    public void UnGhostify()
+    {
+        spriteRenderer.color = Color.white;
     }
 
     private void ClearConnectors()
@@ -107,6 +109,24 @@ public class DraggableModule : MonoBehaviour
                 connector.LinkedConnector = null;
             }
         }
+    }
+
+    private void PlaceModule()
+    {
+        RemoveFromMouse();
+        spriteRenderer.color = Color.white;
+    }
+
+    private void PickUpModule()
+    {
+        AttachToMouse();
+        ClearConnectors();
+    }
+
+    private bool OverlapsOtherModules()
+    {
+        Collider2D[] colliders = Physics2D.OverlapBoxAll(transform.position, GetComponent<Collider2D>().bounds.size, 0f);
+        return colliders.Any(collider => collider.gameObject != gameObject && collider.CompareTag("ShipModule"));
     }
 
     private void AttachToMouse()
