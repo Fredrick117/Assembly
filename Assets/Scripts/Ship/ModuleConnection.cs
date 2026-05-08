@@ -10,6 +10,13 @@ public enum ConnectorType
 
 public class ModuleConnection : MonoBehaviour
 {
+    [SerializeField]
+    private float connectorDirectionLength = 0.5f;
+
+    [SerializeField]
+    private float snapDistance = 0.3f;
+
+    public Vector2 direction = Vector2.right;
     public bool IsOccupied;
     public ConnectorType Type;
     public Sprite ConnectorSprite;
@@ -26,7 +33,7 @@ public class ModuleConnection : MonoBehaviour
         GameObject nearestConnector = null;
         float nearestConnectorDistance = float.MaxValue;
 
-        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, 0.5f);
+        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, snapDistance);
 
         foreach (Collider2D hit in hitColliders)
         {
@@ -53,5 +60,8 @@ public class ModuleConnection : MonoBehaviour
             Gizmos.color = Color.green;
             Gizmos.DrawWireSphere(transform.position, 0.5f);
         }
+
+        Gizmos.color = Color.red;
+        Gizmos.DrawLine(transform.position, transform.position + (Vector3)direction * connectorDirectionLength);
     }
 }

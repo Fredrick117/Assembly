@@ -2,20 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using UnityEditor.MemoryProfiler;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
 public class DraggableModule : MonoBehaviour
 {
+    [HideInInspector]
     public bool isDragging = false;
+
     private Vector3 offset;
-
     private ModuleConnection[] connectors;
-
     private Vector3 initialPickupPosition;
+    private bool isSnapped = false;
 
-    private bool isOver;
+    [SerializeField]
+    private float mouseUnsnapDistance = 0.7f;
 
     private void Awake()
     {
@@ -30,28 +33,70 @@ public class DraggableModule : MonoBehaviour
         initialPickupPosition = transform.position;
     }
 
-    // Update is called once per frame
     private void Update()
     {
-        if (isDragging)
+        if (!isDragging)
         {
-            transform.position = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            return;
         }
-    }
 
-    private void OnMouseOver()
-    {
-        //if (Input.GetMouseButtonDown(1))
-        //    Destroy(gameObject);
+        if (isSnapped)
+        {
+            Vector2 mousePosition = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            float distance = Vector2.Distance(transform.position, mousePosition);
+            //print(distance);
+
+            if (distance > mouseUnsnapDistance)
+            {
+                isSnapped = false;
+                ClearConnectors();
+                print("unsnap!");
+            }
+
+            return;
+        }
+        
+        transform.position = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+        // Check if any of this object's connectors are close to another object's connector
+        foreach (ModuleConnection connector in connectors)
+        {
+            GameObject nearestConnector = connector.GetNearestConnector();
+
+            if (nearestConnector == null)
+            {
+                continue;
+            }
+
+            if (!nearestConnector.GetComponent<ModuleConnection>().IsOccupied)
+            {
+                // Snap to the nearest connector
+                print("snap!");
+                SnapToConnector(connector, nearestConnector.GetComponent<ModuleConnection>());
+                break; // Exit the loop after snapping to one connector
+            }
+        }
+
+        // If there is a valid connector, snap to it
+
+        // If there is not a valid connector, move to mouse position
     }
 
     private void OnMouseDown()
     {
-        isDragging = true;
-        offset = transform.position - Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        initialPickupPosition = transform.position;
+        if (isDragging)
+        {
+            RemoveFromMouse();
+            ClearConnectors();
+        }
+        else
+        {
+            AttachToMouse();
+        }
+    }
 
-        // Clear all linked connectors
+    private void ClearConnectors()
+    {
         foreach (ModuleConnection connector in connectors)
         {
             if (connector.LinkedConnector != null)
@@ -64,65 +109,24 @@ public class DraggableModule : MonoBehaviour
         }
     }
 
-    private void OnMouseUp()
+    private void AttachToMouse()
+    {
+        isDragging = true;
+        offset = transform.position - Camera.main.ScreenToWorldPoint(Input.mousePosition);
+    }
+
+    private void RemoveFromMouse()
     {
         isDragging = false;
-        bool foundValidConnector = false;
+    }
 
-        foreach (ModuleConnection connector in connectors)
-        {
-            GameObject nearestConnector = connector.GetNearestConnector();
-
-            if (nearestConnector == null/* || nearestConnector.GetComponent<ModuleConnection>().IsOccupied*/)
-            {
-                continue;
-            }
-            
-            if (!nearestConnector.GetComponent<ModuleConnection>().IsOccupied)
-            {
-                transform.position = nearestConnector.transform.position - connector.transform.localPosition;
-                nearestConnector.GetComponent<ModuleConnection>().IsOccupied = true;
-                connector.IsOccupied = true;
-                connector.LinkedConnector = nearestConnector;
-                nearestConnector.GetComponent<ModuleConnection>().LinkedConnector = nearestConnector;
-
-                foundValidConnector = true;
-            }
-        }
-
-        
-
-
-        // Check if any of this object's connectors are close to another object's connector
-        //for (int i = 0; i < connectors.Length; i++)
-        //{
-        //    Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, 1.0f);
-
-        //    if (hitColliders.Length == 0)
-        //        continue;
-
-        //    foreach (var hit in hitColliders)
-        //    {
-        //        float distance = Vector2.Distance(connectors[i].transform.position, hit.gameObject.transform.position);
-
-        //        if (hit.gameObject.tag == "Connector"
-        //        && distance < closestConnectorDistance
-        //        && hit.gameObject.transform.parent != gameObject.transform)
-        //        {
-        //            closestConnectorDistance = distance;
-        //            closestOtherConnector = hit.gameObject;
-        //            closestChildConnector = connectors[i].gameObject;
-        //        }
-        //    }
-        //}
-
-        //if (closestChildConnector != null && closestOtherConnector != null && !closestOtherConnector.GetComponent<ModuleConnection>().IsOccupied)
-        //{
-        //    transform.position = closestOtherConnector.transform.position - closestChildConnector.transform.localPosition;
-        //    closestOtherConnector.GetComponent<ModuleConnection>().IsOccupied = true;
-        //    closestChildConnector.GetComponent<ModuleConnection>().IsOccupied = true;
-        //    closestChildConnector.GetComponent<ModuleConnection>().LinkedConnector = closestOtherConnector;
-        //    closestOtherConnector.GetComponent<ModuleConnection>().LinkedConnector = closestChildConnector;
-        //}
+    private void SnapToConnector(ModuleConnection childConnector, ModuleConnection otherConnector)
+    {
+        isSnapped = true;
+        transform.position = otherConnector.transform.position - childConnector.transform.localPosition;
+        otherConnector.GetComponent<ModuleConnection>().IsOccupied = true;
+        childConnector.IsOccupied = true;
+        childConnector.LinkedConnector = otherConnector.gameObject;
+        otherConnector.GetComponent<ModuleConnection>().LinkedConnector = otherConnector.gameObject;
     }
 }
