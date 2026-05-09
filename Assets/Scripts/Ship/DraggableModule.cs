@@ -8,15 +8,16 @@ public class DraggableModule : MonoBehaviour
     [HideInInspector]
     public bool isDragging = false;
 
+    [SerializeField]
+    private SpriteRenderer spriteRenderer;
+    
+    [SerializeField]
+    private float mouseUnsnapDistance = 0.7f;
+
     private Vector3 offset;
     private ModuleConnection[] connectors;
     private Vector3 initialPickupPosition;
     private bool isSnapped = false;
-
-    public SpriteRenderer spriteRenderer;
-
-    [SerializeField]
-    private float mouseUnsnapDistance = 0.7f;
 
     private void Awake()
     {
@@ -115,6 +116,7 @@ public class DraggableModule : MonoBehaviour
     {
         RemoveFromMouse();
         spriteRenderer.color = Color.white;
+        ModuleManager.Instance.ghostModule = null;
     }
 
     private void PickUpModule()
@@ -125,7 +127,7 @@ public class DraggableModule : MonoBehaviour
 
     private bool OverlapsOtherModules()
     {
-        Collider2D[] colliders = Physics2D.OverlapBoxAll(transform.position, GetComponent<Collider2D>().bounds.size, 0f);
+        Collider2D[] colliders = Physics2D.OverlapBoxAll(transform.position, GetComponent<Collider2D>().bounds.size - new Vector3(0.1f, 0.1f, 0.1f), 0f);
         return colliders.Any(collider => collider.gameObject != gameObject && collider.CompareTag("ShipModule"));
     }
 

@@ -21,11 +21,5 @@ public class SpawnButton : MonoBehaviour
 
         GameObject spawnedObject = GameObject.Instantiate(prefabToSpawn);
         ModuleManager.Instance.SetGhostModule(spawnedObject);
-        DraggableModule shipModule = spawnedObject.GetComponent<DraggableModule>();
-
-        if (shipModule)
-        {
-            shipModule.isDragging = true;
-        }
     }
 }

@@ -22,12 +22,13 @@ public class ModuleManager : MonoBehaviour
         }
     }
 
-    public void SetGhostModule(GameObject prefab)
+    public void SetGhostModule(GameObject module)
     {
         ClearGhostModule();
 
-        ghostModule = GameObject.Instantiate(prefab);
+        ghostModule = module;
         ghostModule.GetComponent<DraggableModule>().Ghostify();
+        ghostModule.GetComponent<DraggableModule>().isDragging = true;
     }
 
     public void ClearGhostModule()
