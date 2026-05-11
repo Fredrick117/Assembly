@@ -17,11 +17,8 @@ public class ModuleConnection : MonoBehaviour
     private float snapDistance = 0.3f;
 
     public Vector2 direction = Vector2.right;
-    public bool IsOccupied;
-    public ConnectorType Type;
-    public Sprite ConnectorSprite;
-    public GameObject LinkedConnector = null;
-    public GameObject ClosestConnector = null;
+    public bool isOccupied;
+    public GameObject linkedConnector = null;
 
     private void Awake()
     {

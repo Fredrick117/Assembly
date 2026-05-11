@@ -65,7 +65,7 @@ public class DraggableModule : MonoBehaviour
                 continue;
             }
 
-            if (!nearestConnector.GetComponent<ModuleConnection>().IsOccupied && !OverlapsOtherModules())
+            if (!nearestConnector.GetComponent<ModuleConnection>().isOccupied && !OverlapsOtherModules())
             {
                 SnapToConnector(connector, nearestConnector.GetComponent<ModuleConnection>());
                 break;
@@ -102,12 +102,12 @@ public class DraggableModule : MonoBehaviour
     {
         foreach (ModuleConnection connector in connectors)
         {
-            if (connector.LinkedConnector != null)
+            if (connector.linkedConnector != null)
             {
-                connector.IsOccupied = false;
-                connector.LinkedConnector.GetComponent<ModuleConnection>().IsOccupied = false;
-                connector.LinkedConnector.GetComponent<ModuleConnection>().LinkedConnector = null;
-                connector.LinkedConnector = null;
+                connector.isOccupied = false;
+                connector.linkedConnector.GetComponent<ModuleConnection>().isOccupied = false;
+                connector.linkedConnector.GetComponent<ModuleConnection>().linkedConnector = null;
+                connector.linkedConnector = null;
             }
         }
     }
@@ -146,9 +146,9 @@ public class DraggableModule : MonoBehaviour
     {
         isSnapped = true;
         transform.position = otherConnector.transform.position - childConnector.transform.localPosition;
-        otherConnector.GetComponent<ModuleConnection>().IsOccupied = true;
-        childConnector.IsOccupied = true;
-        childConnector.LinkedConnector = otherConnector.gameObject;
-        otherConnector.GetComponent<ModuleConnection>().LinkedConnector = otherConnector.gameObject;
+        otherConnector.GetComponent<ModuleConnection>().isOccupied = true;
+        childConnector.isOccupied = true;
+        childConnector.linkedConnector = otherConnector.gameObject;
+        otherConnector.GetComponent<ModuleConnection>().linkedConnector = otherConnector.gameObject;
     }
 }
