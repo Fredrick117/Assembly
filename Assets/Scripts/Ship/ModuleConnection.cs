@@ -18,6 +18,8 @@ public class ModuleConnection : MonoBehaviour
 
     public Vector2 direction = Vector2.right;
     public bool isOccupied;
+
+    [SerializeField]
     public GameObject linkedConnector = null;
 
     private void Awake()
@@ -34,7 +36,7 @@ public class ModuleConnection : MonoBehaviour
 
         foreach (Collider2D hit in hitColliders)
         {
-            if (hit.transform.parent == this.transform.parent || hit.gameObject.tag != "Connector")
+            if (hit.transform.parent == this.transform.parent || hit.gameObject.tag != "Connector" || hit.gameObject == gameObject)
             {
                 continue;
             }
