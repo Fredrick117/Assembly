@@ -10,6 +10,8 @@ public class ModuleStateController : MonoBehaviour
     public SnappedState SnappedState     { get; private set; }
     public ConnectedState ConnectedState { get; private set; }
 
+    private bool isMouseOver = false;
+
     private void Awake()
     {
         PlacingState   = new();
@@ -19,12 +21,26 @@ public class ModuleStateController : MonoBehaviour
 
     private void Update()
     {
+        ModuleInput input = new ModuleInput()
+        {
+            isLeftMouseDown = Input.GetMouseButtonDown(0),
+            isLeftMouseUp = Input.GetMouseButtonUp(0),
+            isRightMouseDown = Input.GetMouseButtonDown(1),
+            isRightMouseUp = Input.GetMouseButtonUp(1),
+            mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition),
+            isMouseOver = this.isMouseOver
+        };
+
         if (CurrentState != null)
         {
+            CurrentState.HandleInput(this, input);
             CurrentState.UpdateState(this);
         }
     }
-    
+
+    private void OnMouseEnter() => isMouseOver = true;
+    private void OnMouseExit() => isMouseOver = false;
+
     public void ChangeState(IState newState)
     {
         if (CurrentState != null)

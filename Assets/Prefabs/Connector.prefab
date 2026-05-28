@@ -40,7 +40,7 @@ SpriteRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6136625731743712967}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -100,8 +100,5 @@ MonoBehaviour:
   connectorDirectionLength: 0.5
   snapDistance: 0.3
   direction: {x: 1, y: 0}
-  IsOccupied: 0
-  Type: 0
-  ConnectorSprite: {fileID: 0}
-  LinkedConnector: {fileID: 0}
-  ClosestConnector: {fileID: 0}
+  isOccupied: 0
+  linkedConnector: {fileID: 0}

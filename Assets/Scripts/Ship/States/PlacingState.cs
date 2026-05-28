@@ -4,10 +4,20 @@ public class PlacingState : IState
 {
     public void HandleInput(ModuleStateController stateController, ModuleInput input)
     {
-        if (input.isMouseDown)
+        if (!input.isMouseOver)
         {
-            Debug.Log("[PlacingState] HandleInput");
+            return;
+        }
+
+        if (stateController.gameObject.GetComponent<DraggableModule>().isRoot && input.isLeftMouseDown)
+        {
             stateController.ChangeState(stateController.ConnectedState);
+        }
+
+        if (input.isRightMouseDown)
+        {
+            GameObject.Destroy(stateController.gameObject);
+            return;
         }
     }
 
@@ -16,7 +26,7 @@ public class PlacingState : IState
         Debug.Log("[PlacingState] OnEnter!");
         DraggableModule module = stateController.gameObject.GetComponent<DraggableModule>();
         module.PickUpModule();
-        module.ChangePlacementColor(true);
+        module.ChangePlacementColor(module.isRoot);
     }
 
     public void OnExit(ModuleStateController stateController)

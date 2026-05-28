@@ -8,6 +8,11 @@ public class DraggableModule : MonoBehaviour
     [HideInInspector]
     public bool isDragging = false;
 
+    [HideInInspector]
+    // The first module that is placed
+    // TODO: all modules should be connected to this one
+    public bool isRoot = false;
+
     [SerializeField]
     private SpriteRenderer spriteRenderer;
 
@@ -21,10 +26,15 @@ public class DraggableModule : MonoBehaviour
     private Vector3 offset;
     private ModuleConnection[] connectors;
     private Vector3 initialPickupPosition;
-    private ModuleStateController stateController;
+    private ModuleStateController stateController;  
 
     private void Awake()
     {
+        if (GameObject.FindGameObjectsWithTag("ShipModule").Length == 0)
+        {
+            isRoot = true;
+        }
+
         gameObject.tag = "ShipModule";
 
         stateController = gameObject.GetComponent<ModuleStateController>();
@@ -34,21 +44,8 @@ public class DraggableModule : MonoBehaviour
     private void Start()
     {
         stateController.ChangeState(stateController.PlacingState);
-        
+
         initialPickupPosition = transform.position;
-    }
-
-    private void OnMouseDown()
-    {
-        ModuleInput input = new()
-        {
-            isMouseDown = true,
-            isMouseUp = false,
-            mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition)
-        };
-
-        // TODO: is there a better way to do this?
-        stateController.CurrentState.HandleInput(stateController, input);
     }
 
     public ModuleConnection[] GetConnectors()
@@ -58,14 +55,12 @@ public class DraggableModule : MonoBehaviour
 
     public void Ghostify()
     {
-        // TODO: only modify the alpha value
         Color originalColor = spriteRenderer.color;
         spriteRenderer.color = new Color(originalColor.r, originalColor.g, originalColor.b, 0.5f);
     }
 
     public void UnGhostify()
     {
-        // TODO: only modify the alpha value
         spriteRenderer.color = Color.white;
     }
 
@@ -119,7 +114,6 @@ public class DraggableModule : MonoBehaviour
         spriteRenderer.color = validPlacementColor;
     }
 
-    // TODO: track valid placement from within module, not as an argument (it also needs three colors, not just invalid/valid?)
     public void ChangePlacementColor(bool isValidPlacement)
     {
         spriteRenderer.color = isValidPlacement ? validPlacementColor : invalidPlacementColor;

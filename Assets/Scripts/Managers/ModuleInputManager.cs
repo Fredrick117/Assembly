@@ -10,6 +10,12 @@ public class ModuleInputManager : MonoBehaviour
 public class ModuleInput
 {
     public Vector2 mousePosition;
-    public bool isMouseDown;
-    public bool isMouseUp;
+    
+    public bool isRightMouseDown;
+    public bool isRightMouseUp;
+
+    public bool isLeftMouseDown;
+    public bool isLeftMouseUp;
+
+    public bool isMouseOver;
 }

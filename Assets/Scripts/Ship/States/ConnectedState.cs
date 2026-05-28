@@ -4,7 +4,7 @@ public class ConnectedState : IState
 {
     public void HandleInput(ModuleStateController stateController, ModuleInput input)
     {
-        if (input.isMouseDown)
+        if (input.isLeftMouseDown && input.isMouseOver)
         {
             stateController.ChangeState(stateController.PlacingState);
         }
@@ -13,7 +13,8 @@ public class ConnectedState : IState
     public void OnEnter(ModuleStateController stateController)
     {
         Debug.Log("[ConnectedState] OnEnter!");
-        stateController.gameObject.GetComponent<DraggableModule>().PlaceModule();
+        DraggableModule module = stateController.gameObject.GetComponent<DraggableModule>();
+        module.PlaceModule();
     }
 
     public void OnExit(ModuleStateController stateController)
