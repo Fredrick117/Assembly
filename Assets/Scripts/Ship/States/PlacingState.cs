@@ -14,7 +14,9 @@ public class PlacingState : IState
     public void OnEnter(ModuleStateController stateController)
     {
         Debug.Log("[PlacingState] OnEnter!");
-        stateController.gameObject.GetComponent<DraggableModule>().PickUpModule();
+        DraggableModule module = stateController.gameObject.GetComponent<DraggableModule>();
+        module.PickUpModule();
+        module.ChangePlacementColor(true);
     }
 
     public void OnExit(ModuleStateController stateController)

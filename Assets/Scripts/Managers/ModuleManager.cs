@@ -39,4 +39,9 @@ public class ModuleManager : MonoBehaviour
             ghostModule = null;
         }
     }
+
+    public GameObject SpawnModuleAtMousePosition(GameObject modulePrefab)
+    {
+        return Instantiate(modulePrefab, Camera.main.ScreenToWorldPoint(Input.mousePosition), Quaternion.identity);
+    }
 }

@@ -19,7 +19,7 @@ public class SpawnButton : MonoBehaviour
     {
         Destroy(ModuleManager.Instance.ghostModule);
 
-        GameObject spawnedObject = GameObject.Instantiate(prefabToSpawn);
-        ModuleManager.Instance.SetGhostModule(spawnedObject);
+        GameObject spawnedModule = ModuleManager.Instance.SpawnModuleAtMousePosition(prefabToSpawn);
+        ModuleManager.Instance.SetGhostModule(spawnedModule);
     }
 }

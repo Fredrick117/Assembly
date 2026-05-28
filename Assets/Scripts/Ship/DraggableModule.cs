@@ -10,6 +10,11 @@ public class DraggableModule : MonoBehaviour
 
     [SerializeField]
     private SpriteRenderer spriteRenderer;
+
+    [SerializeField]
+    private Color validPlacementColor = new Color(0, 1, 0, 0.5f);
+    [SerializeField]
+    private Color invalidPlacementColor = new Color(1, 0, 0, 0.5f);
     
     public float mouseUnsnapDistance = 0.7f;
 
@@ -110,5 +115,13 @@ public class DraggableModule : MonoBehaviour
         childConnector.isOccupied = true;
         childConnector.linkedConnector = otherConnector.gameObject;
         otherConnector.GetComponent<ModuleConnection>().linkedConnector = otherConnector.gameObject;
+
+        spriteRenderer.color = validPlacementColor;
+    }
+
+    // TODO: track valid placement from within module, not as an argument (it also needs three colors, not just invalid/valid?)
+    public void ChangePlacementColor(bool isValidPlacement)
+    {
+        spriteRenderer.color = isValidPlacement ? validPlacementColor : invalidPlacementColor;
     }
 }
