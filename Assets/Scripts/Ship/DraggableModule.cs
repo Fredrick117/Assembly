@@ -106,6 +106,11 @@ public class DraggableModule : MonoBehaviour
     public void SnapToConnector(ModuleConnection childConnector, ModuleConnection otherConnector)
     {
         transform.position = otherConnector.transform.position - childConnector.transform.localPosition;
+
+        float targetConnectorAngle = otherConnector.transform.eulerAngles.z + 180f;
+        float finalAngle = targetConnectorAngle - childConnector.transform.localEulerAngles.z;
+        transform.rotation = Quaternion.Euler(0, 0, finalAngle);
+
         otherConnector.GetComponent<ModuleConnection>().isOccupied = true;
         childConnector.isOccupied = true;
         childConnector.linkedConnector = otherConnector.gameObject;

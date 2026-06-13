@@ -16,7 +16,6 @@ public class ModuleConnection : MonoBehaviour
     [SerializeField]
     private float snapDistance = 0.3f;
 
-    public Vector2 direction = Vector2.right;
     public bool isOccupied;
 
     [SerializeField]
@@ -61,6 +60,6 @@ public class ModuleConnection : MonoBehaviour
         }
 
         Gizmos.color = Color.red;
-        Gizmos.DrawLine(transform.position, transform.position + (Vector3)direction * connectorDirectionLength);
+        Gizmos.DrawLine(transform.position, transform.position + (-transform.up * connectorDirectionLength));
     }
 }
