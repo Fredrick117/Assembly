@@ -2001,6 +2001,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ghostModule: {fileID: 0}
+  testModeOn: 0
 --- !u!4 &2067635477
 Transform:
   m_ObjectHideFlags: 0

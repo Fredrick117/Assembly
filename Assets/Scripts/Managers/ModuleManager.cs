@@ -10,6 +10,9 @@ public class ModuleManager : MonoBehaviour
     [HideInInspector]
     public GameObject ghostModule;
 
+    [Header("Debug")]
+    public bool testModeOn;
+
     private void Awake()
     {
         if (Instance != null && Instance != this)

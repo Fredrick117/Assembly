@@ -59,7 +59,7 @@ public class ModuleConnection : MonoBehaviour
             Gizmos.DrawWireSphere(transform.position, 0.5f);
         }
 
-        Gizmos.color = Color.red;
+        Gizmos.color = Color.magenta;
         Gizmos.DrawLine(transform.position, transform.position + (-transform.up * connectorDirectionLength));
     }
 }

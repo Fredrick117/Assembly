@@ -18,6 +18,7 @@ public class DraggableModule : MonoBehaviour
 
     [SerializeField]
     private Color validPlacementColor = new Color(0, 1, 0, 0.5f);
+
     [SerializeField]
     private Color invalidPlacementColor = new Color(1, 0, 0, 0.5f);
     
@@ -26,7 +27,12 @@ public class DraggableModule : MonoBehaviour
     private Vector3 offset;
     private ModuleConnection[] connectors;
     private Vector3 initialPickupPosition;
-    private ModuleStateController stateController;  
+    private ModuleStateController stateController;
+
+    [SerializeField]
+    private ModuleConnection testChildConnector;
+    [SerializeField]
+    private ModuleConnection testOtherConnector;
 
     private void Awake()
     {
@@ -43,9 +49,20 @@ public class DraggableModule : MonoBehaviour
 
     private void Start()
     {
-        stateController.ChangeState(stateController.PlacingState);
+        if (!ModuleManager.Instance.testModeOn)
+        {
+            stateController.ChangeState(stateController.PlacingState);
+            initialPickupPosition = transform.position;
+        }
+    }
 
-        initialPickupPosition = transform.position;
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            // o snap!
+            SnapToConnector(testChildConnector, testOtherConnector);
+        }
     }
 
     public ModuleConnection[] GetConnectors()
@@ -105,16 +122,20 @@ public class DraggableModule : MonoBehaviour
 
     public void SnapToConnector(ModuleConnection childConnector, ModuleConnection otherConnector)
     {
-        transform.position = otherConnector.transform.position - childConnector.transform.localPosition;
+        // Rotate the module to match the opposite angle of the other connector
+        float angleDifference = otherConnector.transform.eulerAngles.z - childConnector.transform.localEulerAngles.z + 180f;
+        transform.rotation = Quaternion.Euler(0, 0, angleDifference);
 
-        float targetConnectorAngle = otherConnector.transform.eulerAngles.z + 180f;
-        float finalAngle = targetConnectorAngle - childConnector.transform.localEulerAngles.z;
-        transform.rotation = Quaternion.Euler(0, 0, finalAngle);
+        // Match the positions of both connectors
+        Vector3 childWorldPos = childConnector.transform.position;
+        Vector3 otherWorldPos = otherConnector.transform.position;
+        Vector3 offset = otherWorldPos - childWorldPos;
+        transform.position += offset;
 
-        otherConnector.GetComponent<ModuleConnection>().isOccupied = true;
+        otherConnector.isOccupied = true;
         childConnector.isOccupied = true;
         childConnector.linkedConnector = otherConnector.gameObject;
-        otherConnector.GetComponent<ModuleConnection>().linkedConnector = otherConnector.gameObject;
+        otherConnector.linkedConnector = childConnector.gameObject;
 
         spriteRenderer.color = validPlacementColor;
     }
