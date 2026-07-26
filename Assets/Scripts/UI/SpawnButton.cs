@@ -9,7 +9,7 @@ public class SpawnButton : MonoBehaviour
 
     private TMP_Text buttonText;
 
-    private void Awake()
+    private void Start()
     {
         buttonText = gameObject.GetComponentInChildren<TMP_Text>();
         buttonText.text = prefabToSpawn.name;

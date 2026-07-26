@@ -21,6 +21,9 @@ public class DraggableModule : MonoBehaviour
 
     [SerializeField]
     private Color invalidPlacementColor = new Color(1, 0, 0, 0.5f);
+
+    [HideInInspector]
+    public Color originalColor;
     
     public static float mouseUnsnapDistance = 0.7f;
 
@@ -45,6 +48,8 @@ public class DraggableModule : MonoBehaviour
 
         stateController = gameObject.GetComponent<ModuleStateController>();
         connectors = gameObject.transform.GetComponentsInChildren<ModuleConnection>();
+
+        originalColor = spriteRenderer.color;
     }
 
     private void Start()
@@ -60,13 +65,14 @@ public class DraggableModule : MonoBehaviour
 
     public void Ghostify()
     {
-        Color originalColor = spriteRenderer.color;
-        spriteRenderer.color = new Color(originalColor.r, originalColor.g, originalColor.b, 0.5f);
+        Color translucent = originalColor;
+        translucent.a = 0.5f;
+        spriteRenderer.color = translucent;
     }
 
     public void UnGhostify()
     {
-        spriteRenderer.color = Color.white;
+        spriteRenderer.color = originalColor;
     }
 
     public void ClearConnectors()
