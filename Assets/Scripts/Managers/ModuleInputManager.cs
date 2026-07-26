@@ -17,5 +17,7 @@ public class ModuleInput
     public bool isLeftMouseDown;
     public bool isLeftMouseUp;
 
+    public bool isSpacebarPressed;
+
     public bool isMouseOver;
 }

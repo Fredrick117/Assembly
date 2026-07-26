@@ -22,7 +22,7 @@ public class DraggableModule : MonoBehaviour
     [SerializeField]
     private Color invalidPlacementColor = new Color(1, 0, 0, 0.5f);
     
-    public float mouseUnsnapDistance = 0.7f;
+    public static float mouseUnsnapDistance = 0.7f;
 
     private Vector3 offset;
     private ModuleConnection[] connectors;
@@ -49,20 +49,8 @@ public class DraggableModule : MonoBehaviour
 
     private void Start()
     {
-        if (!ModuleManager.Instance.testModeOn)
-        {
-            stateController.ChangeState(stateController.PlacingState);
-            initialPickupPosition = transform.position;
-        }
-    }
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            // o snap!
-            SnapToConnector(testChildConnector, testOtherConnector);
-        }
+        stateController.ChangeState(stateController.PlacingState);
+        initialPickupPosition = transform.position;
     }
 
     public ModuleConnection[] GetConnectors()

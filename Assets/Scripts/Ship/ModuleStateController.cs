@@ -27,6 +27,7 @@ public class ModuleStateController : MonoBehaviour
             isLeftMouseUp = Input.GetMouseButtonUp(0),
             isRightMouseDown = Input.GetMouseButtonDown(1),
             isRightMouseUp = Input.GetMouseButtonUp(1),
+            isSpacebarPressed = Input.GetKeyDown(KeyCode.Space),
             mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition),
             isMouseOver = this.isMouseOver
         };
@@ -48,14 +49,14 @@ public class ModuleStateController : MonoBehaviour
             CurrentState.OnExit(this);
         }
 
+        newState.OnEnter(this, CurrentState);
         CurrentState = newState;
-        CurrentState.OnEnter(this);
     }
 }
 
 public interface IState
 {
-    public void OnEnter(ModuleStateController stateController);
+    public void OnEnter(ModuleStateController stateController, IState previousState);
     public void UpdateState(ModuleStateController stateController);
     public void OnExit(ModuleStateController stateController);
     public void HandleInput(ModuleStateController stateController, ModuleInput input);

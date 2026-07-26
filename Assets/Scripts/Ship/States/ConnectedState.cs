@@ -8,18 +8,24 @@ public class ConnectedState : IState
         {
             stateController.ChangeState(stateController.PlacingState);
         }
+
+        if (input.isMouseOver && input.isRightMouseDown)
+        {
+            GameObject.Destroy(stateController.gameObject);
+            return;
+        }
     }
 
-    public void OnEnter(ModuleStateController stateController)
+    public void OnEnter(ModuleStateController stateController, IState previousState)
     {
-        Debug.Log("[ConnectedState] OnEnter!");
+        //Debug.Log("[ConnectedState] OnEnter!");
         DraggableModule module = stateController.gameObject.GetComponent<DraggableModule>();
         module.PlaceModule();
     }
 
     public void OnExit(ModuleStateController stateController)
     {
-        Debug.Log("[ConnectedState] OnExit!");
+        //Debug.Log("[ConnectedState] OnExit!");
     }
 
     public void UpdateState(ModuleStateController stateController)
