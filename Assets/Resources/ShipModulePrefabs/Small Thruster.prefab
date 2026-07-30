@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: -3367963429244419514}
   m_Layer: 0
   m_Name: Small Thruster
-  m_TagString: Untagged
+  m_TagString: ShipModule
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -53,6 +53,7 @@ MonoBehaviour:
   spriteRenderer: {fileID: 1016120178132919781}
   validPlacementColor: {r: 0, g: 1, b: 0, a: 0.5}
   invalidPlacementColor: {r: 1, g: 0, b: 0, a: 0.5}
+  originalColor: {r: 0, g: 0, b: 0, a: 0}
   testChildConnector: {fileID: 0}
   testOtherConnector: {fileID: 0}
 --- !u!61 &5249010513527904416

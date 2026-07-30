@@ -103,6 +103,11 @@ public class DraggableModule : MonoBehaviour
 
     public void PlaceModule()
     {
+        if (isRoot)
+        {
+            transform.parent = ModuleManager.Instance.shipCore.transform;
+        }
+
         ModuleManager.Instance.ghostModule = null;
         UnGhostify();
     }
@@ -116,6 +121,8 @@ public class DraggableModule : MonoBehaviour
 
     public void SnapToConnector(ModuleConnection childConnector, ModuleConnection otherConnector)
     {
+        transform.parent = otherConnector.transform.parent;
+
         // Rotate the module to match the opposite angle of the other connector
         float angleDifference = otherConnector.transform.eulerAngles.z - childConnector.transform.localEulerAngles.z + 180f;
         transform.rotation = Quaternion.Euler(0, 0, angleDifference);

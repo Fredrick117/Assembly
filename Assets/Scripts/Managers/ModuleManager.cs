@@ -6,6 +6,8 @@ public class ModuleManager : MonoBehaviour
 {
     public static ModuleManager Instance { get; private set; }
 
+    public GameObject shipCore;
+
     // A preview of the object that is going to be placed
     [HideInInspector]
     public GameObject ghostModule;

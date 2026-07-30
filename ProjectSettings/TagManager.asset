@@ -15,6 +15,7 @@ TagManager:
   - LifeSup
   - ShipModule
   - FeedbackHeader
+  - Thruster
   layers:
   - Default
   - TransparentFX

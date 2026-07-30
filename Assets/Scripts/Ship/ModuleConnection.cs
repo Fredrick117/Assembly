@@ -16,9 +16,10 @@ public class ModuleConnection : MonoBehaviour
     [SerializeField]
     private float snapDistance = 0.3f;
 
+    [HideInInspector]
     public bool isOccupied;
 
-    [SerializeField]
+    [HideInInspector]
     public GameObject linkedConnector = null;
 
     private void Awake()

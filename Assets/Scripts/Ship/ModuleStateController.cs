@@ -39,8 +39,18 @@ public class ModuleStateController : MonoBehaviour
         }
     }
 
-    private void OnMouseEnter() => isMouseOver = true;
-    private void OnMouseExit() => isMouseOver = false;
+    public void SetIsMouseOver(bool value)
+    {
+        isMouseOver = value;
+    }
+
+    public bool GetIsMouseOver()
+    {
+        return this.isMouseOver;
+    }
+
+    //private void OnMouseEnter() => isMouseOver = true;
+    //private void OnMouseExit() => isMouseOver = false;
 
     public void ChangeState(IState newState)
     {
