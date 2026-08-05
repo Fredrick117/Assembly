@@ -12,6 +12,9 @@ public class ModuleManager : MonoBehaviour
     [HideInInspector]
     public GameObject ghostModule;
 
+    [HideInInspector]
+    public GameObject hoveredModule;
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -21,6 +24,40 @@ public class ModuleManager : MonoBehaviour
         else
         {
             Instance = this;
+        }
+    }
+
+    private void Update()
+    {
+        Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+        Collider2D hitCollider = Physics2D.OverlapPoint(mousePosition);
+
+        if (hitCollider == null)
+        {
+            print("no longer hovering!");
+            if (hoveredModule != null)
+            {
+                ModuleStateController previouslyHoveredModuleState = hoveredModule.GetComponent<ModuleStateController>();
+                previouslyHoveredModuleState.SetIsMouseOver(false);
+                hoveredModule = null;
+            }
+
+            return;
+        }
+
+        ModuleStateController moduleState = hitCollider.GetComponent<ModuleStateController>();
+
+        if (moduleState == null)
+        {
+            return;
+        }
+
+        if (hitCollider != null)
+        {
+            print("hovering!");
+            hoveredModule = hitCollider.gameObject;
+            moduleState.SetIsMouseOver(true);
         }
     }
 

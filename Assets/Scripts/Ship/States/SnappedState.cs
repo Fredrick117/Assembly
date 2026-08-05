@@ -19,11 +19,13 @@ public class SnappedState : IState
 
     public void OnEnter(ModuleStateController stateController, IState previousState)
     {
+        Debug.Log("[SnappedState] OnEnter!");
         stateController.GetComponent<DraggableModule>().ChangePlacementColor(true);
     }
 
     public void OnExit(ModuleStateController stateController)
     {
+        Debug.Log("[SnappedState] OnExit!");
         stateController.GetComponent<DraggableModule>().ChangePlacementColor(false);
     }
 

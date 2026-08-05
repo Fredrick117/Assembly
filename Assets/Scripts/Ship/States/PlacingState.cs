@@ -34,7 +34,7 @@ public class PlacingState : IState
 
     public void OnEnter(ModuleStateController stateController, IState previousState)
     {
-        //Debug.Log("[PlacingState] OnEnter!");
+        Debug.Log($"({stateController.gameObject.name}) [PlacingState] OnEnter!");
         DraggableModule module = stateController.gameObject.GetComponent<DraggableModule>();
         module.PickUpModule();
         module.ChangePlacementColor(module.isRoot);
@@ -42,7 +42,7 @@ public class PlacingState : IState
 
     public void OnExit(ModuleStateController stateController)
     {
-        //Debug.Log("[PlacingState] OnExit!");
+        Debug.Log("[PlacingState] OnExit!");
     }
 
     public void UpdateState(ModuleStateController stateController)

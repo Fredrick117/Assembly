@@ -3,6 +3,21 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+public class ModuleInput
+{
+    public Vector2 mousePosition;
+
+    public bool isRightMouseDown;
+    public bool isRightMouseUp;
+
+    public bool isLeftMouseDown;
+    public bool isLeftMouseUp;
+
+    public bool isSpacebarPressed;
+
+    public bool isMouseOver;
+}
+
 public class DraggableModule : MonoBehaviour
 {
     [HideInInspector]
@@ -54,7 +69,7 @@ public class DraggableModule : MonoBehaviour
 
     private void Start()
     {
-        stateController.ChangeState(stateController.PlacingState);
+        this.stateController.ChangeState(stateController.PlacingState);
         initialPickupPosition = transform.position;
     }
 
@@ -68,11 +83,14 @@ public class DraggableModule : MonoBehaviour
         Color translucent = originalColor;
         translucent.a = 0.5f;
         spriteRenderer.color = translucent;
+
+        ModuleManager.Instance.shipCore.GetComponent<Rigidbody2D>().isKinematic = true;
     }
 
     public void UnGhostify()
     {
         spriteRenderer.color = originalColor;
+        ModuleManager.Instance.shipCore.GetComponent<Rigidbody2D>().isKinematic = false;
     }
 
     public void ClearConnectors()
