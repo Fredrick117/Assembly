@@ -9,6 +9,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1655211301182617421, guid: 6ad4a44ee3e0a674f8f2ef9831ac92ae, type: 3}
+      propertyPath: mass
+      value: 40000
+      objectReference: {fileID: 0}
+    - target: {fileID: 1655211301182617421, guid: 6ad4a44ee3e0a674f8f2ef9831ac92ae, type: 3}
       propertyPath: mouseUnsnapDistance
       value: 0.7
       objectReference: {fileID: 0}
@@ -30,7 +34,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6007776747083847372, guid: 6ad4a44ee3e0a674f8f2ef9831ac92ae, type: 3}
       propertyPath: m_Name
-      value: 2x4
+      value: 2x4 Square
       objectReference: {fileID: 0}
     - target: {fileID: 6161942795923460333, guid: 6ad4a44ee3e0a674f8f2ef9831ac92ae, type: 3}
       propertyPath: m_LocalPosition.x

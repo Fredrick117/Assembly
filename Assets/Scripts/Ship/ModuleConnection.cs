@@ -22,9 +22,33 @@ public class ModuleConnection : MonoBehaviour
     [HideInInspector]
     public GameObject linkedConnector = null;
 
+    private SpriteRenderer spriteRenderer;
+
     private void Awake()
     {
         gameObject.tag = "Connector";
+        spriteRenderer = GetComponent<SpriteRenderer>();
+    }
+
+    public void SetVisible(bool visible)
+    {
+        spriteRenderer.enabled = visible;
+    }
+
+    public static void ShowAll()
+    {
+        foreach (GameObject connector in GameObject.FindGameObjectsWithTag("Connector"))
+        {
+            connector.GetComponent<ModuleConnection>().SetVisible(true);
+        }
+    }
+
+    public static void HideAll()
+    {
+        foreach (GameObject connector in GameObject.FindGameObjectsWithTag("Connector"))
+        {
+            connector.GetComponent<ModuleConnection>().SetVisible(false);
+        }
     }
 
     public GameObject GetNearestConnector()

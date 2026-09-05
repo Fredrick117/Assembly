@@ -7,13 +7,21 @@ public class ThrusterModule : MonoBehaviour
     [HideInInspector]
     public Rigidbody2D shipRigidbody;
 
+    public float thrustMagnitude = 500.0f;
+
     [HideInInspector]
     public bool isFiring = false;
 
+    private void Awake()
+    {
+        shipRigidbody = ModuleManager.Instance.shipCore.GetComponent<Rigidbody2D>();
+    }
+
     private void FixedUpdate()
     {
-        Vector2 thrustDirection = transform.up;
-
-
+        if (isFiring)
+        {
+            shipRigidbody.AddForce(transform.up * thrustMagnitude * Time.fixedDeltaTime);
+        }
     }
 }

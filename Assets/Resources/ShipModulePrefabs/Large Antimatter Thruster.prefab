@@ -12,8 +12,9 @@ GameObject:
   - component: {fileID: 1655211301182617421}
   - component: {fileID: 5249010513527904416}
   - component: {fileID: -3367963429244419514}
+  - component: {fileID: 8484221602366652388}
   m_Layer: 0
-  m_Name: Small Thruster
+  m_Name: Large Antimatter Thruster
   m_TagString: ShipModule
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -48,6 +49,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f123de276db4f2a478fa8e5612c98a98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mass: 1
   isDragging: 0
   isRoot: 0
   spriteRenderer: {fileID: 1016120178132919781}
@@ -113,6 +115,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24f2871e64436034b9ef06024ea8faf9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &8484221602366652388
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6007776747083847372}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e09188ddb5a5db244b326d5e1504b363, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shipRigidbody: {fileID: 0}
+  thrustMagnitude: 50000
+  isFiring: 0
 --- !u!1001 &3426379229377826386
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -147,7 +164,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8566244197027331235, guid: 367bc50b749f26842ab1baa33854e1d2, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.85
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 8566244197027331235, guid: 367bc50b749f26842ab1baa33854e1d2, type: 3}
       propertyPath: m_LocalPosition.x
@@ -242,7 +259,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6774881855137420197, guid: 7f7dac0fafcfe9f45a3db4fa9b67d987, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.4254
+      value: 0.75
       objectReference: {fileID: 0}
     - target: {fileID: 6774881855137420197, guid: 7f7dac0fafcfe9f45a3db4fa9b67d987, type: 3}
       propertyPath: m_LocalPosition.z

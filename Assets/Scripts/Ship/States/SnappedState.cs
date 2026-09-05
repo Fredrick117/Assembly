@@ -12,6 +12,7 @@ public class SnappedState : IState
 
         if (input.isMouseOver && input.isRightMouseDown)
         {
+            ModuleConnection.HideAll();
             GameObject.Destroy(stateController.gameObject);
             return;
         }
@@ -19,13 +20,13 @@ public class SnappedState : IState
 
     public void OnEnter(ModuleStateController stateController, IState previousState)
     {
-        Debug.Log("[SnappedState] OnEnter!");
+        //Debug.Log("[SnappedState] OnEnter!");
         stateController.GetComponent<DraggableModule>().ChangePlacementColor(true);
     }
 
     public void OnExit(ModuleStateController stateController)
     {
-        Debug.Log("[SnappedState] OnExit!");
+        //Debug.Log("[SnappedState] OnExit!");
         stateController.GetComponent<DraggableModule>().ChangePlacementColor(false);
     }
 

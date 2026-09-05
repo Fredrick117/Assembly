@@ -35,7 +35,6 @@ public class ModuleManager : MonoBehaviour
 
         if (hitCollider == null)
         {
-            print("no longer hovering!");
             if (hoveredModule != null)
             {
                 ModuleStateController previouslyHoveredModuleState = hoveredModule.GetComponent<ModuleStateController>();
@@ -55,7 +54,6 @@ public class ModuleManager : MonoBehaviour
 
         if (hitCollider != null)
         {
-            print("hovering!");
             hoveredModule = hitCollider.gameObject;
             moduleState.SetIsMouseOver(true);
         }

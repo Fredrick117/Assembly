@@ -20,6 +20,8 @@ public class ModuleInput
 
 public class DraggableModule : MonoBehaviour
 {
+    public float mass = 1f;
+
     [HideInInspector]
     public bool isDragging = false;
 
@@ -121,11 +123,7 @@ public class DraggableModule : MonoBehaviour
 
     public void PlaceModule()
     {
-        if (isRoot)
-        {
-            transform.parent = ModuleManager.Instance.shipCore.transform;
-        }
-
+        transform.parent = ModuleManager.Instance.shipCore.transform;
         ModuleManager.Instance.ghostModule = null;
         UnGhostify();
     }
@@ -135,6 +133,16 @@ public class DraggableModule : MonoBehaviour
         AttachToMouse();
         ClearConnectors();
         Ghostify();
+    }
+
+    private void OnDestroy()
+    {
+        CoreShipModule core = ModuleManager.Instance?.shipCore?.GetComponent<CoreShipModule>();
+
+        if (core != null)
+        {
+            core.RecalculateMass();
+        }
     }
 
     public void SnapToConnector(ModuleConnection childConnector, ModuleConnection otherConnector)

@@ -28,6 +28,7 @@ public class ModuleStateController : MonoBehaviour
             isRightMouseDown = Input.GetMouseButtonDown(1),
             isRightMouseUp = Input.GetMouseButtonUp(1),
             isSpacebarPressed = Input.GetKeyDown(KeyCode.Space),
+            //isThrustPressed = Input.GetKeyDown(KeyCode.W),
             mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition),
             isMouseOver = this.isMouseOver
         };

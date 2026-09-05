@@ -4,16 +4,49 @@ using UnityEngine;
 
 public class CoreShipModule : MonoBehaviour
 {
-    private void FixedUpdate()
+    [SerializeField] private float coreMass = 1f;
+
+    private Rigidbody2D rb;
+
+    private void Awake()
     {
-        if (Input.GetKey(KeyCode.W))
+        rb = GetComponent<Rigidbody2D>();
+        rb.mass = coreMass;
+    }
+
+    public void RecalculateMass()
+    {
+        float total = coreMass;
+        foreach (DraggableModule module in GetComponentsInChildren<DraggableModule>())
         {
-            print("Accelerate!");
+            total += module.mass;
         }
 
-        if (Input.GetKey(KeyCode.S))
+        rb.mass = total;
+    }
+
+    private void FixedUpdate()
+    {
+        if (Input.GetKeyDown(KeyCode.W))
         {
-            print("Decelerate!");
+            ThrusterModule[] thrusters = GetComponentsInChildren<ThrusterModule>();
+
+            foreach (ThrusterModule thruster in thrusters)
+            {
+                if (!thruster.isFiring)
+                    thruster.isFiring = true;
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            ThrusterModule[] thrusters = GetComponentsInChildren<ThrusterModule>();
+
+            foreach (ThrusterModule thruster in thrusters)
+            {
+                if (thruster.isFiring)
+                    thruster.isFiring = false;
+            }
         }
     }
 }

@@ -19,14 +19,16 @@ public class ConnectedState : IState
 
     public void OnEnter(ModuleStateController stateController, IState previousState)
     {
-        Debug.Log("[ConnectedState] OnEnter!");
+        //Debug.Log("[ConnectedState] OnEnter!");
         DraggableModule module = stateController.gameObject.GetComponent<DraggableModule>();
         module.PlaceModule();
+        ModuleManager.Instance.shipCore.GetComponent<CoreShipModule>().RecalculateMass();
+        ModuleConnection.HideAll();
     }
 
     public void OnExit(ModuleStateController stateController)
     {
-        Debug.Log("[ConnectedState] OnExit!");
+        //Debug.Log("[ConnectedState] OnExit!");
     }
 
     public void UpdateState(ModuleStateController stateController)

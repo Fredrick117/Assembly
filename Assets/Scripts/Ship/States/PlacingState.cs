@@ -27,6 +27,7 @@ public class PlacingState : IState
 
         if (input.isMouseOver && input.isRightMouseDown)
         {
+            ModuleConnection.HideAll();
             GameObject.Destroy(stateController.gameObject);
             return;
         }
@@ -34,15 +35,18 @@ public class PlacingState : IState
 
     public void OnEnter(ModuleStateController stateController, IState previousState)
     {
-        Debug.Log($"({stateController.gameObject.name}) [PlacingState] OnEnter!");
+        //Debug.Log($"({stateController.gameObject.name}) [PlacingState] OnEnter!");
         DraggableModule module = stateController.gameObject.GetComponent<DraggableModule>();
         module.PickUpModule();
         module.ChangePlacementColor(module.isRoot);
+
+        // Show all connectors
+        ModuleConnection.ShowAll();
     }
 
     public void OnExit(ModuleStateController stateController)
     {
-        Debug.Log("[PlacingState] OnExit!");
+        //Debug.Log("[PlacingState] OnExit!");
     }
 
     public void UpdateState(ModuleStateController stateController)
